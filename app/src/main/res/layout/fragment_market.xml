@@ -43,6 +43,13 @@
     </com.google.android.material.appbar.AppBarLayout>
     <TextView
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
         android:text="한결"></TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="지은"/>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

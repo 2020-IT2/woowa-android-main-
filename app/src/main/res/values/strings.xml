@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">WoowahanFoods</string>
+    <string name="shapefile_read_permission_denied">shape file read permission denied</string>
+    <string name="shapefile_folder"></string>
+    <string name="subdivisions_shp">seoul_municipalities</string>
 </resources>

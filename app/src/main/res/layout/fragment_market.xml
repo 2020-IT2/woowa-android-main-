@@ -41,5 +41,8 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="한결"></TextView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

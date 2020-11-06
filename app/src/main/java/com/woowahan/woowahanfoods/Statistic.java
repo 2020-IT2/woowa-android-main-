@@ -1,5 +1,6 @@
 package com.woowahan.woowahanfoods;
 
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -36,6 +37,12 @@ import com.naver.maps.map.overlay.PolylineOverlay;
 
 import java.util.Arrays;
 import java.util.Map;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+
+import java.util.ArrayList;
 
 public class Statistic extends Fragment {
 
@@ -53,6 +60,8 @@ public class Statistic extends Fragment {
         mMapView.getMapAsync((MainActivity)getActivity());
 
         return view;
+
+
     }
 
 }

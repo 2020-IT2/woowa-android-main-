@@ -207,20 +207,22 @@
                 </LinearLayout>
 <!--                row 3-->
                 <LinearLayout
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="35dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
+
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center">
+
                         <ImageButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/transparent"
-                            android:src="@drawable/ic_rice"/>
+                            android:src="@drawable/ic_lunchbox" />
                     </LinearLayout>
 
 
@@ -228,52 +230,57 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
-                        android:src="@drawable/ic_pasta"
+                        android:src="@drawable/ic_soup"
                         android:layout_weight="1"/>
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
-                        android:src="@drawable/ic_burger"
+                        android:src="@drawable/ic_schoolfood"
                         android:layout_weight="1"/>
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
-                        android:src="@drawable/ic_sushi"
+                        android:src="@drawable/ic_asianfood"
                         android:layout_weight="1"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="한식"/>
+                        android:fontFamily="@font/eleven"
+                        android:text="도시락"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="양식"/>
+                        android:fontFamily="@font/eleven"
+                        android:text="찜/탕"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="패스트푸드"/>
+                        android:fontFamily="@font/eleven"
+                        android:text="김밥"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="일식"/>
+                        android:fontFamily="@font/eleven"
+                        android:text="아시안"/>
                 </LinearLayout>
             </LinearLayout>
 

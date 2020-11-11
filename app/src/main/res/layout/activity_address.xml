@@ -44,6 +44,7 @@
             android:layout_height="match_parent"
             android:paddingHorizontal="10dp">
             <ImageView
+                android:id="@+id/iv_search"
                 android:padding="10dp"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"

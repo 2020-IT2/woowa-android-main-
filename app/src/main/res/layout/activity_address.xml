@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="20dp"
+    tools:context=".Address">
+
+    <ImageView
+        android:id="@+id/iv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/iv_cancel"/>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="지번, 도로명, 건물명을\n입력하세요."
+        android:background="@drawable/addressinput"
+        android:textSize="30dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:hint="예) 우아한동12-3 또는 우아한아파트"
+            android:textSize="13dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            android:layout_gravity="center"
+            android:background="@drawable/edge"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_curlocation"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edge"
+        android:drawableLeft="@drawable/ic_location"
+        android:drawablePadding="5dp"
+        android:paddingLeft="100dp"
+        android:gravity="left|center"
+        android:textSize="13dp"
+        android:text="현 위치로 주소 설정"/>
+
+
+</LinearLayout>

@@ -28,12 +28,34 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="우아한 음식들"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="우아한 음식들"
+                            android:fontFamily="@font/dohuyn"
+                            android:textSize="25sp"
+                            android:gravity="center"/>
+                        <LinearLayout
+                            android:id="@+id/address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="성남시 분당구 동판교로"
+                                android:fontFamily="@font/eleven"/>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrowdown"
+                                android:layout_marginLeft="5dp"
+                                android:layout_gravity="center"/>
+                        </LinearLayout>
+
+
                     </LinearLayout>
 
                 </androidx.appcompat.widget.Toolbar>
@@ -43,174 +65,219 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <androidx.cardview.widget.CardView
-            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="60dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp">
+
+            <LinearLayout
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/ic_search" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/eleven"
+                    android:gravity="center_vertical"
+                    android:text="먹고싶은 가게, 메뉴 검색" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="30dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp">
+
             <LinearLayout
-                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="10dp">
                 <!--                row 1-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center">
+
                         <ImageButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/transparent"
-                            android:src="@drawable/ic_rice"/>
+                            android:src="@drawable/ic_rice" />
                     </LinearLayout>
 
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@color/transparent"
-                        android:src="@drawable/ic_pasta"
-                        android:layout_weight="1"/>
+                        android:src="@drawable/ic_pasta" />
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@color/transparent"
-                        android:src="@drawable/ic_burger"
-                        android:layout_weight="1"/>
+                        android:src="@drawable/ic_burger" />
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@color/transparent"
-                        android:src="@drawable/ic_sushi"
-                        android:layout_weight="1"/>
+                        android:src="@drawable/ic_sushi" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:fontFamily="@font/eleven"
-                        android:text="한식"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@font/eleven"
-                        android:text="양식"/>
+                        android:gravity="center"
+                        android:text="한식" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@font/eleven"
-                        android:text="패스트푸드"/>
+                        android:gravity="center"
+                        android:text="양식" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@font/eleven"
-                        android:text="일식"/>
+                        android:gravity="center"
+                        android:text="패스트푸드" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="일식" />
                 </LinearLayout>
                 <!--                row 2-->
                 <LinearLayout
-                    android:layout_marginTop="35dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    >
+                    android:layout_marginTop="35dp">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center">
+
                         <ImageButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/transparent"
-                            android:src="@drawable/ic_dessert"/>
+                            android:src="@drawable/ic_dessert" />
                     </LinearLayout>
 
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@color/transparent"
-                        android:src="@drawable/ic_chicken"
-                        android:layout_weight="1"/>
+                        android:src="@drawable/ic_chicken" />
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@color/transparent"
-                        android:src="@drawable/ic_pizza"
-                        android:layout_weight="1"/>
+                        android:src="@drawable/ic_pizza" />
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@color/transparent"
-                        android:src="@drawable/ic_joongsik"
-                        android:layout_weight="1"/>
+                        android:src="@drawable/ic_joongsik" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:fontFamily="@font/eleven"
-                        android:text="디저트"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@font/eleven"
-                        android:text="치킨"/>
+                        android:gravity="center"
+                        android:text="디저트" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@font/eleven"
-                        android:text="피자"/>
+                        android:gravity="center"
+                        android:text="치킨" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@font/eleven"
-                        android:text="중식"/>
+                        android:gravity="center"
+                        android:text="피자" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="중식" />
                 </LinearLayout>
-<!--                row 3-->
+                <!--                row 3-->
                 <LinearLayout
-                    android:layout_marginTop="35dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    >
+                    android:layout_marginTop="35dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -229,58 +296,62 @@
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@color/transparent"
-                        android:src="@drawable/ic_soup"
-                        android:layout_weight="1"/>
+                        android:src="@drawable/ic_soup" />
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@color/transparent"
-                        android:src="@drawable/ic_schoolfood"
-                        android:layout_weight="1"/>
+                        android:src="@drawable/ic_schoolfood" />
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@color/transparent"
-                        android:src="@drawable/ic_asianfood"
-                        android:layout_weight="1"/>
+                        android:src="@drawable/ic_asianfood" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:fontFamily="@font/eleven"
-                        android:text="도시락"/>
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@font/eleven"
-                        android:text="찜/탕"/>
+                        android:gravity="center"
+                        android:text="도시락" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@font/eleven"
-                        android:text="김밥"/>
+                        android:gravity="center"
+                        android:text="찜/탕" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:fontFamily="@font/eleven"
-                        android:text="아시안"/>
+                        android:gravity="center"
+                        android:text="김밥" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="아시안" />
                 </LinearLayout>
             </LinearLayout>
 

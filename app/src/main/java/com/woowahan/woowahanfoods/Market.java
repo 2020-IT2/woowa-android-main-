@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,14 @@ public class Market extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_market, container, false);
 
+        Button button = view.findViewById(R.id.btn);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).replaceFragmentFull(new SampleMap());
+            }
+        });
         ArrayList<Entry> entry_chart = new ArrayList<>();
 
         lineChart = view.findViewById(R.id.lineChart);

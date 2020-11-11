@@ -3,6 +3,8 @@ package com.woowahan .woowahanfoods;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -63,12 +65,8 @@ public class Address extends Fragment {
 
         //리사이클러뷰
         recyclerView = (RecyclerView)view.findViewById(R.id.rv);
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), new LinearLayoutManager(getActivity()).getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         return view;
     }

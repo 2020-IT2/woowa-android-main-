@@ -1,10 +1,15 @@
 package com.woowahan.woowahanfoods;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.naver.maps.map.LocationTrackingMode;
@@ -13,7 +18,7 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.util.FusedLocationSource;
 
-public class CurAddress extends AppCompatActivity implements OnMapReadyCallback {
+public class CurAddress extends Fragment implements OnMapReadyCallback {
     private MapView mapView;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
@@ -23,17 +28,19 @@ public class CurAddress extends AppCompatActivity implements OnMapReadyCallback 
     private double lat, lon;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cur_address);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_cur_address, container, false);
+
 
         //네이버 지도
-        mapView = (MapView) findViewById(R.id.map_view);
+        mapView = (MapView)view.findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
         locationSource =
                 new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+
+        return view;
     }
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {

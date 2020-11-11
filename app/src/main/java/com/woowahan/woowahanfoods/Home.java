@@ -25,15 +25,13 @@ public class Home extends Fragment {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Search.class);
-                startActivity(intent);
+                ((MainActivity)getActivity()).replaceFragmentFull(new Search());
             }
         });
         address.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Address.class);
-                startActivity(intent);
+                ((MainActivity)getActivity()).replaceFragmentFull(new Address());
             }
         });
 

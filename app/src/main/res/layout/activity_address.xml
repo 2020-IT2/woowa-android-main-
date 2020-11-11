@@ -5,9 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginVertical="20dp"
+    android:background="@color/white_gray"
     tools:context=".Address">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_cancel"
@@ -19,24 +25,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="지번, 도로명, 건물명을\n입력하세요."
-        android:background="@drawable/addressinput"
         android:textSize="30dp"/>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp">
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:paddingVertical="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/edge2"
             android:hint="예) 우아한동12-3 또는 우아한아파트"
+            android:layout_weight="7"
             android:textSize="13dp"/>
-        <ImageView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_search"
-            android:layout_gravity="center"
-            android:background="@drawable/edge"/>
+            android:layout_height="match_parent"
+            android:paddingHorizontal="10dp">
+            <ImageView
+                android:padding="10dp"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_search"
+                android:layout_gravity="center"
+                android:background="@drawable/edge"
+                android:layout_weight="3"
+                />
+        </LinearLayout>
+
 
     </LinearLayout>
 
@@ -52,6 +69,8 @@
         android:gravity="left|center"
         android:textSize="13dp"
         android:text="현 위치로 주소 설정"/>
+
+    </LinearLayout>
 
 
 </LinearLayout>

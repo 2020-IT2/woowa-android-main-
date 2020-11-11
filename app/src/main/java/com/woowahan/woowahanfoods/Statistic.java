@@ -66,6 +66,7 @@ public class Statistic extends Fragment {
 
         cardView = view.findViewById(R.id.cv_best_food);
         linearLayout = view.findViewById(R.id.cv_under_card);
+
         richPathView.setOnPathClickListener(new RichPath.OnPathClickListener() {
             @Override
             public void onClick(RichPath richPath) {
@@ -82,9 +83,8 @@ public class Statistic extends Fragment {
                         Log.d("SampleMap", "1st IF");
                         if(orgRichPath.getFillColor() == whitegray){
                             linearLayout.animate()
-                                    .translationY(0)
-                                    .setDuration(150);
-
+                                    .translationY(cardView.getHeight() - 140)
+                                    .setDuration(300);
                             Log.d("SampleMap", "2nd IF");
                             RichPathAnimator.animate(orgRichPath)
                                     .fillColor(0xff090090)
@@ -98,9 +98,10 @@ public class Statistic extends Fragment {
                         else{
 
 
+                            Log.d("SampleMap", "Height : " + cardView.getHeight());
                             linearLayout.animate()
-                                    .translationY(cardView.getHeight() * (-1) + 40)
-                                    .setDuration(300);
+                                    .translationY(0)
+                                    .setDuration(150);
                             RichPathAnimator.animate(orgRichPath)
                                     .fillColor(whitegray)
                                     .start();

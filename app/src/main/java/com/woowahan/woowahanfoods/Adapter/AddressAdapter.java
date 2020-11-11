@@ -8,14 +8,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.woowahan.woowahanfoods.Dataframe.Juso;
 import com.woowahan.woowahanfoods.R;
 
 import java.util.ArrayList;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.CustomViewHolder> {
-    private ArrayList<AddressData> arrayList;
+    private ArrayList<Juso> arrayList;
 
-    public AddressAdapter(ArrayList<AddressData> arrayList) {
+    public AddressAdapter(ArrayList<Juso> arrayList) {
         this.arrayList = arrayList;
     }
 
@@ -31,8 +32,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.CustomVi
     //추가될 때
     @Override
     public void onBindViewHolder(@NonNull AddressAdapter.CustomViewHolder holder, int position) {
-        holder.tv_dong.setText(arrayList.get(position).getTv_dong());
-        holder.tv_road.setText(arrayList.get(position).getTv_road());
+        holder.tv_dong.setText(arrayList.get(position).jibunAddr);
+        holder.tv_road.setText(arrayList.get(position).roadAddr);
 
         holder.tv_dong.setTag(position);
         holder.tv_dong.setOnClickListener(new View.OnClickListener() {

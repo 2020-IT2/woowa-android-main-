@@ -12,7 +12,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="exitUntilCollapsed">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
@@ -24,9 +24,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    app:contentInsetStartWithNavigation="0dp"
                     app:layout_collapseMode="pin">
                     <LinearLayout
-                        android:paddingVertical="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <LinearLayout
+                        android:paddingVertical="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -55,8 +62,7 @@
                                 android:layout_marginLeft="5dp"
                                 android:layout_gravity="center"/>
                         </LinearLayout>
-
-
+                    </LinearLayout>
                     </LinearLayout>
 
                 </androidx.appcompat.widget.Toolbar>
@@ -73,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="105dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="5dp">
 
@@ -121,6 +127,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
+                        android:id="@+id/ib_icon1"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -128,6 +135,7 @@
                         android:src="@drawable/ic_rice" />
 
                     <ImageButton
+                        android:id="@+id/ib_icon2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -135,6 +143,7 @@
                         android:src="@drawable/ic_pasta" />
 
                     <ImageButton
+                        android:id="@+id/ib_icon3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -142,6 +151,7 @@
                         android:src="@drawable/ic_burger" />
 
                     <ImageButton
+                        android:id="@+id/ib_icon4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -203,6 +213,7 @@
                         android:gravity="center">
 
                         <ImageButton
+                            android:id="@+id/ib_icon5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/transparent"
@@ -211,6 +222,7 @@
 
 
                     <ImageButton
+                        android:id="@+id/ib_icon6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -218,6 +230,7 @@
                         android:src="@drawable/ic_chicken" />
 
                     <ImageButton
+                        android:id="@+id/ib_icon7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -225,6 +238,7 @@
                         android:src="@drawable/ic_pizza" />
 
                     <ImageButton
+                        android:id="@+id/ib_icon8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -283,6 +297,7 @@
                         android:gravity="center">
 
                         <ImageButton
+                            android:id="@+id/ib_icon9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/transparent"
@@ -291,6 +306,7 @@
 
 
                     <ImageButton
+                        android:id="@+id/ib_icon10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -298,6 +314,7 @@
                         android:src="@drawable/ic_soup" />
 
                     <ImageButton
+                        android:id="@+id/ib_icon11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -305,6 +322,7 @@
                         android:src="@drawable/ic_schoolfood" />
 
                     <ImageButton
+                        android:id="@+id/ib_icon12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

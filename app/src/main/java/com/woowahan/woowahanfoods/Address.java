@@ -67,6 +67,12 @@ public class Address extends Fragment {
 
         //리사이클러뷰
         recyclerView = (RecyclerView)view.findViewById(R.id.rv);
+        recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         return view;
     }

@@ -43,7 +43,7 @@ public class CurAddress extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         naverMap.setLocationSource(locationSource);
-        naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+        naverMap.setLocationTrackingMode(LocationTrackingMode.NoFollow);
 
         naverMap.addOnLocationChangeListener(new NaverMap.OnLocationChangeListener() {
             @Override

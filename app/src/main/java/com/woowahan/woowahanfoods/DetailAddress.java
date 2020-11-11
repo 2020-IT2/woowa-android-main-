@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 
-public class DetailAddress extends Fragment {
+public class DetailAddress extends Fragment implements AddressAdapter.OnListItemSelectedInterface {
 
     private ImageView iv_search;
     private RecyclerView recyclerView;
@@ -81,7 +81,7 @@ public class DetailAddress extends Fragment {
 
         arrayList = new ArrayList<>();
 
-        addressAdapter = new AddressAdapter(arrayList);
+        addressAdapter = new AddressAdapter(arrayList, this);
         recyclerView.setAdapter(addressAdapter);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -117,6 +117,7 @@ public class DetailAddress extends Fragment {
             }
 
         });
+
 
         editText = view.findViewById(R.id.et_search);
 
@@ -164,12 +165,6 @@ public class DetailAddress extends Fragment {
         });
     }
 
-    private void refresh() {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.detach(this).attach(this).commit();
-    }
-
-
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -189,5 +184,23 @@ public class DetailAddress extends Fragment {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onItemSelected(View v, int position) {
+        AddressAdapter.CustomViewHolder holder = (AddressAdapter.CustomViewHolder) recyclerView.findViewHolderForAdapterPosition(position);
+        String jibun = holder.tv_dong.getText().toString();
+        String road = holder.tv_road.getText().toString();
+        String admCd= arrayList.get(position).admCd;
+        String rnMgtSn= arrayList.get(position).rnMgtSn;
+        String udrtYn= arrayList.get(position).udrtYn;
+        int buldMnnm= arrayList.get(position).buldMnnm;
+        int buldSlno = arrayList.get(position).buldSlno;
+        ((MainActivity)getActivity()).replaceFragmentFull(AddressMap.newInstance(jibun, road, admCd, rnMgtSn, udrtYn, buldMnnm, buldSlno));
     }
 }

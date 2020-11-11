@@ -31,14 +31,52 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="exitUntilCollapsed">
             <!--            app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">-->
+            <LinearLayout
+                android:layout_marginTop="50dp"
+                app:layout_collapseMode="pin"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <EditText
+                    android:id="@+id/et_search"
+                    android:paddingHorizontal="18dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:layout_weight="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="예) 우아한동12-3 또는 우아한아파트"
+                    android:paddingVertical="3dp"
 
+                    android:textColor="@android:color/black"
+                    android:textSize="15dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="10dp">
+                    <ImageView
+                        android:id="@+id/iv_search"
+                        android:padding="10dp"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_search"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        />
+                </LinearLayout>
+            </LinearLayout>
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
+                app:contentInsetLeft="-30dp"
+                app:contentInsetStart="-30dp"
+                app:contentInsetStartWithNavigation="-30dp"
                 app:layout_collapseMode="pin">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -51,40 +89,10 @@
                         android:text="주소"
                         android:textSize="15dp"
                         android:textStyle="bold"
+                        android:layout_marginRight="20dp"
+                        android:paddingVertical="10dp"
                         android:layout_gravity="center"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <EditText
-                            android:id="@+id/et_search"
-                            android:layout_weight="3"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@android:color/transparent"
-                            android:hint="메뉴, 가게명 검색"
-                            android:paddingVertical="3dp"
-                            android:textColor="@android:color/black"
-                            android:textSize="20dp"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:paddingHorizontal="10dp">
-                            <ImageView
-                                android:id="@+id/iv_search"
-                                android:padding="10dp"
-                                android:layout_width="40dp"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/ic_search"
-                                android:layout_gravity="center"
-                                android:background="@drawable/edge"
-                                android:layout_weight="3"
-                                />
-                        </LinearLayout>
-                    </LinearLayout>
                 </LinearLayout>
-
-
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>

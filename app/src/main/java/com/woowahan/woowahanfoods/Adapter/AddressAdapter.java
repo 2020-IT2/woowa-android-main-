@@ -15,9 +15,15 @@ import java.util.ArrayList;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.CustomViewHolder> {
     private ArrayList<Juso> arrayList;
+    public OnListItemSelectedInterface mListener;
 
-    public AddressAdapter(ArrayList<Juso> arrayList) {
+    public AddressAdapter(ArrayList<Juso> arrayList, OnListItemSelectedInterface mListener) {
         this.arrayList = arrayList;
+        this.mListener = mListener;
+    }
+
+    public interface OnListItemSelectedInterface {
+        void onItemSelected(View v, int position);
     }
 
     //처음 생성되는 생명주기
@@ -29,6 +35,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.CustomVi
         return holder;
     }
 
+
+
     //추가될 때
     @Override
     public void onBindViewHolder(@NonNull AddressAdapter.CustomViewHolder holder, int position) {
@@ -39,7 +47,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.CustomVi
         holder.tv_dong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //주소선택하고 값 넘겨준다.
+
             }
         });
     }
@@ -49,14 +57,23 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.CustomVi
         return (null != arrayList ? arrayList.size() : 0);
     }
 
+
+
     public class CustomViewHolder extends RecyclerView.ViewHolder {
-        protected TextView tv_dong;
-        protected TextView tv_road;
+        public TextView tv_dong;
+        public TextView tv_road;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             this.tv_dong = (TextView)itemView.findViewById(R.id.tv_dong);
             this.tv_road = (TextView)itemView.findViewById(R.id.tv_road);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.onItemSelected(view, getAdapterPosition());
+                }
+            });
         }
     }
 }

@@ -18,11 +18,13 @@ public class Juso{
     public String lnbrMnnm;
     public String roadAddr;
     public String lnbrSlno;
-    public String buldMnnm;
+    public int buldMnnm;
     public String bdKdcd;
     public String liNm;
     public String rnMgtSn;
     public String mtYn;
     public String bdMgtSn;
-    public String buldSlno;
+    public int buldSlno;
+    public String entX;
+    public String entY;
 }

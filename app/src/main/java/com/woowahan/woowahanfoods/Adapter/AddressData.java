@@ -3,6 +3,11 @@ package com.woowahan.woowahanfoods.Adapter;
 public class AddressData {
     private String tv_dong;
     private String tv_road;
+    public String admCd;
+    public String rnMgtSn;
+    public String udrtYn;
+    public String buldMnnm;
+    public String buldSlno;
 
     public AddressData(String tv_dong, String tv_road) {
         this.tv_dong = tv_dong;

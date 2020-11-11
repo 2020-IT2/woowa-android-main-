@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.woowahan.woowahanfoods.Dataframe.SearchResultJson;
@@ -24,6 +25,7 @@ public class Address extends Fragment {
     private ImageView iv_cancel;
     private ImageView iv_search;
     private RecyclerView recyclerView;
+    private EditText edt_adr;
 
 
     @Override
@@ -54,37 +56,23 @@ public class Address extends Fragment {
         final String resultType = "json";
 
 
+        edt_adr = view.findViewById(R.id.edt_adr);
         iv_search = (ImageView)view.findViewById(R.id.iv_search);
         iv_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RetrofitAdapter rAdapter = new RetrofitAdapter();
-                RetrofitService service = rAdapter.getInstance("http://www.juso.go.kr/", getContext());
-                Call<SearchResultJson> call = service.searchAddress(key, currentPage, countPerPage, keyword, resultType);
-
-                call.enqueue(new retrofit2.Callback<SearchResultJson>() {
-                    @Override
-                    public void onResponse(Call<SearchResultJson> call, retrofit2.Response<SearchResultJson> response) {
-                        if (response.isSuccessful()) {
-                            SearchResultJson result = response.body();
-                            Log.d("Search", "onResponse: Success " + result.results.juso.get(0).roadAddr);
-                            Log.d("Search", "onResponse: Success " + result.results.juso.get(1).roadAddr);
-                            Log.d("Search", "onResponse: Success " + result.results.juso.get(2).roadAddr);
-                        } else {
-                            Log.d("Search", "onResponse: Success but parsing fails " + response.body());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<SearchResultJson> call, Throwable t) {
-                        Log.d("Search", "onFailure: " + t.getMessage());
-                    }
-                });
+                ((MainActivity)getActivity()).replaceFragmentFull(DetailAddress.newInstance(edt_adr.getText().toString()));
             }
         });
 
         //리사이클러뷰
         recyclerView = (RecyclerView)view.findViewById(R.id.rv);
+        recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         return view;
     }

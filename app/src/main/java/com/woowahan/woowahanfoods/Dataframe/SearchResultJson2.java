@@ -2,12 +2,12 @@ package com.woowahan.woowahanfoods.Dataframe;
 
 import java.util.ArrayList;
 
-public class SearchResultJson {
+public class SearchResultJson2 {
     public Result results;
 
     public class Result{
         public Common common;
-        public ArrayList<Juso> juso;
+        public Juso juso;
 
         public class Common {
             public String errorMessage;

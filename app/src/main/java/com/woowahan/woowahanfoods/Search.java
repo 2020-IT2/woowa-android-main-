@@ -6,6 +6,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,10 +21,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.woowahan.woowahanfoods.Dataframe.SearchResultJson;
+import com.woowahan.woowahanfoods.httpConnection.RetrofitAdapter;
+import com.woowahan.woowahanfoods.httpConnection.RetrofitService;
+
+import retrofit2.Call;
+
 public class Search extends Fragment {
     private androidx.appcompat.widget.Toolbar toolbar;
     private ActionBar actionbar;
-    private ImageView iv_arrowleft;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -122,9 +122,6 @@ public class DetailAddress extends Fragment implements AddressAdapter.OnListItem
 
         });
 
-
-
-
         iv_search = (ImageView)view.findViewById(R.id.iv_search);
         iv_search.setOnClickListener(new View.OnClickListener() {
             @Override

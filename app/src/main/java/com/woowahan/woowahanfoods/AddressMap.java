@@ -165,7 +165,6 @@ public class AddressMap extends Fragment implements OnMapReadyCallback {
                 //좌표 받아
                 lat = location.getLatitude();
                 lon = location.getLongitude();
-
             }
         });
     }

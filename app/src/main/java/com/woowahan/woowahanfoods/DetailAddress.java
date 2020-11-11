@@ -49,6 +49,7 @@ public class DetailAddress extends Fragment implements AddressAdapter.OnListItem
     final int countPerPage = 15;
     final String resultType = "json";
     public String query;
+    public String str_address;
 
     public static DetailAddress newInstance(String query){
         Bundle adr = new Bundle();
@@ -63,10 +64,13 @@ public class DetailAddress extends Fragment implements AddressAdapter.OnListItem
         View view = inflater.inflate(R.layout.fragment_detail_address, container, false);
         setHasOptionsMenu(true);
 
+        editText = view.findViewById(R.id.et_search);
+
         Bundle bundle = getArguments();
         if(bundle!=null){
             this.query = bundle.getString("query");
         }
+        editText.setText(query);
 
         toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -119,7 +123,6 @@ public class DetailAddress extends Fragment implements AddressAdapter.OnListItem
         });
 
 
-        editText = view.findViewById(R.id.et_search);
 
 
         iv_search = (ImageView)view.findViewById(R.id.iv_search);

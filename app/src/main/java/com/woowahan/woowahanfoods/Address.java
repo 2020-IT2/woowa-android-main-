@@ -26,6 +26,8 @@ public class Address extends Fragment {
     private ImageView iv_search;
     private RecyclerView recyclerView;
     private EditText edt_adr;
+    public String query;
+
 
 
     @Override
@@ -48,15 +50,9 @@ public class Address extends Fragment {
             }
         });
 
-        //주소 검색
-        final String key = "devU01TX0FVVEgyMDIwMTExMTE1MjY1NzExMDQwMjc=";
-        final int currentPage = 1;
-        final int countPerPage = 10;
-        final String keyword = "삼평동";
-        final String resultType = "json";
-
-
         edt_adr = view.findViewById(R.id.edt_adr);
+        edt_adr.getText();
+
         iv_search = (ImageView)view.findViewById(R.id.iv_search);
         iv_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,5 +71,13 @@ public class Address extends Fragment {
         });
 
         return view;
+    }
+
+    public static Address newInstance(String str_adr){
+        Bundle adr = new Bundle();
+        adr.putString("str_adr", str_adr);
+        Address address = new Address();
+        address.setArguments(adr);
+        return address;
     }
 }

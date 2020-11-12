@@ -49,7 +49,6 @@ public class DetailAddress extends Fragment implements AddressAdapter.OnListItem
     final int countPerPage = 15;
     final String resultType = "json";
     public String query;
-    public String str_address;
 
     public static DetailAddress newInstance(String query){
         Bundle adr = new Bundle();

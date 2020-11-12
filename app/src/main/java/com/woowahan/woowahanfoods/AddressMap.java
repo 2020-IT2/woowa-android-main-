@@ -48,6 +48,7 @@ public class AddressMap extends Fragment implements OnMapReadyCallback {
     public int buldSlno;
     private TextView tv_jibun;
     private TextView tv_road;
+    private Button btn_complete;
     private androidx.appcompat.widget.Toolbar toolbar;
     private ActionBar actionbar;
     private MapView mapView;
@@ -61,6 +62,7 @@ public class AddressMap extends Fragment implements OnMapReadyCallback {
     public double y;
     private double lat, lon;
     public AddressMap orgThis = this;
+
 
     public static AddressMap newInstance(String jibun, String road, String admCd, String rnMgtSn, String udrtYn, int buldMnnm, int buldSlno){
         Bundle adr = new Bundle();
@@ -82,6 +84,14 @@ public class AddressMap extends Fragment implements OnMapReadyCallback {
         setHasOptionsMenu(true);
         tv_jibun = view.findViewById(R.id.tv_jibun);
         tv_road = view.findViewById(R.id.tv_road);
+        btn_complete = view.findViewById(R.id.btn_complete);
+
+        btn_complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).replaceFragmentFull(Home.newInstance(road));
+            }
+        });
 
         toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);

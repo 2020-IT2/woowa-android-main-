@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +25,18 @@ public class Home extends Fragment  {
     };
 
     private LinearLayout search, address;
+    private TextView tv_homeaddress;
+    private String homeaddress;
+
+    private String road;
+
+    public static Home newInstance(String road) {
+        Bundle adr = new Bundle();
+        adr.putString("road", road);
+        Home home = new Home();
+        home.setArguments(adr);
+        return home;
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -43,6 +56,14 @@ public class Home extends Fragment  {
                 ((MainActivity)getActivity()).replaceFragmentFull(new Address());
             }
         });
+
+        tv_homeaddress = view.findViewById(R.id.tv_homeaddress);
+        Bundle bundle = getArguments();
+        if(bundle!=null){
+            this.homeaddress = bundle.getString("road");
+            tv_homeaddress.setText(homeaddress);
+        }
+
 
         for(int id : icon_nams){
             ImageButton btn = (ImageButton)view.findViewById(id);

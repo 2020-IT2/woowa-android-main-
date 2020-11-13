@@ -36,6 +36,9 @@ import java.util.List;
 
 public class CurAddress extends Fragment implements OnMapReadyCallback {
     private TextView tv_address;
+    private Button btn_complete;
+    public String roadaddress;
+    public String road;
     private MapView mapView;
     private NaverMap naverMap;
 
@@ -71,6 +74,14 @@ public class CurAddress extends Fragment implements OnMapReadyCallback {
             }
         });
 
+        btn_complete = view.findViewById(R.id.btn_complete);
+
+        btn_complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).replaceFragmentFull(Home.newInstance(roadaddress));
+            }
+        });
 
         return view;
     }
@@ -94,11 +105,8 @@ public class CurAddress extends Fragment implements OnMapReadyCallback {
                 try {
                     List<Address> mResultList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                     Log.d("Tag", "complete" + mResultList.get(0).getAddressLine(0));
-                    String roadaddress = mResultList.get(0).getAddressLine(0);
+                    roadaddress = mResultList.get(0).getAddressLine(0);
                     tv_address.setText(roadaddress);
-                    //Log.d("hello","mResultList.get(0).getAddressLine(0)"+mResultList.get(0).getAddressLine(0));
-                    //Log.d("hello","mResultList.get(0).getAddressLine(0)"+mResultList.get(0).getAddressLine(1));
-                    //Log.d("hello","mResultList.get(0).getAddressLine(0)"+mResultList.get(0).getAddressLine(2));
                 } catch (IOException e){
                     e.printStackTrace();
                     Log.d("Tag", "주소변환 실패");

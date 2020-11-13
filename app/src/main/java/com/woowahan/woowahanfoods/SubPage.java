@@ -1,5 +1,6 @@
 package com.woowahan.woowahanfoods;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
     int currentPage = 1;
     final int countPerPage = 15;
     public ArrayList<ImageData> imageDataList;
+    public Location loc;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -41,6 +43,7 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
     private RecyclerView.LayoutManager layoutManager;
     private androidx.appcompat.widget.Toolbar toolbar;
     private ActionBar actionbar;
+
 
     public SubPage() {
     }
@@ -63,13 +66,14 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
         imageDataList = new ArrayList<>();
 
         list = new ArrayList<Restaurant>();
-        list.add(new Restaurant("한결이의 치킨 가게", "1분거리"));
-        list.add(new Restaurant("둘이 먹다 둘이 죽어도 모르는 삼겹살집", "5분거리"));
-        list.add(new Restaurant("지은이의 팥빙수 집", "5분거리"));
-        list.add(new Restaurant("선철이가 하는 설빙", "10분거리"));
+        list.add(new Restaurant("한결이의 치킨 가게", "치킨가게",  "수원시 원천구 원천대로", 123, 456, 33.1, 127.1, "https://scontent-ssn1-1.cdninstagram.com/v/t51.29350-15/123833652_1408714295988521_1955747731663463592_n.jpg?_nc_cat=100&ccb=2&_nc_sid=8ae9d6&_nc_ohc=CRy-YtpUAOsAX8P_Nsx&_nc_ht=scontent-ssn1-1.cdninstagram.com&oh=6c44e4df042e6b21c24baa81f5b6f523&oe=5FD2ADE6"));
+
+        loc = new Location("my Location");
+        loc.setLongitude(33);
+        loc.setLongitude(127);
 
         Log.d("subPage debug", "list size : " + list.size());
-        adapter = new RestaurantListAdapter(getContext(), list, this);
+        adapter = new RestaurantListAdapter(loc, getContext(), list, this);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_alarm);
 

@@ -87,7 +87,7 @@ public class Home extends Fragment  {
         for(int id=0; id<icon_nams.length; id++ ){
             ImageButton btn = (ImageButton)view.findViewById(icon_nams[id]);
             final int idx = id;
-        
+
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

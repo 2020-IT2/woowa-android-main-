@@ -20,10 +20,12 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.woowahan.woowahanfoods.Dataframe.Restaurant;
 import com.woowahan.woowahanfoods.MainActivity;
 import com.woowahan.woowahanfoods.R;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,12 +34,15 @@ import java.util.Date;
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.Holder> {
     private ArrayList<Restaurant> list = new ArrayList<>();
     private Context context;
+    private Location myLoc;
     private RestaurantListAdapter.OnListItemSelectedInterface mListener;
+    public DecimalFormat df = new DecimalFormat("###.##");
 
-    public RestaurantListAdapter(Context context, ArrayList<Restaurant> list, RestaurantListAdapter.OnListItemSelectedInterface listener) {
+    public RestaurantListAdapter(Location myLoc, Context context, ArrayList<Restaurant> list, RestaurantListAdapter.OnListItemSelectedInterface listener) {
         this.context = context;
         this.list = list;
         this.mListener = listener;
+        this.myLoc = myLoc;
     }
 
     public interface OnListItemSelectedInterface {
@@ -59,42 +64,42 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     }
 
     public class Holder extends RecyclerView.ViewHolder{
-        protected TextView title;
-        protected TextView address;
-        protected TextView time;
-        protected ConstraintLayout bg;
+        protected TextView tv_restaurant_name;
+        protected TextView tv_restaurant_exp;
+        protected TextView tv_likes;
+        protected TextView tv_replys;
+        protected TextView tv_distance;
+        protected TextView tv_address;
         protected ImageView imageView;
 
         public Holder(View view) {
             super(view);
-            this.title = (TextView) view.findViewById(R.id.title);
-            this.address = (TextView) view.findViewById(R.id.address);
-            this.time = (TextView) view.findViewById(R.id.time);
-            this.bg = (ConstraintLayout) view.findViewById(R.id.comment);
+            this.tv_restaurant_name = (TextView) view.findViewById(R.id.tv_restaurant_name);
+            this.tv_restaurant_exp = (TextView) view.findViewById(R.id.tv_restaurant_exp);
+            this.tv_likes = (TextView) view.findViewById(R.id.tv_likes);
+            this.tv_replys = (TextView) view.findViewById(R.id.tv_replys);
+            this.tv_distance = (TextView) view.findViewById(R.id.tv_distance);
+            this.tv_address = (TextView) view.findViewById(R.id.tv_address);
             this.imageView = (ImageView)view.findViewById(R.id.icon);
 
             if (Build.VERSION.SDK_INT >= 21) {
                 // 21 버전 이상일 때
                 GradientDrawable drawable=
                         (GradientDrawable) context.getDrawable(R.drawable.my_rect);
-
+                // 둥근 사각형
                 imageView.setBackground(drawable);
                 imageView.setClipToOutline(true);
-
-                imageView.setBackground(new ShapeDrawable(new OvalShape()));
-                imageView.setClipToOutline(true);
+                // 동그라미
+//                imageView.setBackground(new ShapeDrawable(new OvalShape()));
+//                imageView.setClipToOutline(true);
             }
-
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    bg.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     mListener.onItemSelected(v, getAdapterPosition());
                 }
             });
-
-
 
 //            view.setOnLongClickListener(new View.OnLongClickListener(){
 //                @Override
@@ -121,18 +126,18 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     @Override
     public void onBindViewHolder(@NonNull RestaurantListAdapter.Holder holder, final int position) {
+        Location location = new Location("restaurant loc");
+        location.setLatitude(list.get(position).lat);
+        location.setLongitude(list.get(position).lon);
 
-        Location locationA = new Location("my loc");
-        locationA.setLatitude(55);
-        locationA.setLongitude(55);
+        float distance  = myLoc.distanceTo(location);
 
-        Location locationB = new Location("restaurant loc");
-        locationA.setLatitude(31);
-        locationA.setLongitude(34);
-
-        float distance  = locationA.distanceTo(locationB);
-
-        holder.title.setText(list.get(position).regionName);
-        holder.address.setText(list.get(position).address);
+        holder.tv_restaurant_name.setText(list.get(position).restaurantName);
+        holder.tv_restaurant_exp.setText(list.get(position).restaurantDetail);
+        holder.tv_likes.setText(String.valueOf(list.get(position).likes));
+        holder.tv_replys.setText(String.valueOf(list.get(position).replys));
+        holder.tv_distance.setText(df.format(distance));
+        holder.tv_address.setText(list.get(position).address);
+        Glide.with(context).load(list.get(position).mediaURL).into(holder.imageView);
     }
 }

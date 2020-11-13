@@ -52,6 +52,7 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:paddingTop="10dp"
+                    android:text="위치 가져오는 중..."
                     android:textSize="16dp"/>
 
                 <ToggleButton
@@ -73,9 +74,10 @@
                 android:id="@+id/btn_complete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="12dp"
                 android:background="@color/mint"
                 android:text="이 위치로 주소 설정"
+                android:paddingVertical="5dp"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold" />

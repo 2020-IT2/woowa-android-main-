@@ -26,14 +26,12 @@ public class RetrofitAdapter {
         builder.addInterceptor(new ReceivedCookiesInterceptor(context)); // VERY VERY IMPORTANT
         client = builder.build();
 
-        if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
-        }
 
         RetrofitService service = retrofit.create(RetrofitService.class);
         return service;

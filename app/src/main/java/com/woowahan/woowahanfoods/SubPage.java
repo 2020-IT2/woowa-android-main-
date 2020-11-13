@@ -168,6 +168,7 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
 
     @Override
     public void onItemSelected(View v, int position) {
+        ((MainActivity)getActivity()).replaceFragmentFull(ImageViewer.newInstance(list.get(position)));
     }
 
 

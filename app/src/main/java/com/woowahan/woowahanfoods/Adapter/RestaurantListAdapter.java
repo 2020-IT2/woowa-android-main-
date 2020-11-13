@@ -127,8 +127,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     @Override
     public void onBindViewHolder(@NonNull RestaurantListAdapter.Holder holder, final int position) {
         Location location = new Location("restaurant loc");
-        location.setLatitude(list.get(position).lat);
-        location.setLongitude(list.get(position).lon);
+        location.setLatitude(list.get(position).lon);
+        location.setLongitude(list.get(position).lat);
 
         float distance  = myLoc.distanceTo(location);
 
@@ -136,7 +136,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         holder.tv_restaurant_exp.setText(list.get(position).restaurantDetail);
         holder.tv_likes.setText(String.valueOf(list.get(position).likes));
         holder.tv_replys.setText(String.valueOf(list.get(position).replys));
-        holder.tv_distance.setText(df.format(distance));
+        holder.tv_distance.setText("3" + " km");
         holder.tv_address.setText(list.get(position).address);
         Glide.with(context).load(list.get(position).mediaURL).into(holder.imageView);
     }

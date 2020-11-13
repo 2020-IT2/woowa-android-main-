@@ -22,11 +22,27 @@ public class RestaurantList extends Fragment {
     TabLayout tabs;
     PageAdapter pageAdapter;
     ViewPager viewPage;
+    public int menu;
     private androidx.appcompat.widget.Toolbar toolbar;
     private ActionBar actionbar;
 
+    public static RestaurantList newInstance(int menu){
+        Bundle adr = new Bundle();
+        adr.putInt("menu", menu);
+        RestaurantList restaurantList = new RestaurantList();
+        restaurantList.setArguments(adr);
+        return restaurantList;
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
+
+        Bundle bundle = getArguments();
+        if(bundle!=null){
+            this.menu = bundle.getInt("menu");
+        } else {
+            this.menu = 0;
+        }
 
         pageAdapter = new PageAdapter(getChildFragmentManager());
 
@@ -37,6 +53,7 @@ public class RestaurantList extends Fragment {
         tabs = (TabLayout) view.findViewById(R.id.tabs);
         tabs.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white_gray));
         tabs.setupWithViewPager(viewPage);
+        tabs.getTabAt( menu).select();
 
         toolbar = view.findViewById(R.id.toolbar2);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);

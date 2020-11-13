@@ -29,7 +29,7 @@
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:id="@+id/icon_alarm"
+            android:id="@+id/icon"
             android:layout_width="23dp"
             android:layout_height="23dp"
             android:src="@drawable/ic_pizza"/>
@@ -52,7 +52,7 @@
                 android:textSize="17dp" />
 
             <TextView
-                android:id="@+id/content"
+                android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"

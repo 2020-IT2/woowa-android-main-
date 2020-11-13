@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,8 +41,7 @@ import java.util.ArrayList;
 
 public class Statistic extends Fragment {
     final public ArrayList<City> cityArrayList = new ArrayList<City>();
-    public CardView cardView;
-    public LinearLayout linearLayout;
+
     public String [] cityNames = new String[]{
             "강서구_map", "양천구_map", "구로구_map", "금천구_map", "관악구_map",
             "서초구_map", "강남구_map", "송파구_map", "강동구_map", "광진구_map",
@@ -55,17 +55,13 @@ public class Statistic extends Fragment {
     private MapView mMapView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_statistic, container, false);
-        final RelativeLayout relativeLayout = view.findViewById(R.id.relative_host);
         final RichPathView richPathView = view.findViewById(R.id.rich_map);
-        relativeLayout.bringToFront();
+        final LinearLayout linearLayout = view.findViewById(R.id.lin_visible);
+        final TextView textView = view.findViewById(R.id.location);
         for(String cityName : cityNames){
             cityArrayList.add(new City(cityName));
         }
-
-        cardView = view.findViewById(R.id.cv_best_food);
-        linearLayout = view.findViewById(R.id.cv_under_card);
 
         richPathView.setOnPathClickListener(new RichPath.OnPathClickListener() {
             @Override
@@ -82,14 +78,13 @@ public class Statistic extends Fragment {
                     if (name.equals(city.getName())) {
                         Log.d("SampleMap", "1st IF");
                         if(orgRichPath.getFillColor() == whitegray){
-                            linearLayout.animate()
-                                    .translationY(cardView.getHeight() - 140)
-                                    .setDuration(300);
                             Log.d("SampleMap", "2nd IF");
                             RichPathAnimator.animate(orgRichPath)
                                     .fillColor(0xff090090)
                                     .start();
-
+                            linearLayout.setVisibility(View.VISIBLE);
+                            linearLayout.animate().alpha(1.0f).setDuration(999);
+                            textView.setText(city.getName().split("_")[0]);
                             richPath = richPathView.findRichPathByName(city.name.split("_")[0]);
                             RichPathAnimator.animate(richPath)
                                     .fillColor(Color.WHITE)
@@ -98,10 +93,6 @@ public class Statistic extends Fragment {
                         else{
 
 
-                            Log.d("SampleMap", "Height : " + cardView.getHeight());
-                            linearLayout.animate()
-                                    .translationY(0)
-                                    .setDuration(150);
                             RichPathAnimator.animate(orgRichPath)
                                     .fillColor(whitegray)
                                     .start();
@@ -109,6 +100,8 @@ public class Statistic extends Fragment {
                             RichPathAnimator.animate(richPath)
                                     .fillColor(Color.BLACK)
                                     .start();
+                            linearLayout.setVisibility(View.GONE);
+                            linearLayout.animate().alpha(0.0f);
                         }
                     }else {
                         richPath = richPathView.findRichPathByName(city.getName());

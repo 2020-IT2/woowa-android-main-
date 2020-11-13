@@ -49,7 +49,6 @@ public class DetailAddress extends Fragment implements AddressAdapter.OnListItem
     final int countPerPage = 15;
     final String resultType = "json";
     public String query;
-    public String str_address;
 
     public static DetailAddress newInstance(String query){
         Bundle adr = new Bundle();
@@ -121,9 +120,6 @@ public class DetailAddress extends Fragment implements AddressAdapter.OnListItem
             }
 
         });
-
-
-
 
         iv_search = (ImageView)view.findViewById(R.id.iv_search);
         iv_search.setOnClickListener(new View.OnClickListener() {

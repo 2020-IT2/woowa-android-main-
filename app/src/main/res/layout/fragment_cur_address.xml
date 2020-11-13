@@ -9,24 +9,12 @@
     tools:context=".CurAddress">
 
 
-    <!-- 네이버 지도 -->
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:padding="20dp"
+        android:id="@+id/back_btn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/transparent">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_collapseMode="pin"></androidx.appcompat.widget.Toolbar>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+        android:src="@drawable/ic_pizza"/>
 
     <com.naver.maps.map.MapView
         android:id="@+id/map_view"
@@ -49,30 +37,37 @@
             android:orientation="vertical"
             android:padding="15dp">
 
-            <TextView
-                android:id="@+id/tv_jibun"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:textSize="20dp"
-                android:text="허선철 바보"/>
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:background="@drawable/edge">
 
                 <TextView
-                    android:id="@+id/tv_road"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:gravity="center_vertical"
-                    android:textSize="16dp" />
+                    android:paddingHorizontal="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:textSize="16dp"/>
 
-            </LinearLayout>
+                <ToggleButton
+                    android:id="@+id/button"
+                    android:background="@color/transparent"
+                    android:paddingBottom="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_address"
+                    android:layout_centerInParent="true"
+                    android:textOn="지번주소로 보기"
+                    android:textOff="도로명주소로 보기"
+                    android:textSize="13dp"
+                    android:textColor="@color/mint"
+                   />
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/btn_complete"

@@ -6,7 +6,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
@@ -20,34 +19,32 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.naver.maps.geometry.LatLng;
-import com.naver.maps.geometry.Utmk;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.util.FusedLocationSource;
-import com.woowahan.woowahanfoods.Dataframe.SearchResultJson;
-import com.woowahan.woowahanfoods.httpConnection.RetrofitAdapter;
-import com.woowahan.woowahanfoods.httpConnection.RetrofitService;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
-import retrofit2.Call;
 
 public class CurAddress extends Fragment implements OnMapReadyCallback {
+    private TextView tv_address;
     private MapView mapView;
+    private NaverMap naverMap;
 
     private androidx.appcompat.widget.Toolbar toolbar;
     private ActionBar actionbar;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     private FusedLocationSource locationSource; //위치를 반환하는 구현체
-    private static NaverMap naverMap;
+    private ImageView img_btn;
 
     private double lat, lon;
 
@@ -55,60 +52,60 @@ public class CurAddress extends Fragment implements OnMapReadyCallback {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cur_address, container, false);
 
+        tv_address = view.findViewById(R.id.tv_address);
 
         //네이버 지도
-        mapView = (MapView)view.findViewById(R.id.map_view);
+        mapView = view.findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
         locationSource =
                 new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
-        toolbar = view.findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        actionbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionbar.setDisplayShowCustomEnabled(true);
-        actionbar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00000000")));
+        ImageView img_btn = view.findViewById(R.id.back_btn);
+        img_btn.bringToFront();
+        img_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
 
         return view;
     }
+
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         naverMap.setLocationSource(locationSource);
         naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
-
-
 
         naverMap.addOnLocationChangeListener(new NaverMap.OnLocationChangeListener() {
             @Override
             public void onLocationChange(@NonNull Location location) {
                 // 위치가 변경되면 다음의 코드들이 수행된다.
                 //좌표 받아
-                lat = location.getLatitude();
-                lon = location.getLongitude();
+                //lat = location.getLatitude();
+                //lon = location.getLongitude();
                 if(getActivity()==null){
                     return;
                 }
                 final Geocoder geocoder = new Geocoder(getActivity());
                 try {
-                    List<Address> mResultList = geocoder.getFromLocation(lat, lon, 1);
-                    Log.d("hello","mResultList.get(0).getAddressLine(0)"+mResultList.get(0).getAddressLine(0));
-                    Log.d("hello","mResultList.get(0).getAddressLine(0)"+mResultList.get(0).getAddressLine(1));
-                    Log.d("hello","mResultList.get(0).getAddressLine(0)"+mResultList.get(0).getAddressLine(2));
-                    Log.d("hello","mResultList.get(0).getAddressLine(0)"+mResultList.get(0).getLocality());
-                    Log.d("hello","mResultList.get(0).getAddressLine(0)"+mResultList.get(0).getPostalCode());
-                    Log.d("hello","mResultList.get(0).getAddressLine(0)"+mResultList.get(0).getAdminArea());
-
+                    List<Address> mResultList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                    Log.d("Tag", "complete" + mResultList.get(0).getAddressLine(0));
+                    String roadaddress = mResultList.get(0).getAddressLine(0);
+                    tv_address.setText(roadaddress);
+                    //Log.d("hello","mResultList.get(0).getAddressLine(0)"+mResultList.get(0).getAddressLine(0));
+                    //Log.d("hello","mResultList.get(0).getAddressLine(0)"+mResultList.get(0).getAddressLine(1));
+                    //Log.d("hello","mResultList.get(0).getAddressLine(0)"+mResultList.get(0).getAddressLine(2));
                 } catch (IOException e){
                     e.printStackTrace();
+                    Log.d("Tag", "주소변환 실패");
                 }
-
             }
         });
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

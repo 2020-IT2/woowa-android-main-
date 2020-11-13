@@ -29,7 +29,10 @@ import com.richpathanimator.RichPathAnimator;
 
 import java.util.ArrayList;
 
+import im.dacer.androidcharts.LineView;
+
 public class Market extends Fragment {
+    private LineView lineView;
     private LineChart lineChart;
     final public ArrayList<City> cityArrayList = new ArrayList<City>();
     public CardView cardView;
@@ -109,7 +112,19 @@ public class Market extends Fragment {
                 ((MainActivity)getActivity()).replaceFragmentFull(new SampleMap());
             }
         });
+
+        lineView = view.findViewById(R.id.line_view);
+
+        lineView.setDrawDotLine(true);
+        lineView.setShowPopup(LineView.SHOW_POPUPS_NONE);
+        lineView.setColorArray(new int[]{Color.parseColor("#e74c3c")});
+        //lineView.setBottomTextList();
+        //lineView.setDataList();
+
+
+        /*
         ArrayList<Entry> entry_chart = new ArrayList<>();
+
 
         lineChart = view.findViewById(R.id.lineChart);
         LineData chartData = new LineData();
@@ -159,6 +174,7 @@ public class Market extends Fragment {
 
 
         lineChart.invalidate();
+        */
 
         return view;
     }

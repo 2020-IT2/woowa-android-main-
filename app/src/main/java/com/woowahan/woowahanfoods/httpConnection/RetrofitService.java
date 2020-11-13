@@ -1,6 +1,7 @@
 package com.woowahan.woowahanfoods.httpConnection;
 
 import com.google.gson.JsonObject;
+import com.woowahan.woowahanfoods.Dataframe.FeedResult;
 import com.woowahan.woowahanfoods.Dataframe.RestaurantSearchResult;
 import com.woowahan.woowahanfoods.Dataframe.SearchResultJson;
 import com.woowahan.woowahanfoods.Dataframe.SearchResultJson2;
@@ -9,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
@@ -23,4 +25,7 @@ public interface RetrofitService {
 
     @GET("/search/schoolList")
     Call<RestaurantSearchResult> searchSchoolList(@Query("schoolName") String schoolName);
+
+    @GET("/{id}/children")
+    Call<FeedResult> getFeedDetails(@Path("id") String id, @Query("fields") String fields, @Query("access_token") String access_token);
 }

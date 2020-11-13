@@ -12,4 +12,9 @@ public class Restaurant {
     public int gender;
     public String contact;
     public String homePage;
+
+    public Restaurant(String restaurantName, String address){
+        this.restaurantName = restaurantName;
+        this.address = address;
+    }
 }

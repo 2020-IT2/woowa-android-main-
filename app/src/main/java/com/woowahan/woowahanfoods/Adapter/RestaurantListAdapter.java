@@ -4,10 +4,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.location.Location;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,16 +60,31 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     public class Holder extends RecyclerView.ViewHolder{
         protected TextView title;
-        protected TextView content;
+        protected TextView address;
         protected TextView time;
         protected ConstraintLayout bg;
+        protected ImageView imageView;
 
         public Holder(View view) {
             super(view);
             this.title = (TextView) view.findViewById(R.id.title);
-            this.content = (TextView) view.findViewById(R.id.content);
+            this.address = (TextView) view.findViewById(R.id.address);
             this.time = (TextView) view.findViewById(R.id.time);
             this.bg = (ConstraintLayout) view.findViewById(R.id.comment);
+            this.imageView = (ImageView)view.findViewById(R.id.icon);
+
+            if (Build.VERSION.SDK_INT >= 21) {
+                // 21 버전 이상일 때
+                GradientDrawable drawable=
+                        (GradientDrawable) context.getDrawable(R.drawable.my_rect);
+
+                imageView.setBackground(drawable);
+                imageView.setClipToOutline(true);
+
+                imageView.setBackground(new ShapeDrawable(new OvalShape()));
+                imageView.setClipToOutline(true);
+            }
+
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -72,6 +93,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                     mListener.onItemSelected(v, getAdapterPosition());
                 }
             });
+
+
 
 //            view.setOnLongClickListener(new View.OnLongClickListener(){
 //                @Override
@@ -98,14 +121,18 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     @Override
     public void onBindViewHolder(@NonNull RestaurantListAdapter.Holder holder, final int position) {
-        int communityType = list.get(position).restaurantID;
-        int communityID = list.get(position).schoolID;
-        String content = list.get(position).schoolName;
-        String title = "title";
-        holder.title.setText(title);
-        int lastIndex = content.length() > 15 ? 15 : content.length();
-        holder.content.setText(list.get(position).schoolName + " : " + content.substring(0, lastIndex));
-        holder.itemView.setTag(position);
 
+        Location locationA = new Location("my loc");
+        locationA.setLatitude(55);
+        locationA.setLongitude(55);
+
+        Location locationB = new Location("restaurant loc");
+        locationA.setLatitude(31);
+        locationA.setLongitude(34);
+
+        float distance  = locationA.distanceTo(locationB);
+
+        holder.title.setText(list.get(position).regionName);
+        holder.address.setText(list.get(position).address);
     }
 }

@@ -26,7 +26,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.CustomVi
         void onItemSelected(View v, int position);
     }
 
-    //처음 생성되는 생명주기
+    //뷰 홀더 객체 생성
     @NonNull
     @Override
     public AddressAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,9 +35,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.CustomVi
         return holder;
     }
 
-
-
-    //추가될 때
+    //데이터를 뷰홀더에 바인딩
     @Override
     public void onBindViewHolder(@NonNull AddressAdapter.CustomViewHolder holder, int position) {
         holder.tv_dong.setText(arrayList.get(position).jibunAddr);
@@ -52,12 +50,11 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.CustomVi
         });
     }
 
+    //전체 아이템 갯수 리턴
     @Override
     public int getItemCount() {
         return (null != arrayList ? arrayList.size() : 0);
     }
-
-
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_dong;
@@ -65,8 +62,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.CustomVi
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.tv_dong = (TextView)itemView.findViewById(R.id.tv_dong);
-            this.tv_road = (TextView)itemView.findViewById(R.id.tv_road);
+            this.tv_dong = itemView.findViewById(R.id.tv_dong);
+            this.tv_road = itemView.findViewById(R.id.tv_road);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

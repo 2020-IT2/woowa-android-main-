@@ -184,10 +184,18 @@
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+                <!--
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChart"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"/>
+                -->
+
+                <view
+                    android:id="@+id/line_view"
+                    class="im.dacer.androidcharts.LineView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </androidx.core.widget.NestedScrollView>

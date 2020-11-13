@@ -78,7 +78,7 @@ public class DetailAddress extends Fragment implements AddressAdapter.OnListItem
         actionbar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
         actionbar.setDisplayHomeAsUpEnabled(true);
 
-        recyclerView = (RecyclerView)view.findViewById(R.id.rv);
+        recyclerView = view.findViewById(R.id.rv);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -121,7 +121,7 @@ public class DetailAddress extends Fragment implements AddressAdapter.OnListItem
 
         });
 
-        iv_search = (ImageView)view.findViewById(R.id.iv_search);
+        iv_search = view.findViewById(R.id.iv_search);
         iv_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

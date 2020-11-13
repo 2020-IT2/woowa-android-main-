@@ -50,6 +50,8 @@ public class FeedViewer extends Fragment {
         actionbar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
         actionbar.setDisplayHomeAsUpEnabled(true);
 
+
+
         return view;
     }
 }

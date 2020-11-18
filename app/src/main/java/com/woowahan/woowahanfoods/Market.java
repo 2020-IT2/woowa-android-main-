@@ -6,9 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.google.android.material.tabs.TabLayout;
 import com.naver.maps.map.MapView;
 import com.richpath.RichPath;
 import com.richpath.RichPathView;
@@ -36,7 +38,13 @@ public class Market extends Fragment {
     private LineChart lineChart;
     final public ArrayList<City> cityArrayList = new ArrayList<City>();
     public CardView cardView;
+    public TabLayout tabLayout;
     public LinearLayout linearLayout;
+    private TabLayout mTabLayout;
+    public CardView market_card;
+    public CardView people_card;
+    public TextView market_text;
+    public TextView people_text;
     public String [] cityNames = new String[]{
             "강서구_map", "양천구_map", "구로구_map", "금천구_map", "관악구_map",
             "서초구_map", "강남구_map", "송파구_map", "강동구_map", "광진구_map",
@@ -49,14 +57,77 @@ public class Market extends Fragment {
 
     private MapView mMapView;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_market, container, false);
         final RichPathView richPathView = view.findViewById(R.id.market_map);
+        final TextView textView = view.findViewById(R.id.locations);
+        market_card = view.findViewById(R.id.market_card);
+        people_card = view.findViewById(R.id.people_card);
+        market_text = view.findViewById(R.id.market_text);
+        people_text = view.findViewById(R.id.people_text);
+        final FrameLayout market_frame = view.findViewById(R.id.market_size);
+        final FrameLayout people_frame = view.findViewById(R.id.people);
+        textView.bringToFront();
         for(String cityName : cityNames){
             cityArrayList.add(new City(cityName));
         }
-        Button button = view.findViewById(R.id.btn);
+        ImageView button = view.findViewById(R.id.btn);
+
+        market_card.setOnClickListener(new CardView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                market_text.setBackgroundColor(0);
+                market_text.setTextColor(0xFFFFFFFF);
+
+                people_text.setBackgroundColor(0xFFFFFFFF);
+                people_text.setTextColor(0);
+
+                market_frame.setVisibility(View.VISIBLE);
+                people_frame.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        market_text.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                market_text.setBackgroundColor(0);
+                market_text.setTextColor(0xFFFFFFFF);
+
+                people_text.setBackgroundColor(0xFFFFFFFF);
+                people_text.setTextColor(0);
+
+                market_frame.setVisibility(View.VISIBLE);
+                people_frame.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        people_card.setOnClickListener(new CardView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                people_text.setBackgroundColor(0);
+                people_text.setTextColor(0xFFFFFFFF);
+
+                market_text.setBackgroundColor(0xFFFFFFFF);
+                market_text.setTextColor(0);
+                market_frame.setVisibility(View.INVISIBLE);
+                people_frame.setVisibility(View.VISIBLE);
+            }
+        });
+        people_text.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                people_text.setBackgroundColor(0);
+                people_text.setTextColor(0xFFFFFFFF);
+
+                market_text.setBackgroundColor(0xFFFFFFFF);
+                market_text.setTextColor(0);
+                market_frame.setVisibility(View.INVISIBLE);
+                people_frame.setVisibility(View.VISIBLE);
+            }
+        });
+
 
         richPathView.setOnPathClickListener(new RichPath.OnPathClickListener() {
             @Override
@@ -76,7 +147,9 @@ public class Market extends Fragment {
                             RichPathAnimator.animate(orgRichPath)
                                     .fillColor(0xff090090)
                                     .start();
-
+                            if(textView.getVisibility() == View.INVISIBLE)
+                                textView.setVisibility(View.VISIBLE);
+                            textView.setText(city.getName().split("_")[0]);
                             richPath = richPathView.findRichPathByName(city.name.split("_")[0]);
                             RichPathAnimator.animate(richPath)
                                     .fillColor(Color.WHITE)
@@ -90,6 +163,8 @@ public class Market extends Fragment {
                             RichPathAnimator.animate(richPath)
                                     .fillColor(Color.BLACK)
                                     .start();
+
+                            textView.setVisibility(View.INVISIBLE);
                         }
                     }else {
                         richPath = richPathView.findRichPathByName(city.getName());

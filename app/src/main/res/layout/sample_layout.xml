@@ -1,698 +1,370 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/faded_gray">
+    android:background="@color/almost_white">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="30dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/faded_gray">
+                android:paddingVertical="10dp">
+                <!--                row 1-->
 
-                <com.richpath.RichPathView
-                    android:id="@+id/rich_map"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:vector="@drawable/ic____4" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <ImageButton
+                        android:id="@+id/ib_icon1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_rice" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cv_best_food"
+                    <ImageButton
+                        android:id="@+id/ib_icon2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_pasta" />
+
+                    <ImageButton
+                        android:id="@+id/ib_icon3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_burger" />
+
+                    <ImageButton
+                        android:id="@+id/ib_icon4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_sushi" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:visibility="visible"
-                    android:animateLayoutChanges="true">
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="한식" />
 
-                                android:fontFamily="@font/dohuyn"
-                                android:text="XX구"
-                                android:textSize="20dp"
-                                android:gravity="center"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
 
-                                android:fontFamily="@font/dohuyn"
-                                android:text=" HOT"
-                                android:textSize="20dp"
-                                android:textColor="@color/flame_scarlet"
-                                android:gravity="center"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-
-                                android:fontFamily="@font/dohuyn"
-                                android:text="한 음식 BEST 3"
-                                android:textSize="20dp"
-                                android:gravity="center"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-                                <TextView
-                                    android:textColor="@color/black"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text="1."></TextView>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text=" 아보카도 햄버거"></TextView>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:gravity="right">
-                                    <ImageView
-                                        android:layout_marginTop="2dp"
-                                        android:layout_marginRight="2dp"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:src="@drawable/ic_heart">
-                                    </ImageView>
-                                    <TextView
-                                        android:fontFamily="@font/dohuyn"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginRight="40dp"
-                                        android:layout_gravity="right"
-                                        android:text="3204 likes"
-                                        android:textSize="7dp">
-                                    </TextView>
-                                </LinearLayout>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-                                <TextView
-                                    android:textColor="@color/black"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text="2"></TextView>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text=" 로제 찜닭"></TextView>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:gravity="right">
-                                    <ImageView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="2dp"
-                                        android:layout_marginRight="2dp"
-                                        android:gravity="right"
-                                        android:src="@drawable/ic_heart">
-                                    </ImageView>
-                                    <TextView
-                                        android:fontFamily="@font/dohuyn"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginRight="40dp"
-                                        android:text="1654 likes"
-                                        android:textSize="7dp">
-                                    </TextView>
-                                </LinearLayout>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <TextView
-                                    android:textColor="@color/black"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text="3."></TextView>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text=" 크로플"></TextView>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:gravity="right">
-                                    <ImageView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="2dp"
-                                        android:layout_marginRight="2dp"
-                                        android:gravity="right"
-                                        android:src="@drawable/ic_heart">
-                                    </ImageView>
-                                    <TextView
-                                        android:fontFamily="@font/dohuyn"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginRight="40dp"
-                                        android:text="843 likes"
-                                        android:textSize="7dp">
-                                    </TextView>
-                                </LinearLayout>
-                            </LinearLayout>
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-                <LinearLayout
-                    android:id="@+id/cv_under_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:animateLayoutChanges="true">
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:visibility="visible"
-                        android:animateLayoutChanges="true">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="양식" />
 
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text="XX구"
-                                    android:textSize="20dp"
-                                    android:gravity="center"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
 
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text=" HOT"
-                                    android:textSize="20dp"
-                                    android:textColor="@color/flame_scarlet"
-                                    android:gravity="center"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text="한 음식 BEST 3"
-                                    android:textSize="20dp"
-                                    android:gravity="center"/>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:textColor="@color/black"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text="1."></TextView>
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text=" 아보카도 햄버거"></TextView>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:gravity="right">
-                                        <ImageView
-                                            android:layout_marginTop="2dp"
-                                            android:layout_marginRight="2dp"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:gravity="right"
-                                            android:src="@drawable/ic_heart">
-                                        </ImageView>
-                                        <TextView
-                                            android:fontFamily="@font/dohuyn"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginRight="40dp"
-                                            android:layout_gravity="right"
-                                            android:text="3204 likes"
-                                            android:textSize="7dp">
-                                        </TextView>
-                                    </LinearLayout>
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:textColor="@color/black"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text="2"></TextView>
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text=" 로제 찜닭"></TextView>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:gravity="right">
-                                        <ImageView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="2dp"
-                                            android:layout_marginRight="2dp"
-                                            android:gravity="right"
-                                            android:src="@drawable/ic_heart">
-                                        </ImageView>
-                                        <TextView
-                                            android:fontFamily="@font/dohuyn"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginRight="40dp"
-                                            android:text="1654 likes"
-                                            android:textSize="7dp">
-                                        </TextView>
-                                    </LinearLayout>
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-                                    <TextView
-                                        android:textColor="@color/black"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text="3."></TextView>
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text=" 크로플"></TextView>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:gravity="right">
-                                        <ImageView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="2dp"
-                                            android:layout_marginRight="2dp"
-                                            android:gravity="right"
-                                            android:src="@drawable/ic_heart">
-                                        </ImageView>
-                                        <TextView
-                                            android:fontFamily="@font/dohuyn"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginRight="40dp"
-                                            android:text="843 likes"
-                                            android:textSize="7dp">
-                                        </TextView>
-                                    </LinearLayout>
-                                </LinearLayout>
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:visibility="visible"
-                        android:animateLayoutChanges="true">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="패스트푸드" />
 
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text="XX구"
-                                    android:textSize="20dp"
-                                    android:gravity="center"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
 
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text=" HOT"
-                                    android:textSize="20dp"
-                                    android:textColor="@color/flame_scarlet"
-                                    android:gravity="center"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text="한 음식 BEST 3"
-                                    android:textSize="20dp"
-                                    android:gravity="center"/>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:textColor="@color/black"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text="1."></TextView>
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text=" 아보카도 햄버거"></TextView>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:gravity="right">
-                                        <ImageView
-                                            android:layout_marginTop="2dp"
-                                            android:layout_marginRight="2dp"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:gravity="right"
-                                            android:src="@drawable/ic_heart">
-                                        </ImageView>
-                                        <TextView
-                                            android:fontFamily="@font/dohuyn"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginRight="40dp"
-                                            android:layout_gravity="right"
-                                            android:text="3204 likes"
-                                            android:textSize="7dp">
-                                        </TextView>
-                                    </LinearLayout>
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:textColor="@color/black"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text="2"></TextView>
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text=" 로제 찜닭"></TextView>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:gravity="right">
-                                        <ImageView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="2dp"
-                                            android:layout_marginRight="2dp"
-                                            android:gravity="right"
-                                            android:src="@drawable/ic_heart">
-                                        </ImageView>
-                                        <TextView
-                                            android:fontFamily="@font/dohuyn"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginRight="40dp"
-                                            android:text="1654 likes"
-                                            android:textSize="7dp">
-                                        </TextView>
-                                    </LinearLayout>
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-                                    <TextView
-                                        android:textColor="@color/black"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text="3."></TextView>
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text=" 크로플"></TextView>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:gravity="right">
-                                        <ImageView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="2dp"
-                                            android:layout_marginRight="2dp"
-                                            android:gravity="right"
-                                            android:src="@drawable/ic_heart">
-                                        </ImageView>
-                                        <TextView
-                                            android:fontFamily="@font/dohuyn"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginRight="40dp"
-                                            android:text="843 likes"
-                                            android:textSize="7dp">
-                                        </TextView>
-                                    </LinearLayout>
-                                </LinearLayout>
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:visibility="visible"
-                        android:animateLayoutChanges="true">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text="XX구"
-                                    android:textSize="20dp"
-                                    android:gravity="center"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text=" HOT"
-                                    android:textSize="20dp"
-                                    android:textColor="@color/flame_scarlet"
-                                    android:gravity="center"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-
-                                    android:fontFamily="@font/dohuyn"
-                                    android:text="한 음식 BEST 3"
-                                    android:textSize="20dp"
-                                    android:gravity="center"/>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:textColor="@color/black"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text="1."></TextView>
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text=" 아보카도 햄버거"></TextView>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:gravity="right">
-                                        <ImageView
-                                            android:layout_marginTop="2dp"
-                                            android:layout_marginRight="2dp"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:gravity="right"
-                                            android:src="@drawable/ic_heart">
-                                        </ImageView>
-                                        <TextView
-                                            android:fontFamily="@font/dohuyn"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginRight="40dp"
-                                            android:layout_gravity="right"
-                                            android:text="3204 likes"
-                                            android:textSize="7dp">
-                                        </TextView>
-                                    </LinearLayout>
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:textColor="@color/black"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text="2"></TextView>
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text=" 로제 찜닭"></TextView>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:gravity="right">
-                                        <ImageView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="2dp"
-                                            android:layout_marginRight="2dp"
-                                            android:gravity="right"
-                                            android:src="@drawable/ic_heart">
-                                        </ImageView>
-                                        <TextView
-                                            android:fontFamily="@font/dohuyn"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginRight="40dp"
-                                            android:text="1654 likes"
-                                            android:textSize="7dp">
-                                        </TextView>
-                                    </LinearLayout>
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-                                    <TextView
-                                        android:textColor="@color/black"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text="3."></TextView>
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text=" 크로플"></TextView>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:gravity="right">
-                                        <ImageView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="2dp"
-                                            android:layout_marginRight="2dp"
-                                            android:gravity="right"
-                                            android:src="@drawable/ic_heart">
-                                        </ImageView>
-                                        <TextView
-                                            android:fontFamily="@font/dohuyn"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginRight="40dp"
-                                            android:text="843 likes"
-                                            android:textSize="7dp">
-                                        </TextView>
-                                    </LinearLayout>
-                                </LinearLayout>
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="일식" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/ib_icon5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_dessert" />
+                    </LinearLayout>
+
+
+                    <ImageButton
+                        android:id="@+id/ib_icon6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_chicken" />
+
+                    <ImageButton
+                        android:id="@+id/ib_icon7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_pizza" />
+
+                    <ImageButton
+                        android:id="@+id/ib_icon8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_joongsik" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="디저트" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="치킨" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="피자" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="중식" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/ib_icon9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_lunchbox" />
+                    </LinearLayout>
+
+
+                    <ImageButton
+                        android:id="@+id/ib_icon10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_soup" />
+
+                    <ImageButton
+                        android:id="@+id/ib_icon11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_schoolfood" />
+
+                    <ImageButton
+                        android:id="@+id/ib_icon12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_asianfood" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="도시락" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="찜/탕" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="김밥" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="아시안" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="35dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/ib_icon5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_dessert" />
+                    </LinearLayout>
+
+
+                    <ImageButton
+                        android:id="@+id/ib_icon6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_chicken" />
+
+                    <ImageButton
+                        android:id="@+id/ib_icon7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_pizza" />
+
+                    <ImageButton
+                        android:id="@+id/ib_icon8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_joongsik" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="디저트" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="치킨" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="피자" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/eleven"
+                        android:gravity="center"
+                        android:text="중식" />
+                </LinearLayout>
+
+                <!--                row 2-->
+
+                <!--                row 3-->
+
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
     </androidx.core.widget.NestedScrollView>
 

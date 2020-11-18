@@ -406,7 +406,7 @@
                 app:tabBackground="@drawable/tab_selector"
                 app:tabGravity="center"
                 app:tabIndicatorHeight="0dp"
-                android:id="@+id/tab_layout"
+                android:id="@+id/tab_lay"
                 android:layout_marginHorizontal="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>

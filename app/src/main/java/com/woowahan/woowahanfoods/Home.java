@@ -21,6 +21,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.woowahan.woowahanfoods.Adapter.viewPageAdapter;
 import com.woowahan.woowahanfoods.Dataframe.FeedResult;
 import com.woowahan.woowahanfoods.Dataframe.ImageData;
+import com.woowahan.woowahanfoods.Dataframe.User;
 import com.woowahan.woowahanfoods.httpConnection.RetrofitAdapter;
 import com.woowahan.woowahanfoods.httpConnection.RetrofitService;
 
@@ -46,9 +47,6 @@ public class Home extends Fragment  {
 
     private LinearLayout search, address;
     private TextView tv_homeaddress;
-    private String homeaddress;
-
-    private String road;
 
     public static Home newInstance(String road) {
         Bundle adr = new Bundle();
@@ -78,11 +76,8 @@ public class Home extends Fragment  {
         });
 
         tv_homeaddress = view.findViewById(R.id.tv_homeaddress);
-        Bundle bundle = getArguments();
-        if(bundle!=null){
-            this.homeaddress = bundle.getString("road");
-            tv_homeaddress.setText(homeaddress);
-        }
+        tv_homeaddress.setText(((MainActivity)getActivity()).user.myAddresses.get(0).dongAddress);
+
 
         for(int id=0; id<icon_nams.length; id++ ){
             ImageButton btn = (ImageButton)view.findViewById(icon_nams[id]);

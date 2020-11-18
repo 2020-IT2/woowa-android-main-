@@ -1,5 +1,7 @@
 package com.woowahan.woowahanfoods;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.gson.Gson;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.Utmk;
 import com.naver.maps.map.CameraPosition;
@@ -32,6 +35,7 @@ import com.naver.maps.map.overlay.Align;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 import com.naver.maps.map.util.MarkerIcons;
+import com.woowahan.woowahanfoods.Dataframe.MyAddress;
 import com.woowahan.woowahanfoods.Dataframe.SearchResultJson;
 import com.woowahan.woowahanfoods.Dataframe.SearchResultJson2;
 import com.woowahan.woowahanfoods.httpConnection.RetrofitAdapter;
@@ -83,6 +87,11 @@ public class AddressMap extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_address_map, container, false);
+
+        Context context = getActivity();
+        SharedPreferences pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = pref.edit();
+
         setHasOptionsMenu(true);
         tv_jibun = view.findViewById(R.id.tv_jibun);
         tv_road = view.findViewById(R.id.tv_road);
@@ -91,6 +100,12 @@ public class AddressMap extends Fragment implements OnMapReadyCallback {
         btn_complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MyAddress address = new MyAddress(jibun, road, lat, lon);
+                ((MainActivity)getActivity()).user.myAddresses.add(0, address);
+                Gson gson = new Gson();
+                String userJson = gson.toJson(((MainActivity)getActivity()).user);
+                editor.putString("user", userJson);
+                editor.commit();
                 ((MainActivity)getActivity()).replaceFragmentFull(Home.newInstance(road));
             }
         });

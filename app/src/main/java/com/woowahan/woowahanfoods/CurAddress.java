@@ -6,6 +6,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
@@ -54,7 +56,9 @@ public class CurAddress extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cur_address, container, false);
-
+        Context context = getActivity();
+        //SharedPreferences pref = context.getSharedPreferences("");
+       // SharedPreferences.Editor editor = pref.edit();
         tv_address = view.findViewById(R.id.tv_address);
 
         //네이버 지도
@@ -76,9 +80,14 @@ public class CurAddress extends Fragment implements OnMapReadyCallback {
 
         btn_complete = view.findViewById(R.id.btn_complete);
 
+
         btn_complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((MainActivity)getActivity()).user.Address = roadaddress;
+                ((MainActivity)getActivity()).user.latitude = lat;
+                ((MainActivity)getActivity()).user.longitude = lon;
+
                 ((MainActivity)getActivity()).replaceFragmentFull(Home.newInstance(roadaddress));
             }
         });
@@ -96,8 +105,8 @@ public class CurAddress extends Fragment implements OnMapReadyCallback {
             public void onLocationChange(@NonNull Location location) {
                 // 위치가 변경되면 다음의 코드들이 수행된다.
                 //좌표 받아
-                //lat = location.getLatitude();
-                //lon = location.getLongitude();
+                lat = location.getLatitude();
+                lon = location.getLongitude();
                 if(getActivity()==null){
                     return;
                 }

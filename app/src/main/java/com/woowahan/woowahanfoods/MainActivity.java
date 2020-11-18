@@ -28,6 +28,7 @@ import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.PolygonOverlay;
 import com.naver.maps.map.overlay.PolylineOverlay;
 import com.woowahan.woowahanfoods.Dataframe.CoordinateFrame;
+import com.woowahan.woowahanfoods.Dataframe.User;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Fragment statistic = new Statistic();
     Fragment home = new Home();
     Fragment market = new Market();
+    public User user;
 
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -125,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         View view = getWindow().getDecorView();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (view != null) {

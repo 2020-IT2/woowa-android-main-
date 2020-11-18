@@ -113,16 +113,11 @@ public class Market extends Fragment {
             }
         });
 
-        lineView = view.findViewById(R.id.line_view);
-
-        lineView.setDrawDotLine(true);
-        lineView.setShowPopup(LineView.SHOW_POPUPS_NONE);
-        lineView.setColorArray(new int[]{Color.parseColor("#e74c3c")});
         //lineView.setBottomTextList();
         //lineView.setDataList();
 
 
-        /*
+
         ArrayList<Entry> entry_chart = new ArrayList<>();
 
 
@@ -174,7 +169,7 @@ public class Market extends Fragment {
 
 
         lineChart.invalidate();
-        */
+
 
         return view;
     }

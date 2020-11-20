@@ -1,4 +1,4 @@
-package com.woowahan.woowahanfoods.Adapter;
+package com.woowahan.woowahanfoods.Dataframe;
 
 public class AddressData {
     private String tv_dong;

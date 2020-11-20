@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.woowahan.woowahanfoods.Dataframe.Juso;
 import com.woowahan.woowahanfoods.Dataframe.MyAddress;
 import com.woowahan.woowahanfoods.Dataframe.User;
+import com.woowahan.woowahanfoods.Home;
 import com.woowahan.woowahanfoods.MainActivity;
 import com.woowahan.woowahanfoods.R;
 
@@ -69,7 +70,8 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.Cust
                 @Override
                 public void onClick(View view) {
                     mListener.onItemSelected(view, getAdapterPosition());
-                    
+                    ((MainActivity)mContext).setCurAddress(getAdapterPosition());
+                    ((MainActivity)mContext).replaceFragmentFull(new Home());
                 }
             });
 

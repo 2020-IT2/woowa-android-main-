@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,13 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.google.gson.Gson;
-import com.woowahan.woowahanfoods.Adapter.AddressAdapter;
-import com.woowahan.woowahanfoods.Adapter.AddressData;
 import com.woowahan.woowahanfoods.Adapter.MyAddressAdapter;
-import com.woowahan.woowahanfoods.Dataframe.Juso;
 import com.woowahan.woowahanfoods.Dataframe.MyAddress;
-import com.woowahan.woowahanfoods.Dataframe.User;
 
 import java.util.ArrayList;
 

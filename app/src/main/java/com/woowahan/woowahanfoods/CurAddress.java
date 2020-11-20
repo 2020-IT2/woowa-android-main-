@@ -88,6 +88,7 @@ public class CurAddress extends Fragment implements OnMapReadyCallback {
             public void onClick(View view) {
                 MyAddress address = new MyAddress(roadaddress, "도로명주소", lat, lon);
                 ((MainActivity)getActivity()).user.myAddresses.add(0, address);
+                ((MainActivity)getActivity()).user.curAddress = address;
                 Gson gson = new Gson();
                 String userJson = gson.toJson(((MainActivity)getActivity()).user);
                 editor.putString("user", userJson);

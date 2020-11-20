@@ -102,6 +102,7 @@ public class AddressMap extends Fragment implements OnMapReadyCallback {
             public void onClick(View view) {
                 MyAddress address = new MyAddress(jibun, road, lat, lon);
                 ((MainActivity)getActivity()).user.myAddresses.add(0, address);
+                ((MainActivity)getActivity()).user.curAddress = address;
                 Gson gson = new Gson();
                 String userJson = gson.toJson(((MainActivity)getActivity()).user);
                 editor.putString("user", userJson);

@@ -31,7 +31,6 @@ dependencies {
 
     //그래프
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-    implementation 'im.dacer:AndroidCharts:1.0.4'
 
 
     testImplementation 'junit:junit:4.12'

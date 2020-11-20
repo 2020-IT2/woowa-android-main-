@@ -142,11 +142,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             MyAddress myAddress = new MyAddress("위치를 입력해주세요.", "", 0, 0);
             user.myAddresses = myaddresses;
             user.myAddresses.add(0, myAddress);
+            user.curAddress = myAddress;
 
         } else {
             user = gson.fromJson(userJson, User.class);
+            if(user.myAddresses.size()==0) {
+                MyAddress myAddress = new MyAddress("위치를 입력해주세요.", "", 0, 0);
+                user.myAddresses.add(0, myAddress);
+                user.curAddress = myAddress;
+            }
         }
-
 
         View view = getWindow().getDecorView();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -185,6 +190,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = pref.edit();
         user.myAddresses.remove(position);
+        Gson gson = new Gson();
+        String userJson = gson.toJson(user);
+        editor.putString("user", userJson);
+        editor.commit();
+    }
+
+    public void setCurAddress(int position){
+        SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = pref.edit();
+        user.curAddress = user.myAddresses.get(position);
         Gson gson = new Gson();
         String userJson = gson.toJson(user);
         editor.putString("user", userJson);

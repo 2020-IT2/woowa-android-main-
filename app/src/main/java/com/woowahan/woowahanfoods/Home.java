@@ -19,6 +19,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.woowahan.woowahanfoods.Adapter.viewPageAdapter;
 import com.woowahan.woowahanfoods.Dataframe.FeedResult;
 import com.woowahan.woowahanfoods.Dataframe.ImageData;
+import com.woowahan.woowahanfoods.Dataframe.MyAddress;
 import com.woowahan.woowahanfoods.Dataframe.User;
 import com.woowahan.woowahanfoods.httpConnection.RetrofitAdapter;
 import com.woowahan.woowahanfoods.httpConnection.RetrofitService;
@@ -73,9 +74,13 @@ public class Home extends Fragment  {
             }
         });
 
+        if(((MainActivity)getActivity()).user.myAddresses.size()==0) {
+            MyAddress myAddress = new MyAddress("위치를 입력해주세요.", "", 0, 0);
+            ((MainActivity)getActivity()).user.myAddresses.add(0, myAddress);
+            ((MainActivity)getActivity()).user.curAddress = myAddress;
+        }
         tv_homeaddress = view.findViewById(R.id.tv_homeaddress);
-        tv_homeaddress.setText(((MainActivity)getActivity()).user.myAddresses.get(0).dongAddress);
-
+        tv_homeaddress.setText(((MainActivity)getActivity()).user.curAddress.dongAddress);
 
         for(int id=0; id<icon_nams.length; id++ ){
             ImageButton btn = (ImageButton)view.findViewById(icon_nams[id]);

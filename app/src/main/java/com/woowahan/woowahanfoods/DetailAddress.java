@@ -2,14 +2,17 @@ package com.woowahan.woowahanfoods;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -65,6 +68,7 @@ public class DetailAddress extends Fragment implements AddressAdapter.OnListItem
 
         editText = view.findViewById(R.id.et_search);
 
+
         Bundle bundle = getArguments();
         if(bundle!=null){
             this.query = bundle.getString("query");
@@ -88,7 +92,6 @@ public class DetailAddress extends Fragment implements AddressAdapter.OnListItem
         recyclerView.setAdapter(addressAdapter);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            private int recyclerVisiblePosition;
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);

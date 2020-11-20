@@ -49,7 +49,9 @@
                     android:background="@android:color/transparent"
                     android:hint="예) 우아한동12-3 또는 우아한아파트"
                     android:paddingVertical="3dp"
-
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:imeOptions="actionSearch"
                     android:textColor="@android:color/black"
                     android:textSize="15dp"/>
 

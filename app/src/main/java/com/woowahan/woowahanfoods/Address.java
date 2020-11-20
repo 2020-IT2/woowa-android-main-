@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,24 +17,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.woowahan.woowahanfoods.Adapter.AddressAdapter;
 import com.woowahan.woowahanfoods.Adapter.AddressData;
+import com.woowahan.woowahanfoods.Adapter.MyAddressAdapter;
 import com.woowahan.woowahanfoods.Dataframe.Juso;
+import com.woowahan.woowahanfoods.Dataframe.MyAddress;
+import com.woowahan.woowahanfoods.Dataframe.User;
 
 import java.util.ArrayList;
 
 
-public class Address extends Fragment implements AddressAdapter.OnListItemSelectedInterface{
+public class Address extends Fragment implements MyAddressAdapter.OnListItemSelectedInterface{
     private Button btn_curlocation;
     private ImageView iv_cancel;
     private ImageView iv_search;
     private EditText edt_adr;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
-    private AddressAdapter addressAdapter;
-    private ArrayList<Juso> arrayList;
-    private String roadaddress;
-    private String jibunaddress;
+    private MyAddressAdapter myaddressAdapter;
+    private ArrayList<MyAddress> userData;
 
 
     @Override
@@ -69,12 +74,47 @@ public class Address extends Fragment implements AddressAdapter.OnListItemSelect
         linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        arrayList = new ArrayList<>();
+        userData = ((MainActivity)getActivity()).user.myAddresses;
+        if(userData.size() > 0){
+            if(userData.get(userData.size()-1).dongAddress.equals("위치를 입력해주세요.")){
+                userData.remove(userData.size()-1);
+            }
+        }
 
-        addressAdapter = new AddressAdapter(arrayList, this);
-        recyclerView.setAdapter(addressAdapter);
+        myaddressAdapter = new MyAddressAdapter(getContext(), userData, this);
+        recyclerView.setAdapter(myaddressAdapter);
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
 
+                if (newState != RecyclerView.SCROLL_STATE_IDLE) {
+                    return;
+                }
+
+                getNewPosition(recyclerView);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+            }
+
+            private void getNewPosition(@NonNull final RecyclerView recyclerView) {
+                final LinearLayoutManager layoutManager = ((LinearLayoutManager)recyclerView.getLayoutManager());
+                if (layoutManager != null) {
+                    int curPosition = recyclerView.getAdapter().getItemCount() - 1;
+                    int recyclerVisiblePosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+
+                    if((recyclerVisiblePosition >= 10) && (curPosition>=recyclerVisiblePosition-3)){
+                        Log.d("d", "error");
+                    }
+                }
+            }
+
+        });
 
         return view;
     }

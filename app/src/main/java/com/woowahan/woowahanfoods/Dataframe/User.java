@@ -1,7 +1,8 @@
 package com.woowahan.woowahanfoods.Dataframe;
 
-public class User {
-    public String Address;
-    public double latitude;
-    public double longitude;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class User implements Serializable {
+    public ArrayList<MyAddress> myAddresses;
 }

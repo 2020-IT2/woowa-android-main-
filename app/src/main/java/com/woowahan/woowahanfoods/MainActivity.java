@@ -1,6 +1,8 @@
 package com.woowahan.woowahanfoods;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
@@ -28,6 +30,7 @@ import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.PolygonOverlay;
 import com.naver.maps.map.overlay.PolylineOverlay;
 import com.woowahan.woowahanfoods.Dataframe.CoordinateFrame;
+import com.woowahan.woowahanfoods.Dataframe.MyAddress;
 import com.woowahan.woowahanfoods.Dataframe.User;
 
 import java.io.BufferedReader;
@@ -44,12 +47,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     private BottomNavigationView navigation;
-//    public UserJson user;
     Intent intent;
     Fragment statistic = new Statistic();
     Fragment home = new Home();
     Fragment market = new Market();
     public User user;
+    public ArrayList<User> userData;
 
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -128,6 +131,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //load 유저 info
+        SharedPreferences sharedPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String userJson = sharedPreferences.getString("user", "");
+
+        if(userJson.equals("")){
+            user = new User();
+            ArrayList<MyAddress> myaddresses= new ArrayList<>();
+            MyAddress myAddress = new MyAddress("위치를 입력해주세요.", "", 0, 0);
+            user.myAddresses = myaddresses;
+            user.myAddresses.add(0, myAddress);
+
+        } else {
+            user = gson.fromJson(userJson, User.class);
+        }
+
+
         View view = getWindow().getDecorView();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (view != null) {
@@ -159,6 +179,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         transaction.replace(R.id.fragment, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void removeAddress(int position){
+        SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = pref.edit();
+        user.myAddresses.remove(position);
+        Gson gson = new Gson();
+        String userJson = gson.toJson(user);
+        editor.putString("user", userJson);
+        editor.commit();
     }
 
     public void onConfigurationChanged(Configuration newConfig) {

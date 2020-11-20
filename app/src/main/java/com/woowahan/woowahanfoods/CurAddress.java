@@ -26,11 +26,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.util.FusedLocationSource;
+import com.woowahan.woowahanfoods.Dataframe.MyAddress;
 
 import java.io.IOException;
 import java.util.List;
@@ -57,8 +59,9 @@ public class CurAddress extends Fragment implements OnMapReadyCallback {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cur_address, container, false);
         Context context = getActivity();
-        //SharedPreferences pref = context.getSharedPreferences("");
-       // SharedPreferences.Editor editor = pref.edit();
+        SharedPreferences pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = pref.edit();
+
         tv_address = view.findViewById(R.id.tv_address);
 
         //네이버 지도
@@ -80,13 +83,15 @@ public class CurAddress extends Fragment implements OnMapReadyCallback {
 
         btn_complete = view.findViewById(R.id.btn_complete);
 
-
         btn_complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).user.Address = roadaddress;
-                ((MainActivity)getActivity()).user.latitude = lat;
-                ((MainActivity)getActivity()).user.longitude = lon;
+                MyAddress address = new MyAddress(roadaddress, "도로명주소", lat, lon);
+                ((MainActivity)getActivity()).user.myAddresses.add(0, address);
+                Gson gson = new Gson();
+                String userJson = gson.toJson(((MainActivity)getActivity()).user);
+                editor.putString("user", userJson);
+                editor.commit();
 
                 ((MainActivity)getActivity()).replaceFragmentFull(Home.newInstance(roadaddress));
             }

@@ -23,6 +23,8 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.tabs.TabLayout;
 import com.naver.maps.map.MapView;
 import com.richpath.RichPath;
@@ -31,10 +33,9 @@ import com.richpathanimator.RichPathAnimator;
 
 import java.util.ArrayList;
 
-import im.dacer.androidcharts.LineView;
-
 public class Market extends Fragment {
-    private LineView lineView;
+    private int chartLineColor = 0xff9e9fae;
+    private int chartPointColor = 0xff9e9fae;
     private LineChart lineChart;
     final public ArrayList<City> cityArrayList = new ArrayList<City>();
     public CardView cardView;
@@ -188,22 +189,66 @@ public class Market extends Fragment {
             }
         });
 
-        //lineView.setBottomTextList();
-        //lineView.setDataList();
+        LineChart lineChart = view.findViewById(R.id.lineChart);
+        ArrayList<Entry> entries = new ArrayList<>();
+        for(int i = 0;i<10;i++){
+            float val = (float) (Math.random()*10);
+            entries.add(new Entry(i, val));
+        }
+
+        LineDataSet set1;
+        set1 = new LineDataSet(entries, "DataSet 1");
+
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set1); //add the data sets
+
+        //create a data object with the data sets
+        LineData data= new LineData(dataSets);
+
+        //꾸미기
+        lineChart.setBackgroundColor(Color.WHITE);
+        set1.setColor(chartLineColor);
+        set1.setCircleColor(chartPointColor);
+        set1.setLineWidth(2);
+        set1.setDrawFilled(true); //차트 아래 색 채우기
+        set1.setFillColor(chartLineColor); //차트 아래 색 설정
+
+        //label
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //라벨링 아래에
+        //xAxis.setTextColor(Color.BLACK); //글씨색 설정
+
+        YAxis yLAxis = lineChart.getAxisLeft();
+        //yLAxis.setTextColor(Color.BLACK); //글씨색 설정
+
+        YAxis yRAxis = lineChart.getAxisRight();
+        yRAxis.setDrawLabels(false);
+        yRAxis.setDrawAxisLine(false);
+        //yRAxis.setDrawGridLines(false);
+
+        Description description = new Description();
+        description.setText("");
+        lineChart.setDescription(description);
 
 
 
-        ArrayList<Entry> entry_chart = new ArrayList<>();
+        //set data
+        lineChart.setData(data);
 
 
+
+
+
+        /*
         lineChart = view.findViewById(R.id.lineChart);
         LineData chartData = new LineData();
 
-        entry_chart.add(new Entry(2, 3));
-        entry_chart.add(new Entry(5, 6));
-        entry_chart.add(new Entry(3, 4));
+        entry_chart.add(new Entry(5f, 3));
+        entry_chart.add(new Entry(1f, 1));
+        entry_chart.add(new Entry(3f, 4));
 
         LineDataSet lineDataSet = new LineDataSet(entry_chart, "방문자수");
+
         lineDataSet.setLineWidth(4);
         lineDataSet.setCircleRadius(6);
         lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
@@ -225,12 +270,10 @@ public class Market extends Fragment {
         xAxis.setDrawGridLines(false);
         //xAxis.enableGridDashedLine(5, 24, 0);
 
-
         YAxis yLAxis = lineChart.getAxisLeft();
         yLAxis.setTextColor(Color.BLACK);
         //yLAxis.setDrawGridLines(true);
         yLAxis.enableGridDashedLine(8, 24, 0);
-
 
         YAxis yRAxis = lineChart.getAxisRight();
         yRAxis.setDrawLabels(false);
@@ -242,9 +285,8 @@ public class Market extends Fragment {
 
         lineChart.setDescription(description);
 
-
         lineChart.invalidate();
-
+        */
 
         return view;
     }

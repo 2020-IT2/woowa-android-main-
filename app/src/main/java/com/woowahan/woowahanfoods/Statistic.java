@@ -41,7 +41,6 @@ import java.util.ArrayList;
 
 public class Statistic extends Fragment {
     final public ArrayList<City> cityArrayList = new ArrayList<City>();
-
     public String [] cityNames = new String[]{
             "강서구_map", "양천구_map", "구로구_map", "금천구_map", "관악구_map",
             "서초구_map", "강남구_map", "송파구_map", "강동구_map", "광진구_map",
@@ -50,6 +49,9 @@ public class Statistic extends Fragment {
             "용산구_map", "성동구_map", "동대문구_map", "서대문구_map", "중구_map"
     };
     public static final int whitegray = 0xFFE6E6E6;
+    public static final int white = Color.WHITE;
+    public static final int black = Color.BLACK;
+    public static final int selected = 0xff090090;
     private final static String TAG = MainActivity.class.getSimpleName();
 
     private MapView mMapView;
@@ -80,14 +82,14 @@ public class Statistic extends Fragment {
                         if(orgRichPath.getFillColor() == whitegray){
                             Log.d("SampleMap", "2nd IF");
                             RichPathAnimator.animate(orgRichPath)
-                                    .fillColor(0xff090090)
+                                    .fillColor(selected)
                                     .start();
                             linearLayout.setVisibility(View.VISIBLE);
                             linearLayout.animate().alpha(1.0f).setDuration(999);
                             textView.setText(city.getName().split("_")[0]);
                             richPath = richPathView.findRichPathByName(city.name.split("_")[0]);
                             RichPathAnimator.animate(richPath)
-                                    .fillColor(Color.WHITE)
+                                    .fillColor(white)
                                     .start();
                         }
                         else{
@@ -98,7 +100,7 @@ public class Statistic extends Fragment {
                                     .start();
                             richPath = richPathView.findRichPathByName(city.name.split("_")[0]);
                             RichPathAnimator.animate(richPath)
-                                    .fillColor(Color.BLACK)
+                                    .fillColor(black)
                                     .start();
                             linearLayout.setVisibility(View.GONE);
                             linearLayout.animate().alpha(0.0f);
@@ -111,7 +113,7 @@ public class Statistic extends Fragment {
 
                         richPath = richPathView.findRichPathByName(city.getName().split("_")[0]);
                         RichPathAnimator.animate(richPath)
-                                .fillColor(Color.BLACK)
+                                .fillColor(black)
                                 .start();
                     }
                 }

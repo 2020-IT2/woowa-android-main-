@@ -53,6 +53,9 @@ public class Market extends Fragment {
             "용산구_map", "성동구_map", "동대문구_map", "서대문구_map", "중구_map"
     };
     public static final int whitegray = 0xFFE6E6E6;
+    public static final int blue = 0xff090090;
+    public static final int black = 0xff000000;
+    public static final int white = 0xFFFFFFFF;
     private final static String TAG = MainActivity.class.getSimpleName();
 
     private MapView mMapView;
@@ -78,13 +81,15 @@ public class Market extends Fragment {
         market_card.setOnClickListener(new CardView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                market_text.setBackgroundColor(0);
-                market_text.setTextColor(0xFFFFFFFF);
+                market_text.setBackgroundColor(blue);
+                market_text.setTextColor(white);
 
-                people_text.setBackgroundColor(0xFFFFFFFF);
-                people_text.setTextColor(0);
+                people_text.setBackgroundColor(whitegray);
+                people_text.setTextColor(black);
 
                 market_frame.setVisibility(View.VISIBLE);
+                market_frame.animate().alpha(1.0f).setDuration(500);
+                people_frame.animate().alpha(0.0f).setDuration(500);
                 people_frame.setVisibility(View.INVISIBLE);
             }
         });
@@ -92,13 +97,15 @@ public class Market extends Fragment {
         market_text.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                market_text.setBackgroundColor(0);
-                market_text.setTextColor(0xFFFFFFFF);
+                market_text.setBackgroundColor(blue);
+                market_text.setTextColor(white);
 
-                people_text.setBackgroundColor(0xFFFFFFFF);
-                people_text.setTextColor(0);
+                people_text.setBackgroundColor(whitegray);
+                people_text.setTextColor(black);
 
                 market_frame.setVisibility(View.VISIBLE);
+                market_frame.animate().alpha(1.0f).setDuration(500);
+                people_frame.animate().alpha(0.0f).setDuration(500);
                 people_frame.setVisibility(View.INVISIBLE);
             }
         });
@@ -106,25 +113,31 @@ public class Market extends Fragment {
         people_card.setOnClickListener(new CardView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                people_text.setBackgroundColor(0);
-                people_text.setTextColor(0xFFFFFFFF);
+                people_text.setBackgroundColor(blue);
+                people_text.setTextColor(white);
 
-                market_text.setBackgroundColor(0xFFFFFFFF);
-                market_text.setTextColor(0);
+                market_text.setBackgroundColor(whitegray);
+                market_text.setTextColor(black);
+
+                market_frame.animate().alpha(0.0f).setDuration(500);
                 market_frame.setVisibility(View.INVISIBLE);
                 people_frame.setVisibility(View.VISIBLE);
+                people_frame.animate().alpha(1.0f).setDuration(500);
             }
         });
         people_text.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                people_text.setBackgroundColor(0);
-                people_text.setTextColor(0xFFFFFFFF);
+                people_text.setBackgroundColor(blue);
+                people_text.setTextColor(white);
 
-                market_text.setBackgroundColor(0xFFFFFFFF);
-                market_text.setTextColor(0);
-                market_frame.setVisibility(View.INVISIBLE);
+                market_text.setBackgroundColor(whitegray);
+                market_text.setTextColor(black);
                 people_frame.setVisibility(View.VISIBLE);
+                people_frame.animate().alpha(1.0f).setDuration(500);
+                market_frame.animate().alpha(0.0f).setDuration(500);
+                market_frame.setVisibility(View.INVISIBLE);
+
             }
         });
 

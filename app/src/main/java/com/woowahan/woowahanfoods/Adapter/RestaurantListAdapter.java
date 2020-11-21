@@ -138,6 +138,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         holder.tv_replys.setText(String.valueOf(list.get(position).replys));
         holder.tv_distance.setText("3" + " km");
         holder.tv_address.setText(list.get(position).address);
-        Glide.with(context).load(list.get(position).mediaURL).into(holder.imageView);
+        Glide.with(context).load(list.get(position).media_url).into(holder.imageView);
     }
 }

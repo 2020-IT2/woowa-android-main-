@@ -9,18 +9,17 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-
 import com.bumptech.glide.Glide;
-import com.woowahan.woowahanfoods.Dataframe.ImageData;
+import com.woowahan.woowahanfoods.Dataframe.Restaurant;
 import com.woowahan.woowahanfoods.R;
 
 import java.util.ArrayList;
 
 public class viewPageAdapter extends PagerAdapter {
     private Context mContext;
-    private ArrayList<ImageData> imageList;
+    private ArrayList<Restaurant> imageList;
 
-    public viewPageAdapter(Context context, ArrayList<ImageData> imageList)
+    public viewPageAdapter(Context context, ArrayList<Restaurant> imageList)
     {
         this.mContext = context;
         this.imageList = imageList;
@@ -44,7 +43,7 @@ public class viewPageAdapter extends PagerAdapter {
         return imageList.size();
     }
 
-    public void refresh(ArrayList<ImageData> items)
+    public void refresh(ArrayList<Restaurant> items)
     {
         this.imageList = items;
         notifyDataSetChanged();

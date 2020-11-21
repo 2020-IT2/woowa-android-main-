@@ -18,9 +18,9 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.woowahan.woowahanfoods.Adapter.viewPageAdapter;
 import com.woowahan.woowahanfoods.Dataframe.FeedResult;
-import com.woowahan.woowahanfoods.Dataframe.ImageData;
 import com.woowahan.woowahanfoods.Dataframe.MyAddress;
 import com.woowahan.woowahanfoods.Dataframe.User;
+import com.woowahan.woowahanfoods.Dataframe.Restaurant;
 import com.woowahan.woowahanfoods.httpConnection.RetrofitAdapter;
 import com.woowahan.woowahanfoods.httpConnection.RetrofitService;
 
@@ -35,7 +35,7 @@ public class Home extends Fragment  {
     public String sampleFeedID = "17922299383454246";
     public viewPageAdapter adapter;
     public viewPageAdapter adapter2;
-    public ArrayList<ImageData> imageDataList;
+    public ArrayList<Restaurant> imageDataList;
 
     public ArrayList<ImageButton> img_btns = new ArrayList<ImageButton>();
     public int [] icon_nams = new int[]{

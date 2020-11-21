@@ -14,16 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.woowahan.woowahanfoods.Adapter.RestaurantListAdapter;
-import com.woowahan.woowahanfoods.Dataframe.FeedResult;
-import com.woowahan.woowahanfoods.Dataframe.ImageData;
 import com.woowahan.woowahanfoods.Dataframe.Restaurant;
-import com.woowahan.woowahanfoods.Dataframe.SearchResultJson;
-import com.woowahan.woowahanfoods.httpConnection.RetrofitAdapter;
-import com.woowahan.woowahanfoods.httpConnection.RetrofitService;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
 
 public class SubPage extends Fragment implements RestaurantListAdapter.OnListItemSelectedInterface {
 
@@ -32,7 +25,7 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
     public String sampleFeedID = "17922299383454246";
     int currentPage = 1;
     final int countPerPage = 15;
-    public ArrayList<ImageData> imageDataList;
+    public ArrayList<Restaurant> imageDataList;
     public Location loc;
 
     private static final String ARG_SECTION_NUMBER = "section_number";

@@ -26,6 +26,9 @@ public interface RetrofitService {
     @GET("/search/schoolList")
     Call<RestaurantSearchResult> searchSchoolList(@Query("schoolName") String schoolName);
 
+    @GET("/17841442985795349/media")
+    Call<FeedResult> getFeeds(@Query("fields") String fields, @Query("access_token") String access_token);
+
     @GET("/{id}/children")
     Call<FeedResult> getFeedDetails(@Path("id") String id, @Query("fields") String fields, @Query("access_token") String access_token);
 }

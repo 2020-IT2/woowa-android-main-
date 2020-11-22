@@ -1,5 +1,7 @@
 package com.woowahan.woowahanfoods.Dataframe;
 
+import com.woowahan.woowahanfoods.DataModel.MyAddress;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

@@ -24,17 +24,17 @@ import com.google.gson.reflect.TypeToken;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.NaverMap;
-import com.naver.maps.map.NaverMapOptions;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.PolygonOverlay;
-import com.naver.maps.map.overlay.PolylineOverlay;
 import com.woowahan.woowahanfoods.Dataframe.CoordinateFrame;
-import com.woowahan.woowahanfoods.Dataframe.MyAddress;
+import com.woowahan.woowahanfoods.DataModel.MyAddress;
 import com.woowahan.woowahanfoods.Dataframe.User;
+import com.woowahan.woowahanfoods.Home.Fragment.Home;
+import com.woowahan.woowahanfoods.Market.Fragment.Market;
+import com.woowahan.woowahanfoods.Statistic.Fragment.Statistic;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -42,7 +42,6 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {

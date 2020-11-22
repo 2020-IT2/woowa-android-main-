@@ -3,4 +3,5 @@
     <string name="shapefile_read_permission_denied">shape file read permission denied</string>
     <string name="shapefile_folder"></string>
     <string name="subdivisions_shp">seoul_municipalities</string>
+    <string name="kakao_app_key">d5e6beb9a6e3e3897479ff5344a8190c</string>
 </resources>

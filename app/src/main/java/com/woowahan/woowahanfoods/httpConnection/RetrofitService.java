@@ -5,6 +5,7 @@ import com.woowahan.woowahanfoods.Dataframe.FeedResult;
 import com.woowahan.woowahanfoods.Dataframe.RestaurantSearchResult;
 import com.woowahan.woowahanfoods.Dataframe.SearchResultJson;
 import com.woowahan.woowahanfoods.Dataframe.SearchResultJson2;
+import com.woowahan.woowahanfoods.httpConnection.Response.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -14,6 +15,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
+    @GET("/auth/login")
+    Call<LoginResponse> kakaoLogin(@Query("id") long id, @Query("token") String token);
+
     @GET("/addrlink/addrLinkApi.do")
     Call<SearchResultJson> searchAddress(@Query("confmKey") String confmKey, @Query("currentPage") int currentPage, @Query("countPerPage") int countPerPage, @Query("keyword") String keyword, @Query("resultType") String resultType);
 

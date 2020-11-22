@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white_gray"
-    tools:context=".Address">
+    tools:context=".Address.Fragment.Address">
 
     <LinearLayout
         android:background="@color/white"

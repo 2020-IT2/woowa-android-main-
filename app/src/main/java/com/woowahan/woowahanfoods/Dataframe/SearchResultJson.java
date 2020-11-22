@@ -1,5 +1,7 @@
 package com.woowahan.woowahanfoods.Dataframe;
 
+import com.woowahan.woowahanfoods.DataModel.Juso;
+
 import java.util.ArrayList;
 
 public class SearchResultJson {

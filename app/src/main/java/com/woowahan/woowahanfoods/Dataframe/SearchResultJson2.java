@@ -1,6 +1,6 @@
 package com.woowahan.woowahanfoods.Dataframe;
 
-import java.util.ArrayList;
+import com.woowahan.woowahanfoods.DataModel.Juso;
 
 public class SearchResultJson2 {
     public Result results;

@@ -1,5 +1,6 @@
 package com.woowahan.woowahanfoods.Dataframe;
 
+import com.woowahan.woowahanfoods.DataModel.Restaurant;
 import com.woowahan.woowahanfoods.httpConnection.BaseResponse;
 
 import java.util.ArrayList;

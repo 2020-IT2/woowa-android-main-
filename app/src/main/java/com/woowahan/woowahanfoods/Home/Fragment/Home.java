@@ -114,21 +114,17 @@ public class Home extends Fragment {
         ViewPager viewPager2 = view.findViewById(R.id.viewPager2);
         viewPager2.setClipToPadding(false);
 
-//        float density = getResources().getDisplayMetrics().density;
-//        int margin = (int) (DP * density);
-//        viewPager.setPadding(margin, 0, margin, 0);
-//        viewPager.setPageMargin(margin/2);
+        float density = getResources().getDisplayMetrics().density;
+        int margin = (int) (DP * density);
+        viewPager.setPadding(margin, 0, margin, 0);
+        viewPager.setPageMargin(margin/2);
         adapter = new viewPageAdapter(getContext(), imageDataList);
         viewPager.setAdapter(adapter);
 
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_lay);
-        tabLayout.setupWithViewPager(viewPager, true);
-
+        viewPager2.setPadding(margin, 0, margin, 0);
+        viewPager2.setPageMargin(margin/2);
         adapter2 = new viewPageAdapter(getContext(), imageDataList);
         viewPager2.setAdapter(adapter2);
-
-        TabLayout tabLayout2 = (TabLayout) view.findViewById(R.id.tab_layout2);
-        tabLayout2.setupWithViewPager(viewPager2, true);
 
         getPhotos();
         getHashKey();

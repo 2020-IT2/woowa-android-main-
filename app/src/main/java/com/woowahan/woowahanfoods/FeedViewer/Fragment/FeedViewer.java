@@ -97,7 +97,6 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
         View view = inflater.inflate(R.layout.fragment_feed_viewer, container, false);
         view.setClickable(true);
 
-
         // 호출
         Bundle bundle = getArguments();
         if(bundle!=null){
@@ -118,6 +117,7 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
         imageDataList = new ArrayList<>();
         final ViewPager viewPager = view.findViewById(R.id.viewPager);
         viewPager.setClipToPadding(false);
+
         feedAapter = new FeedAapter(getContext(), imageDataList);
         viewPager.setAdapter(feedAapter);
 
@@ -156,6 +156,7 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
                 //ACTION_UP is constant that means "A person's hand is put off on touch panel".
                 else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     upX = motionEvent.getX();
+                    // 그냥 터치로 인식
                     if (Math.abs(downX-upX)<5){
                         if(hoverMode){
                             // card view
@@ -199,15 +200,28 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
                             hoverMode = true;
                         }
                     }
+                    // 오른쪽에서 왼쪽으로 스크롤
                     if (upX < downX) {
                         viewPager.setCurrentItem(viewPager.getCurrentItem()+1, true);
-                    } else if (upX > downX) {
+                    }
+                    // 왼쪽에서 오른쪽으로 스크롤
+                    else if (upX > downX) {
                         viewPager.setCurrentItem(viewPager.getCurrentItem()-1, true);
                     }
                     updateText(viewPager.getCurrentItem());
                     return true;
                 }
                 return true;
+            }
+        });
+
+        title.setClickable(true);
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).replaceFragmentFull(RestaurantMap.newInstance(
+                        imageDataList.get(0).restaurantName, imageDataList.get(0).address, (float)imageDataList.get(0).lat,
+                        (float)imageDataList.get(0).lon));
             }
         });
 
@@ -292,11 +306,11 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
 
     @Override
     public void onItemSelected(View v, int position) {
-
+        ((MainActivity)getActivity()).replaceFragmentFull(FeedViewer.newInstance(imgList.get(position)));
     }
 
     public void updateText(int position){
-        title.setText(imageDataList.get(position).regionName);
+        title.setText(imageDataList.get(position).restaurantName);
         numLike.setText("종아요 " + imageDataList.get(position).likes);
         numComment.setText("댓글 " + imageDataList.get(position).replys);
         caption.setText(imageDataList.get(position).restaurantDetail);

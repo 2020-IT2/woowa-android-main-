@@ -399,17 +399,8 @@
                 android:layout_weight="7"
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:layout_height="200dp">
             </androidx.viewpager.widget.ViewPager>
-            <com.google.android.material.tabs.TabLayout
-                android:background="@color/transparent"
-                app:tabBackground="@drawable/tab_selector"
-                app:tabGravity="center"
-                app:tabIndicatorHeight="0dp"
-                android:id="@+id/tab_lay"
-                android:layout_marginHorizontal="40dp"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -422,7 +413,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="내일 이건 어때요?"
+                android:text="당신의 취향 저격"
                 android:fontFamily="@font/eleven"
                 android:layout_marginVertical="10dp"
                 android:textSize="20dp"/>
@@ -431,18 +422,13 @@
                 android:layout_weight="7"
                 android:id="@+id/viewPager2"
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:layout_height="200dp">
             </androidx.viewpager.widget.ViewPager>
-            <com.google.android.material.tabs.TabLayout
-                android:background="@color/transparent"
-                app:tabBackground="@drawable/tab_selector"
-                app:tabGravity="center"
-                app:tabIndicatorHeight="0dp"
-                android:id="@+id/tab_layout2"
-                android:layout_marginHorizontal="40dp"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
 
     </LinearLayout>
     </androidx.core.widget.NestedScrollView>

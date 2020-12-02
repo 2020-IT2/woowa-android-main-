@@ -51,11 +51,14 @@ public class SearchAdapter extends BaseAdapter {
 
             viewHolder = new ViewHolder();
             viewHolder.label = (TextView) convertView.findViewById(R.id.label);
+            viewHolder.subLabel = (TextView) convertView.findViewById(R.id.subLabel);
 
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder)convertView.getTag();
         }
+
+        viewHolder.subLabel.setText(list.get(position).regionName);
 
         // 검색한 쿼리와 동일한 부분을 강조한다.
         String query = tvSearchText.getText().toString();
@@ -72,6 +75,7 @@ public class SearchAdapter extends BaseAdapter {
 
     class ViewHolder{
         public TextView label;
+        public TextView subLabel;
     }
 
 }

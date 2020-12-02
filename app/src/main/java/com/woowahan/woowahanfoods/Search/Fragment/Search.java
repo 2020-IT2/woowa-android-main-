@@ -25,6 +25,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.woowahan.woowahanfoods.DataModel.Hashtag;
+import com.woowahan.woowahanfoods.Dataframe.HashtagData;
 import com.woowahan.woowahanfoods.FeedViewer.Fragment.FeedViewer;
 import com.woowahan.woowahanfoods.Search.Adapter.SearchAdapter;
 import com.woowahan.woowahanfoods.DataModel.Restaurant;
@@ -46,7 +48,7 @@ public class Search extends Fragment {
     private ActionBar actionbar;
     public boolean hashtagMode;
 
-    private List<Restaurant> list;          // 데이터를 넣은 리스트변수
+    private List<Hashtag> list;          // 데이터를 넣은 리스트변수
     private ListView listView;          // 검색을 보여줄 리스트변수
     private EditText editSearch;        // 검색어를 입력할 Input 창
     private SearchAdapter adapter;      // 리스트뷰에 연결할 아답터
@@ -86,20 +88,20 @@ public class Search extends Fragment {
         });
         editSearch = view.findViewById(R.id.edit_search);
         listView = view.findViewById(R.id.listView);
-        list = new ArrayList<Restaurant>();
+        list = new ArrayList<Hashtag>();
         adapter = new SearchAdapter(list, getContext(), editSearch);
         listView.setAdapter(adapter);
         ViewCompat.setNestedScrollingEnabled(listView,true);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                restaurant = list.get(i);
-                editSearch.setText("");
-                list.clear();
-                adapter.notifyDataSetChanged();
-                ((MainActivity)getActivity()).replaceFragmentFull(FeedViewer.newInstance(restaurant));
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                restaurant = list.get(i);
+//                editSearch.setText("");
+//                list.clear();
+//                adapter.notifyDataSetChanged();
+//                ((MainActivity)getActivity()).replaceFragmentFull(FeedViewer.newInstance(restaurant));
+//            }
+//        });
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -139,17 +141,17 @@ public class Search extends Fragment {
         }
 
         RetrofitAdapter rAdapter = new RetrofitAdapter();
-        RetrofitService service = rAdapter.getInstance("http://49.50.164.11:5000", getActivity());
+        RetrofitService service = rAdapter.getInstance(getActivity());
 //        Call<RestaurantSearchResult> call = service.searchRestaurant(query, "관악구");
-        Call<RestaurantSearchResult> call = service.searchSchoolList(query);
-        call.enqueue(new retrofit2.Callback<RestaurantSearchResult>() {
+        Call<HashtagData> call = service.searchHashtag(query);
+        call.enqueue(new retrofit2.Callback<HashtagData>() {
             @Override
-            public void onResponse(Call<RestaurantSearchResult> call, retrofit2.Response<RestaurantSearchResult> response) {
+            public void onResponse(Call<HashtagData> call, retrofit2.Response<HashtagData> response) {
                 if (response.isSuccessful()) {
                     if(response.body().checkError(getContext()) != 0) {
                         return;
                     }
-                    RestaurantSearchResult result = response.body();
+                    HashtagData result = response.body();
                     list.clear();
                     list.addAll(result.body);
                     adapter.notifyDataSetChanged();
@@ -160,7 +162,7 @@ public class Search extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<RestaurantSearchResult> call, Throwable t) {
+            public void onFailure(Call<HashtagData> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.woowahan.woowahanfoods.DataModel.Hashtag;
 import com.woowahan.woowahanfoods.DataModel.Restaurant;
 import com.woowahan.woowahanfoods.R;
 import com.woowahan.woowahanfoods.Utils.TextUtils;
@@ -16,12 +17,12 @@ import java.util.List;
 public class SearchAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Restaurant> list;
+    private List<Hashtag> list;
     private LayoutInflater inflate;
     private ViewHolder viewHolder;
     private TextView tvSearchText;
 
-    public SearchAdapter(List<Restaurant> list, Context context, TextView searchText){
+    public SearchAdapter(List<Hashtag> list, Context context, TextView searchText){
         this.list = list;
         this.context = context;
         this.inflate = LayoutInflater.from(context);
@@ -57,18 +58,18 @@ public class SearchAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder)convertView.getTag();
         }
-
-        viewHolder.subLabel.setText(list.get(position).regionName);
+        viewHolder.label.setText(list.get(position).hashtag);
+        viewHolder.subLabel.setText(list.get(position).sim);
 
         // 검색한 쿼리와 동일한 부분을 강조한다.
-        String query = tvSearchText.getText().toString();
-        viewHolder.label.setText("");
-        int start = list.get(position).schoolName.indexOf(query);
-        if (start != -1){
-            TextUtils.setColorInPartitial(list.get(position).schoolName, start, start+query.length(), "#03DAC5", viewHolder.label);
-        } else {
-            viewHolder.label.setText(list.get(position).schoolName);
-        }
+//        String query = tvSearchText.getText().toString();
+//        viewHolder.label.setText("");
+//        int start = list.get(position).schoolName.indexOf(query);
+//        if (start != -1){
+//            TextUtils.setColorInPartitial(list.get(position).schoolName, start, start+query.length(), "#03DAC5", viewHolder.label);
+//        } else {
+//            viewHolder.label.setText(list.get(position).schoolName);
+//        }
 
         return convertView;
     }

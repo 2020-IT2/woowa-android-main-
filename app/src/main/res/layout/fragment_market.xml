@@ -130,51 +130,10 @@
                             android:layout_marginRight="10dp"
                             app:cardElevation="3dp">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:gravity="center"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="10dp"
-                                    android:layout_height="15dp"
-                                    android:layout_weight="1"
-                                    android:src="@drawable/ic_dot"></ImageView>
-
-                                <LinearLayout
-                                    android:layout_width="15dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="9"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text=" 332명"
-                                        android:textColor="@color/black"
-                                        android:textSize="30dp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:layout_marginBottom="5dp"
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/eleven"
-                                        android:gravity="bottom"
-                                        android:text="Day"
-                                        android:textSize="20dp" />
-                                </LinearLayout>
-
-                            </LinearLayout>
-
                             <com.github.mikephil.charting.charts.LineChart
                                 android:id="@+id/lineChart"
                                 android:layout_width="match_parent"
-                                android:layout_height="200dp"
-                                android:layout_marginTop="40dp" />
+                                android:layout_height="250dp" />
 
                         </androidx.cardview.widget.CardView>
                     </FrameLayout>
@@ -193,52 +152,10 @@
                             android:layout_marginRight="10dp"
                             app:cardElevation="3dp">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:gravity="center"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="10dp"
-                                    android:layout_height="15dp"
-                                    android:layout_weight="1"
-
-                                    android:src="@drawable/ic_dot"></ImageView>
-
-                                <LinearLayout
-                                    android:layout_width="15dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="9"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/dohuyn"
-                                        android:text=" 402명"
-                                        android:textColor="@color/black"
-                                        android:textSize="30dp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:layout_marginBottom="5dp"
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/eleven"
-                                        android:gravity="bottom"
-                                        android:text="Day"
-                                        android:textSize="20dp" />
-                                </LinearLayout>
-
-                            </LinearLayout>
-
                             <com.github.mikephil.charting.charts.LineChart
                                 android:id="@+id/lineChart2"
                                 android:layout_width="match_parent"
-                                android:layout_height="400dp"
-                                android:layout_marginTop="40dp" />
+                                android:layout_height="250dp"/>
 
                         </androidx.cardview.widget.CardView>
                     </FrameLayout>
@@ -290,12 +207,20 @@
                                 android:textSize="25sp"
                                 android:gravity="center"/>
                             <LinearLayout
-                                android:id="@+id/address"
+                                android:id="@+id/ll_foodcategory"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
+                                <Spinner
+                                    android:id="@+id/foodcategory_spinner"
+                                    android:layout_width="300dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:spinnerMode="dialog"
+                                    />
+                                <!--
                                 <TextView
-                                    android:id="@+id/tv_homeaddress"
+                                    android:id="@+id/tv_category"
                                     android:layout_width="180dp"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/eleven"
@@ -310,6 +235,8 @@
                                     android:src="@drawable/ic_arrowdown"
                                     android:layout_marginLeft="5dp"
                                     android:layout_gravity="center"/>
+                                -->
+                                
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>

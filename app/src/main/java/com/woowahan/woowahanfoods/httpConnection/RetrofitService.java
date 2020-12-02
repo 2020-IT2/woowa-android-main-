@@ -2,6 +2,7 @@ package com.woowahan.woowahanfoods.httpConnection;
 
 import com.google.gson.JsonObject;
 import com.woowahan.woowahanfoods.Dataframe.FeedResult;
+import com.woowahan.woowahanfoods.Dataframe.HashtagData;
 import com.woowahan.woowahanfoods.Dataframe.RestaurantSearchResult;
 import com.woowahan.woowahanfoods.Dataframe.SearchResultJson;
 import com.woowahan.woowahanfoods.Dataframe.SearchResultJson2;
@@ -29,6 +30,9 @@ public interface RetrofitService {
 
     @GET("/search/schoolList")
     Call<RestaurantSearchResult> searchSchoolList(@Query("schoolName") String schoolName);
+
+    @GET("/search/hashTag")
+    Call<HashtagData> searchHashtag(@Query("hashtag") String hashtag);
 
     @GET("/17841442985795349/media")
     Call<FeedResult> getFeeds(@Query("fields") String fields, @Query("access_token") String access_token);

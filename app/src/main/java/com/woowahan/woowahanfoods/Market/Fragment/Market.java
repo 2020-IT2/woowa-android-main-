@@ -6,9 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +39,7 @@ import com.woowahan.woowahanfoods.R;
 import java.util.ArrayList;
 
 public class Market extends Fragment {
+    Spinner spinner;
     private int chartLineColor = 0xff9e9fae;
     private int chartPointColor = 0xff9e9fae;
     private LineChart lineChart;
@@ -63,7 +67,6 @@ public class Market extends Fragment {
 
     private MapView mMapView;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_market, container, false);
@@ -79,7 +82,13 @@ public class Market extends Fragment {
         for(String cityName : cityNames){
             cityArrayList.add(new City(cityName));
         }
-        ImageView button = view.findViewById(R.id.btn);
+        spinner = view.findViewById(R.id.foodcategory_spinner);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,);
+
+
+        ArrayAdapter monthAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.category, android.R.layout.simple_spinner_dropdown_item);
+        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(monthAdapter);
 
         market_card.setOnClickListener(new CardView.OnClickListener() {
             @Override
@@ -197,13 +206,9 @@ public class Market extends Fragment {
                 Log.d("SampleMap", "fifth");
             }
         });
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity)getActivity()).replaceFragmentFull(new SampleMap());
-            }
-        });
 
+        /*----------------------------------------------------------------------------------------*/
+        // 시장크기 그래프
         LineChart lineChart = view.findViewById(R.id.lineChart);
         ArrayList<Entry> entries = new ArrayList<>();
         for(int i = 0;i<10;i++){
@@ -211,6 +216,9 @@ public class Market extends Fragment {
             entries.add(new Entry(i, val));
         }
 
+        for(int i = 0 ; i < 10;i++){
+
+        }
         LineDataSet set1;
         set1 = new LineDataSet(entries, "DataSet 1");
 
@@ -225,7 +233,7 @@ public class Market extends Fragment {
         set1.setColor(chartLineColor);
         set1.setCircleColor(chartPointColor);
         set1.setLineWidth(2);
-        set1.setDrawFilled(true); //차트 아래 색 채우기
+        //set1.setDrawFilled(true); //차트 아래 색 채우기
         set1.setFillColor(chartLineColor); //차트 아래 색 설정
 
         //label
@@ -252,6 +260,52 @@ public class Market extends Fragment {
 
 
 
+        /*----------------------------------------------------------------------------------------*/
+        // 유동인구 그래프
+        LineChart lineChart2 = view.findViewById(R.id.lineChart2);
+        ArrayList<Entry> entries2 = new ArrayList<>();
+        for(int i = 0;i<10;i++){
+            float val = (float) (Math.random()*10);
+            entries2.add(new Entry(i, val));
+        }
+
+        LineDataSet set_v2;
+        set_v2 = new LineDataSet(entries2, "DataSet 2");
+
+        ArrayList<ILineDataSet> dataSets2 = new ArrayList<>();
+        dataSets2.add(set_v2); //add the data sets
+
+        //create a data object with the data sets
+        LineData data2= new LineData(dataSets2);
+
+        //꾸미기
+        lineChart2.setBackgroundColor(Color.WHITE);
+        set_v2.setColor(chartLineColor);
+        set_v2.setCircleColor(chartPointColor);
+        set_v2.setLineWidth(2);
+        set_v2.setDrawFilled(true); //차트 아래 색 채우기
+        set_v2.setFillColor(chartLineColor); //차트 아래 색 설정
+
+        //label
+        XAxis xAxis2 = lineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //라벨링 아래에
+        xAxis.setDrawGridLines(false);
+        //xAxis.setTextColor(Color.BLACK); //글씨색 설정
+
+        YAxis yLAxis2 = lineChart2.getAxisLeft();
+        //yLAxis.setTextColor(Color.BLACK); //글씨색 설정
+
+        YAxis yRAxis2 = lineChart2.getAxisRight();
+        yRAxis2.setDrawLabels(false);
+        yRAxis2.setDrawAxisLine(false);
+        //yRAxis.setDrawGridLines(false);
+
+        Description description2 = new Description();
+        description2.setText("");
+        lineChart2.setDescription(description2);
+
+        //set data
+        lineChart2.setData(data2);
 
 
         /*

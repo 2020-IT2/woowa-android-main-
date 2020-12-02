@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,6 +51,8 @@ public class startUpActivity extends AppCompatActivity {
                 "auto", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String autoLogin = sharedPref.getString("autoLogin", null);
+        String keyHash = com.kakao.util.helper.Utility.getKeyHash(this);
+        Log.d("HASH_KEY", keyHash);
 
         if (autoLogin != null) {
             String expStr = sharedPref.getString("expDate", null);

@@ -3,6 +3,8 @@ package com.woowahan.woowahanfoods.Market.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+
+import java.lang.reflect.Type;
 import java.util.List;
 import java.io.*;
 import android.view.LayoutInflater;
@@ -30,6 +32,9 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.naver.maps.map.MapView;
 import com.richpath.RichPath;
 import com.richpath.RichPathView;
@@ -37,9 +42,6 @@ import com.richpathanimator.RichPathAnimator;
 import com.woowahan.woowahanfoods.DataModel.City;
 import com.woowahan.woowahanfoods.MainActivity;
 import com.woowahan.woowahanfoods.R;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -93,24 +95,53 @@ public class Market extends Fragment {
     }
     private void jsonParsing(String json){
         try{
+//            Region_List.clear();
+//
+//            JSONObject jsonObject = new JSONObject(json);
+//
+//            JSONArray valueArray = jsonObject.getJSONArray("values");
+//
+//            for(int i=0; i<valueArray.length(); i++)
+//            {
+//                JSONObject valueObject = valueArray.getJSONObject(i);
+//
+//                Region region = new Region();
+//
+//                region.setDate(valueObject.getInt("result__data__period"));
+//                region.setValue(valueObject.getInt("result__data_value"));
+//                region.setRegion(valueObject.getString("result__title"));
+//
+//                Region_List.add(region);
+//            }
             Region_List.clear();
-            JSONObject jsonObject = new JSONObject(json);
-
-            JSONArray valueArray = jsonObject.getJSONArray("values");
-
-            for(int i=0; i<valueArray.length(); i++)
-            {
-                JSONObject valueObject = valueArray.getJSONObject(i);
-
-                Region region = new Region();
-
-                region.setDate(valueObject.getInt("result__data__period"));
-                region.setValue(valueObject.getInt("result__data_value"));
-                region.setRegion(valueObject.getString("result__title"));
-
-                Region_List.add(region);
+            InputStream ins = getResources().openRawResource(R.raw.gangnam);
+            Writer writer = new StringWriter();
+            char[] buffer = new char[1024];
+            try {
+                Reader reader = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
+                int n;
+                while ((n = reader.read(buffer)) != -1) {
+                    writer.write(buffer, 0, n);
+                }
+            } catch (IOException e){
+                e.printStackTrace();
             }
-        }catch (JSONException e) {
+            finally {
+                try {
+                    ins.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            String jsonString = writer.toString();
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+
+            Region_List.addAll((List<Region>)gson.fromJson(jsonString, new TypeToken<List<Region>>() {
+            }.getType()));
+
+        }catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -265,17 +296,71 @@ public class Market extends Fragment {
 
         return view;
     }
+    private void setChart(List<Record> records) {
+        LineChart lineChart = binding.lineChart;
+        lineChart.invalidate(); //차트 초기화 작업
+        lineChart.clear();
+
+        ArrayList<Entry> values = new ArrayList<>();//차트 데이터 셋에 담겨질 데이터
+
+        for (Record record : records) { //values에 데이터를 담는 과정
+            long dateTime = record.getDateTime();
+            float weight = (float) record.getWeight();
+            values.add(new Entry(dateTime, weight));
+        }
+
+        /*몸무게*/
+        LineDataSet lineDataSet = new LineDataSet(values, getString(R.string.weight)); //LineDataSet 선언
+        lineDataSet.setColor(ContextCompat.getColor(getContext(), R.color.purple)); //LineChart에서 Line Color 설정
+        lineDataSet.setCircleColor(ContextCompat.getColor(getContext(), R.color.purple)); // LineChart에서 Line Circle Color 설정
+        lineDataSet.setCircleHoleColor(ContextCompat.getColor(getContext(), R.color.purple)); // LineChart에서 Line Hole Circle Color 설정
+
+        LineData lineData = new LineData(); //LineDataSet을 담는 그릇 여러개의 라인 데이터가 들어갈 수 있습니다.
+        lineData.addDataSet(lineDataSet);
+
+        lineData.setValueTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); //라인 데이터의 텍스트 컬러 설정
+        lineData.setValueTextSize(9);
+
+        XAxis xAxis = lineChart.getXAxis(); // x 축 설정
+        xAxis.setPosition(XAxis.XAxisPosition.TOP); //x 축 표시에 대한 위치 설정
+        xAxis.setValueFormatter(new ChartXValueFormatter()); //X축의 데이터를 제 가공함. new ChartXValueFormatter은 Custom한 소스
+        xAxis.setLabelCount(5, true); //X축의 데이터를 최대 몇개 까지 나타낼지에 대한 설정 5개 force가 true 이면 반드시 보여줌
+        xAxis.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); // X축 텍스트컬러설정
+        xAxis.setGridColor(ContextCompat.getColor(getContext(), R.color.textColor)); // X축 줄의 컬러 설정
+
+        YAxis yAxisLeft = lineChart.getAxisLeft(); //Y축의 왼쪽면 설정
+        yAxisLeft.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); //Y축 텍스트 컬러 설정
+        yAxisLeft.setGridColor(ContextCompat.getColor(getContext(), R.color.textColor)); // Y축 줄의 컬러 설정
+
+        YAxis yAxisRight = lineChart.getAxisRight(); //Y축의 오른쪽면 설정
+        yAxisRight.setDrawLabels(false);
+        yAxisRight.setDrawAxisLine(false);
+        yAxisRight.setDrawGridLines(false);
+        //y축의 활성화를 제거함
+
+        lineChart.setVisibleXRangeMinimum(60 * 60 * 24 * 1000 * 5); //라인차트에서 최대로 보여질 X축의 데이터 설정
+        lineChart.setDescription(null); //차트에서 Description 설정 저는 따로 안했습니다.
+
+        Legend legend = lineChart.getLegend(); //레전드 설정 (차트 밑에 색과 라벨을 나타내는 설정)
+        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);//하단 왼쪽에 설정
+        legend.setTextColor(ContextCompat.getColor(getContext(), R.color.textColor)); // 레전드 컬러 설정
+
+        lineChart.setData(lineData);
+    }
+
 
     private void draw_graph(List<Region> region_list){
         ArrayList<Entry> entries = new ArrayList<>();
         for (int i =0; i < region_list.size(); i++) {
-            int xval = region_list.get(i).getDate();
+            String xval = region_list.get(i).getDate();
             Log.d("SampleMap2", "xval : " + xval);
             int yval = region_list.get(i).getValue();
             Log.d("SampleMap2", "yval : " + yval);
             entries.add(new Entry(xval, yval));
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i =0; i < region_list.size(); i++) {
+            int yval = region_list.get(i).getValue();
+            Log.d("SampleMap2", "yval : " + yval);
 
         }
         LineDataSet set1;

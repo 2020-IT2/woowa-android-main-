@@ -1,31 +1,31 @@
 package com.woowahan.woowahanfoods.Market.Fragment;
 
 public class Region {
-    private int date;
-    private int value;
-    private String Seoul_Region;
+    private String result__data__period;
+    private int result__data__value;
+    private String result__title;
 
-    public int getDate() {
-        return date;
+    public String getDate() {
+        return result__data__period;
     }
 
     public int getValue() {
-        return value;
+        return result__data__value;
     }
 
     public String getRegion() {
-        return Seoul_Region;
+        return result__title;
     }
 
     public void setDate(int date) {
-        this.date = date;
+        this.result__data__period = Integer.toString(date);
     }
 
     public void setValue(int value) {
-        this.value = value;
+        this.result__data__value = value;
     }
 
     public void setRegion(String region) {
-        this.Seoul_Region = region;
+        this.result__title = region;
     }
 }

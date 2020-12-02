@@ -52,7 +52,6 @@ public class startUpActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String autoLogin = sharedPref.getString("autoLogin", null);
         String keyHash = com.kakao.util.helper.Utility.getKeyHash(this);
-        keyHash= "Vor8a06DbS4qsj2cxzdNKKyqlnk=";
         Log.d("HASH_KEY", keyHash);
         if (autoLogin != null) {
             String expStr = sharedPref.getString("expDate", null);

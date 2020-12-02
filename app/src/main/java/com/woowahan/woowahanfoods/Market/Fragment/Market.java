@@ -3,6 +3,8 @@ package com.woowahan.woowahanfoods.Market.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import java.util.List;
+import java.io.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,9 @@ import com.richpathanimator.RichPathAnimator;
 import com.woowahan.woowahanfoods.DataModel.City;
 import com.woowahan.woowahanfoods.MainActivity;
 import com.woowahan.woowahanfoods.R;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -65,7 +70,53 @@ public class Market extends Fragment {
     public static final int white = 0xFFFFFFFF;
     private final static String TAG = MainActivity.class.getSimpleName();
 
+    private String getJsonString(String region){
+        String json = "";
+
+        try {
+            InputStream is = getActivity().getResources().openRawResource(R.raw.gangnam);
+                    //getAssets().open("gangnam.json");
+            int fileSize = is.available();
+
+            byte[] buffer = new byte[fileSize];
+            is.read(buffer);
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return json;
+    }
+    private void jsonParsing(String json){
+        try{
+            Region_List.clear();
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray valueArray = jsonObject.getJSONArray("values");
+
+            for(int i=0; i<valueArray.length(); i++)
+            {
+                JSONObject valueObject = valueArray.getJSONObject(i);
+
+                Region region = new Region();
+
+                region.setDate(valueObject.getInt("result__data__period"));
+                region.setValue(valueObject.getInt("result__data_value"));
+                region.setRegion(valueObject.getString("result__title"));
+
+                Region_List.add(region);
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     private MapView mMapView;
+    public List<Region> Region_List = new ArrayList<Region>();
+    public String json_data = new String();
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -152,7 +203,7 @@ public class Market extends Fragment {
 
             }
         });
-
+        lineChart = view.findViewById(R.id.lineChart);
 
         richPathView.setOnPathClickListener(new RichPath.OnPathClickListener() {
             @Override
@@ -175,6 +226,9 @@ public class Market extends Fragment {
                             if(textView.getVisibility() == View.INVISIBLE)
                                 textView.setVisibility(View.VISIBLE);
                             textView.setText(city.getName().split("_")[0]);
+                            json_data = getJsonString(city.getName().split("_")[0]);
+                            jsonParsing(json_data);
+                            draw_graph(Region_List);
                             richPath = richPathView.findRichPathByName(city.name.split("_")[0]);
                             RichPathAnimator.animate(richPath)
                                     .fillColor(Color.WHITE)
@@ -207,16 +261,21 @@ public class Market extends Fragment {
             }
         });
 
-        /*----------------------------------------------------------------------------------------*/
-        // 시장크기 그래프
-        LineChart lineChart = view.findViewById(R.id.lineChart);
-        ArrayList<Entry> entries = new ArrayList<>();
-        for(int i = 0;i<10;i++){
-            float val = (float) (Math.random()*10);
-            entries.add(new Entry(i, val));
-        }
 
-        for(int i = 0 ; i < 10;i++){
+
+        return view;
+    }
+
+    private void draw_graph(List<Region> region_list){
+        ArrayList<Entry> entries = new ArrayList<>();
+        for (int i =0; i < region_list.size(); i++) {
+            int xval = region_list.get(i).getDate();
+            Log.d("SampleMap2", "xval : " + xval);
+            int yval = region_list.get(i).getValue();
+            Log.d("SampleMap2", "yval : " + yval);
+            entries.add(new Entry(xval, yval));
+        }
+        for (int i = 0; i < 10; i++) {
 
         }
         LineDataSet set1;
@@ -226,7 +285,7 @@ public class Market extends Fragment {
         dataSets.add(set1); //add the data sets
 
         //create a data object with the data sets
-        LineData data= new LineData(dataSets);
+        LineData data = new LineData(dataSets);
 
         //꾸미기
         lineChart.setBackgroundColor(Color.WHITE);
@@ -254,110 +313,10 @@ public class Market extends Fragment {
         lineChart.setDescription(description);
 
 
-
         //set data
         lineChart.setData(data);
 
 
-
-        /*----------------------------------------------------------------------------------------*/
-        // 유동인구 그래프
-        LineChart lineChart2 = view.findViewById(R.id.lineChart2);
-        ArrayList<Entry> entries2 = new ArrayList<>();
-        for(int i = 0;i<10;i++){
-            float val = (float) (Math.random()*10);
-            entries2.add(new Entry(i, val));
-        }
-
-        LineDataSet set_v2;
-        set_v2 = new LineDataSet(entries2, "DataSet 2");
-
-        ArrayList<ILineDataSet> dataSets2 = new ArrayList<>();
-        dataSets2.add(set_v2); //add the data sets
-
-        //create a data object with the data sets
-        LineData data2= new LineData(dataSets2);
-
-        //꾸미기
-        lineChart2.setBackgroundColor(Color.WHITE);
-        set_v2.setColor(chartLineColor);
-        set_v2.setCircleColor(chartPointColor);
-        set_v2.setLineWidth(2);
-        set_v2.setDrawFilled(true); //차트 아래 색 채우기
-        set_v2.setFillColor(chartLineColor); //차트 아래 색 설정
-
-        //label
-        XAxis xAxis2 = lineChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //라벨링 아래에
-        xAxis.setDrawGridLines(false);
-        //xAxis.setTextColor(Color.BLACK); //글씨색 설정
-
-        YAxis yLAxis2 = lineChart2.getAxisLeft();
-        //yLAxis.setTextColor(Color.BLACK); //글씨색 설정
-
-        YAxis yRAxis2 = lineChart2.getAxisRight();
-        yRAxis2.setDrawLabels(false);
-        yRAxis2.setDrawAxisLine(false);
-        //yRAxis.setDrawGridLines(false);
-
-        Description description2 = new Description();
-        description2.setText("");
-        lineChart2.setDescription(description2);
-
-        //set data
-        lineChart2.setData(data2);
-
-
-        /*
-        lineChart = view.findViewById(R.id.lineChart);
-        LineData chartData = new LineData();
-
-        entry_chart.add(new Entry(5f, 3));
-        entry_chart.add(new Entry(1f, 1));
-        entry_chart.add(new Entry(3f, 4));
-
-        LineDataSet lineDataSet = new LineDataSet(entry_chart, "방문자수");
-
-        lineDataSet.setLineWidth(4);
-        lineDataSet.setCircleRadius(6);
-        lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
-        //lineDataSet.setCircleHoleColor(Color.BLUE);
-        lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
-        lineDataSet.setDrawCircleHole(true);
-        lineDataSet.setDrawCircles(true);
-        lineDataSet.setDrawHorizontalHighlightIndicator(false);
-        lineDataSet.setDrawHighlightIndicators(false);
-        lineDataSet.setDrawValues(false);
-
-        chartData.addDataSet(lineDataSet);
-
-        lineChart.setData(chartData);
-
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextColor(Color.BLACK);
-        xAxis.setDrawGridLines(false);
-        //xAxis.enableGridDashedLine(5, 24, 0);
-
-        YAxis yLAxis = lineChart.getAxisLeft();
-        yLAxis.setTextColor(Color.BLACK);
-        //yLAxis.setDrawGridLines(true);
-        yLAxis.enableGridDashedLine(8, 24, 0);
-
-        YAxis yRAxis = lineChart.getAxisRight();
-        yRAxis.setDrawLabels(false);
-        yRAxis.setDrawAxisLine(false);
-        yRAxis.setDrawGridLines(false);
-
-        Description description = new Description();
-        description.setText("");
-
-        lineChart.setDescription(description);
-
-        lineChart.invalidate();
-        */
-
-        return view;
     }
 
 }

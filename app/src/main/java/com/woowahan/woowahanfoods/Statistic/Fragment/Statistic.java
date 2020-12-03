@@ -18,6 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -161,7 +164,7 @@ public class Statistic extends Fragment {
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_statistic, container, false);
+        final View view = inflater.inflate(R.layout.fragment_statistic, container, false);
         final RichPathView richPathView = view.findViewById(R.id.rich_map);
         final LinearLayout linearLayout = view.findViewById(R.id.lin_visible);
         final TextView textView = view.findViewById(R.id.location);
@@ -210,9 +213,11 @@ public class Statistic extends Fragment {
                             String selectedCityName = city.getName().split("_")[0];
                             textView.setText(selectedCityName); //글자 표현
                             jsonParsing(selectedCityName);
-                            Glide.with(getContext()).load(imgUrl[0]).into(iv_gu_top1);
-                            Glide.with(getContext()).load(imgUrl[1]).into(iv_gu_top2);
-                            Glide.with(getContext()).load(imgUrl[2]).into(iv_gu_top3);
+                            MultiTransformation multiOption = new MultiTransformation(new CenterCrop(), new RoundedCorners(45));
+                            Glide.with(getContext()).load(imgUrl[0]).apply(RequestOptions.bitmapTransform(multiOption)).into(iv_gu_top1);
+                            Glide.with(getContext()).load(imgUrl[1]).apply(RequestOptions.bitmapTransform(multiOption)).into(iv_gu_top2);
+                            Glide.with(getContext()).load(imgUrl[2]).apply(RequestOptions.bitmapTransform(multiOption)).into(iv_gu_top3);
+
                             tv_gu_top1.setText(restaurantName[0]);
                             tv_gu_top2.setText(restaurantName[1]);
                             tv_gu_top3.setText(restaurantName[2]);

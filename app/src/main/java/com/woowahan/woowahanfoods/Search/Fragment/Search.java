@@ -49,6 +49,7 @@ public class Search extends Fragment {
     public boolean hashtagMode;
 
     private List<Hashtag> list;          // 데이터를 넣은 리스트변수
+    private List<Restaurant> list2;          // 데이터를 넣은 리스트변수
     private ListView listView;          // 검색을 보여줄 리스트변수
     private EditText editSearch;        // 검색어를 입력할 Input 창
     private SearchAdapter adapter;      // 리스트뷰에 연결할 아답터
@@ -89,7 +90,8 @@ public class Search extends Fragment {
         editSearch = view.findViewById(R.id.edit_search);
         listView = view.findViewById(R.id.listView);
         list = new ArrayList<Hashtag>();
-        adapter = new SearchAdapter(list, getContext(), editSearch);
+        list2 = new ArrayList<Restaurant>();
+        adapter = new SearchAdapter(list, list2, getContext(), editSearch);
         listView.setAdapter(adapter);
         ViewCompat.setNestedScrollingEnabled(listView,true);
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,9 +119,9 @@ public class Search extends Fragment {
             public void afterTextChanged(Editable editable) {
                 String text = editSearch.getText().toString();
                 if (hashtagMode){
-                    search("#"+text);
-                } else {
                     search(text);
+                } else {
+                    search2(text);
                 }
             }
         });
@@ -152,6 +154,7 @@ public class Search extends Fragment {
                         return;
                     }
                     HashtagData result = response.body();
+                    list2.clear();
                     list.clear();
                     list.addAll(result.body);
                     adapter.notifyDataSetChanged();
@@ -164,6 +167,47 @@ public class Search extends Fragment {
             @Override
             public void onFailure(Call<HashtagData> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t.getMessage());
+//                list2.clear();
+//                list.clear();
+            }
+        });
+    }
+
+    private void search2(String query) {
+
+        list2.clear();
+        if (query.equals("")) {
+            adapter.notifyDataSetChanged();
+            return;
+        }
+
+        RetrofitAdapter rAdapter = new RetrofitAdapter();
+        RetrofitService service = rAdapter.getInstance(getActivity());
+//        Call<RestaurantSearchResult> call = service.searchRestaurant(query, "관악구");
+        Call<RestaurantSearchResult> call = service.searchRestaurant(query);
+        call.enqueue(new retrofit2.Callback<RestaurantSearchResult>() {
+            @Override
+            public void onResponse(Call<RestaurantSearchResult> call, retrofit2.Response<RestaurantSearchResult> response) {
+                if (response.isSuccessful()) {
+                    if(response.body().checkError(getContext()) != 0) {
+                        return;
+                    }
+                    RestaurantSearchResult result = response.body();
+                    list.clear();
+                    list2.clear();
+                    list2.addAll(result.body);
+                    adapter.notifyDataSetChanged();
+                    Log.d(TAG, "onResponse: Success " + response.body());
+                } else {
+                    Log.d(TAG, "onResponse: Fail " + response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RestaurantSearchResult> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.getMessage());
+//                list2.clear();
+//                list.clear();
             }
         });
     }

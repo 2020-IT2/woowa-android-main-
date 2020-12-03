@@ -41,7 +41,7 @@ public class FeedAapter extends PagerAdapter {
         View view = inflater.inflate(R.layout.feed_layout, null);
 
         ImageView imageView = view.findViewById(R.id.myImageView);
-        Glide.with(mContext).load(imageList.get(position).media_url).into(imageView);
+        Glide.with(mContext).load(imageList.get(position).mediaURL).into(imageView);
 
         container.addView(view);
 

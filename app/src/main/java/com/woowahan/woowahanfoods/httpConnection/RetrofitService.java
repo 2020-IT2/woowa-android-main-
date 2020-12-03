@@ -27,7 +27,7 @@ public interface RetrofitService {
     Call<SearchResultJson> convertor(@Query("confmKey") String confmKey, @Query("admCd") String admCd, @Query("rnMgtSn") String rnMgtSn, @Query("udrtYn") String udrtYn, @Query("buldMnnm") int buldMnnm, @Query("buldSlno") int buldSlno, @Query("resultType") String resultType);
 
     @GET("/search/restaurantList")
-    Call<RestaurantSearchResult> searchRestaurant(@Query("name") String name, @Query("region") String region);
+    Call<RestaurantSearchResult> searchRestaurant(@Query("restaurant") String name);
 
     @GET("/search/schoolList")
     Call<RestaurantSearchResult> searchSchoolList(@Query("schoolName") String schoolName);

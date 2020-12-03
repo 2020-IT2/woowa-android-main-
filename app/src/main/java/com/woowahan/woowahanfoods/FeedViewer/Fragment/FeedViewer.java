@@ -220,7 +220,7 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
             @Override
             public void onClick(View view) {
                 ((MainActivity)getActivity()).replaceFragmentFull(RestaurantMap.newInstance(
-                        imageDataList.get(0).restaurantName, imageDataList.get(0).address, (float)imageDataList.get(0).lat,
+                        imageDataList.get(0).restaurantName, imageDataList.get(0).adrDong, (float)imageDataList.get(0).lat,
                         (float)imageDataList.get(0).lon));
             }
         });
@@ -314,7 +314,7 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
         numLike.setText("종아요 " + imageDataList.get(position).likes);
         numComment.setText("댓글 " + imageDataList.get(position).replys);
         caption.setText(imageDataList.get(position).restaurantDetail);
-        hashTag.setText(imageDataList.get(position).address);
+        hashTag.setText(imageDataList.get(position).adrDong);
     }
 
 }

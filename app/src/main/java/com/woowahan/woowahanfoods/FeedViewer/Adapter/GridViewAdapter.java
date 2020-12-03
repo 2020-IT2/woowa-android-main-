@@ -48,7 +48,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Custom
     //데이터를 뷰홀더에 바인딩
     @Override
     public void onBindViewHolder(@NonNull GridViewAdapter.CustomViewHolder holder, int position) {
-        Glide.with(context).load(arrayList.get(position).media_url).into(holder.iv);
+        Glide.with(context).load(arrayList.get(position).mediaURL).into(holder.iv);
     }
 
     //전체 아이템 갯수 리턴

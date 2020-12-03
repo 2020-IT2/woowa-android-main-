@@ -14,6 +14,7 @@
         app:srcCompat="@mipmap/ic_main_smile_round"
         android:elevation="3dp"/>
     <TextView
+        android:id="@+id/tv_hashtag"
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="30dp"

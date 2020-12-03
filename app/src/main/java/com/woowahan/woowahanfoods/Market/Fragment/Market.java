@@ -311,7 +311,7 @@ public class Market extends Fragment {
             //labels.add(xval);
             yentries.add(new Entry(i, yval));
         }
-        LineDataSet dataset = new LineDataSet(yentries, "선호도")
+        LineDataSet dataset = new LineDataSet(yentries, "선호도");
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(dataset); //add the data sets
         LineData data = new LineData(dataSets);

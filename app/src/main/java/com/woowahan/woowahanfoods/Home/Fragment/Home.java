@@ -21,10 +21,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.woowahan.woowahanfoods.Address.Fragment.Address;
+import com.woowahan.woowahanfoods.DataModel.Feed;
 import com.woowahan.woowahanfoods.Home.Adapter.viewPageAdapter;
 import com.woowahan.woowahanfoods.Dataframe.FeedResult;
 import com.woowahan.woowahanfoods.DataModel.MyAddress;
 import com.woowahan.woowahanfoods.DataModel.Restaurant;
+import com.woowahan.woowahanfoods.Home.Dataframe.RandomRecommendResponse;
 import com.woowahan.woowahanfoods.MainActivity;
 import com.woowahan.woowahanfoods.R;
 import com.woowahan.woowahanfoods.RestaurantList.Fragment.RestaurantList;
@@ -45,7 +47,7 @@ public class Home extends Fragment {
     public String sampleFeedID = "17922299383454246";
     public viewPageAdapter adapter;
     public viewPageAdapter adapter2;
-    public ArrayList<Restaurant> imageDataList;
+    public ArrayList<Feed> randomRecommendList;
 
     public ArrayList<ImageButton> img_btns = new ArrayList<ImageButton>();
     public int[] icon_nams = new int[]{
@@ -106,7 +108,7 @@ public class Home extends Fragment {
 
         }
 
-        imageDataList = new ArrayList<>();
+        randomRecommendList = new ArrayList<>();
 
 
         ViewPager viewPager = view.findViewById(R.id.viewPager);
@@ -118,12 +120,12 @@ public class Home extends Fragment {
         int margin = (int) (DP * density);
         viewPager.setPadding(margin, 0, margin, 0);
         viewPager.setPageMargin(margin/2);
-        adapter = new viewPageAdapter(getContext(), imageDataList);
+        adapter = new viewPageAdapter(getContext(), randomRecommendList);
         viewPager.setAdapter(adapter);
 
         viewPager2.setPadding(margin, 0, margin, 0);
         viewPager2.setPageMargin(margin/2);
-        adapter2 = new viewPageAdapter(getContext(), imageDataList);
+        adapter2 = new viewPageAdapter(getContext(), randomRecommendList);
         viewPager2.setAdapter(adapter2);
 
         getPhotos();
@@ -138,25 +140,25 @@ public class Home extends Fragment {
         // 2. Retrofit은 여러개를 만들어서 사용해도 상관 없다.
         // 3. Retrofit의 Parameter는 반드시 URL encoded 되지 않은것으로 사용해야한다.
         // 4. Retrofit의 Parameter는 절대 getString(R.string.name) 으로 가지고 온것을 사용하면 안된다.
-        RetrofitService service = RetrofitAdapter.getInstance("https://graph.instagram.com/", getContext());
-        Call<FeedResult> call = service.getFeedDetails(sampleFeedID, fields, access_token);
+        RetrofitService service = RetrofitAdapter.getInstance(getActivity());
+        Call<RandomRecommendResponse> call = service.recommendRandom();
 
-        call.enqueue(new retrofit2.Callback<FeedResult>() {
+        call.enqueue(new retrofit2.Callback<RandomRecommendResponse>() {
             @Override
-            public void onResponse(Call<FeedResult> call, retrofit2.Response<FeedResult> response) {
+            public void onResponse(Call<RandomRecommendResponse> call, retrofit2.Response<RandomRecommendResponse> response) {
                 if (response.isSuccessful()) {
-                    Log.d("GridViewAdapter", "onResponse: Success " + response.body().data.size());
-                    imageDataList.clear();
-                    imageDataList.addAll(response.body().data);
-                    adapter.refresh(imageDataList); //pass update list
-                    adapter2.refresh(imageDataList); //pass update list
+                    response.body().checkError(getContext());
+                    randomRecommendList.clear();
+                    randomRecommendList.addAll(response.body().body.feeds);
+                    adapter.refresh(randomRecommendList); //pass update list
+                    adapter2.refresh(randomRecommendList); //pass update list
                 } else {
                     Log.d("GridViewAdapter", "onResponse: Fail " + response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<FeedResult> call, Throwable t) {
+            public void onFailure(Call<RandomRecommendResponse> call, Throwable t) {
                 Toast.makeText(getContext(), "Please reloading", Toast.LENGTH_SHORT).show();
             }
         });

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -14,12 +15,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.woowahan.woowahanfoods.FeedViewer.Fragment.FeedViewer;
+import com.woowahan.woowahanfoods.Home.Dataframe.RandomRecommendResponse;
 import com.woowahan.woowahanfoods.MainActivity;
 import com.woowahan.woowahanfoods.R;
 import com.woowahan.woowahanfoods.RestaurantList.Adapter.RestaurantListAdapter;
 import com.woowahan.woowahanfoods.DataModel.Restaurant;
+import com.woowahan.woowahanfoods.RestaurantList.Dataframe.RestaurantListResponse;
+import com.woowahan.woowahanfoods.Utils.TextUtils;
+import com.woowahan.woowahanfoods.httpConnection.RetrofitAdapter;
+import com.woowahan.woowahanfoods.httpConnection.RetrofitService;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
 
 public class SubPage extends Fragment implements RestaurantListAdapter.OnListItemSelectedInterface {
 
@@ -29,6 +37,8 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
     int currentPage = 1;
     final int countPerPage = 15;
     public ArrayList<Restaurant> imageDataList;
+    public ArrayList<Restaurant> franchiseList;
+    public ArrayList<Restaurant> nonfranchiseList;
     public Location loc;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -60,6 +70,8 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
         view.setClickable(true);
 
         imageDataList = new ArrayList<>();
+        franchiseList = new ArrayList<>();
+        nonfranchiseList = new ArrayList<>();
 
         list = new ArrayList<Restaurant>();
         list.add(new Restaurant("고요남", "치킨가게",  "수원시 원천구 원천대로", 123, 456, 33.1, 127.1, "https://scontent-ssn1-1.cdninstagram.com/v/t51.29350-15/123833652_1408714295988521_1955747731663463592_n.jpg?_nc_cat=100&ccb=2&_nc_sid=8ae9d6&_nc_ohc=CRy-YtpUAOsAX8P_Nsx&_nc_ht=scontent-ssn1-1.cdninstagram.com&oh=6c44e4df042e6b21c24baa81f5b6f523&oe=5FD2ADE6"));
@@ -70,7 +82,7 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
         loc.setLongitude(127.999999);
 
         Log.d("subPage debug", "list size : " + list.size());
-        adapter = new RestaurantListAdapter(loc, getContext(), list, this);
+        adapter = new RestaurantListAdapter(loc, getContext(), imageDataList, this);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_alarm);
 
@@ -81,44 +93,78 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
 
         recyclerView.setAdapter(adapter);
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            private int recyclerVisiblePosition;
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
+        getRestaurantList();
 
-                if (newState != RecyclerView.SCROLL_STATE_IDLE) {
-                    return;
-                }
-
-                getNewPosition(recyclerView);
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-            }
-
-            private void getNewPosition(@NonNull final RecyclerView recyclerView) {
-                final LinearLayoutManager layoutManager = ((LinearLayoutManager)recyclerView.getLayoutManager());
-                if (layoutManager != null) {
-                    int curPosition = recyclerView.getAdapter().getItemCount() - 1;
-                    int recyclerVisiblePosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
-
-                    if((recyclerVisiblePosition >= 10) && (curPosition>=recyclerVisiblePosition-3)){
-                        Log.d("d", "error");
-                        search();
-                    }
-                }
-            }
-
-        });
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            private int recyclerVisiblePosition;
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//
+//                if (newState != RecyclerView.SCROLL_STATE_IDLE) {
+//                    return;
+//                }
+//
+//                getNewPosition(recyclerView);
+//            }
+//
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//
+//            }
+//
+//            private void getNewPosition(@NonNull final RecyclerView recyclerView) {
+//                final LinearLayoutManager layoutManager = ((LinearLayoutManager)recyclerView.getLayoutManager());
+//                if (layoutManager != null) {
+//                    int curPosition = recyclerView.getAdapter().getItemCount() - 1;
+//                    int recyclerVisiblePosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+//
+//                    if((recyclerVisiblePosition >= 10) && (curPosition>=recyclerVisiblePosition-3)){
+//                        Log.d("d", "error");
+//                        search();
+//                    }
+//                }
+//            }
+//
+//        });
 
 
 
         return view;
     }
+
+    public void getRestaurantList() {
+        RetrofitService service = RetrofitAdapter.getInstance(getActivity());
+        Call<RestaurantListResponse> call = service.getRestaurantList("한식");
+
+        call.enqueue(new retrofit2.Callback<RestaurantListResponse>() {
+            @Override
+            public void onResponse(Call<RestaurantListResponse> call, retrofit2.Response<RestaurantListResponse> response) {
+                if (response.isSuccessful()) {
+                    response.body().checkError(getContext());
+                    imageDataList.clear();
+                    franchiseList.clear();
+                    nonfranchiseList.clear();
+                    franchiseList.addAll(response.body().body.franchise);
+                    nonfranchiseList.addAll(response.body().body.non_franchise);
+                    imageDataList.addAll(nonfranchiseList);
+                    adapter.notifyDataSetChanged();
+                    Log.d("GridViewAdapter", "onResponse: Succeess " + response.body());
+                } else {
+                    Log.d("GridViewAdapter", "onResponse: Fail " + response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RestaurantListResponse> call, Throwable t) {
+                Log.d("GridViewAdapter", "onResponse: Fail ");
+                Toast.makeText(getContext(), "Please reloading", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 
     public void search(){
 //        RetrofitAdapter rAdapter = new RetrofitAdapter();

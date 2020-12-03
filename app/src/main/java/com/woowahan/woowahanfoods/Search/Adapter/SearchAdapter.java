@@ -70,10 +70,33 @@ public class SearchAdapter extends BaseAdapter {
             Log.d("searchAdapter", "To list 1");
             viewHolder.label.setText(list.get(position).hashtag);
             viewHolder.subLabel.setText(list.get(position).sim);
+            float sim = Float.parseFloat(list.get(position).sim);
+            if(sim > 0.8){
+                viewHolder.subLabel.setText("매우유사");
+            } else if (sim > 0.6){
+                viewHolder.subLabel.setText("조금유사");
+            } else if (sim > 0.4){
+                viewHolder.subLabel.setText("덜유사");
+            } else if (sim > 0.2){
+                viewHolder.subLabel.setText("소소");
+            } else {
+                viewHolder.subLabel.setText("안유사");
+            }
         } else {
             Log.d("searchAdapter", "To list 2");
             viewHolder.label.setText(list2.get(position).restaurantName);
-            viewHolder.subLabel.setText(String.valueOf(list2.get(position).feedNum));
+            if(list2.get(position).feedNum > 5000){
+                viewHolder.subLabel.setText("매우유명");
+            } else if (list2.get(position).feedNum > 2500){
+                viewHolder.subLabel.setText("조금유명");
+            } else if (list2.get(position).feedNum > 1000){
+                viewHolder.subLabel.setText("덜유명");
+            } else if (list2.get(position).feedNum > 100){
+                viewHolder.subLabel.setText("소소");
+            } else {
+                viewHolder.subLabel.setText("안유명");
+            }
+
             // 검색한 쿼리와 동일한 부분을 강조한다.
             String query = tvSearchText.getText().toString();
             viewHolder.label.setText("");

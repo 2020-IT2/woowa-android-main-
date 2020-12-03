@@ -1,12 +1,16 @@
 package com.woowahan.woowahanfoods.Market.Fragment;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class Region {
-    private String result__data__period;
+    private int result__data__period;
     private int result__data__value;
     private String result__title;
 
     public String getDate() {
-        return result__data__period;
+        return Integer.toString(result__data__period);
     }
 
     public int getValue() {
@@ -18,7 +22,7 @@ public class Region {
     }
 
     public void setDate(int date) {
-        this.result__data__period = Integer.toString(date);
+        this.result__data__period = date;
     }
 
     public void setValue(int value) {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.lang.reflect.Type;
+import java.sql.Date;
 import java.util.List;
 import java.io.*;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -32,7 +34,10 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.renderer.YAxisRenderer;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -261,7 +266,7 @@ public class Market extends Fragment {
                             textView.setText(city.getName().split("_")[0]);
                             json_data = getJsonString(city.getName().split("_")[0]);
                             jsonParsing(json_data);
-//                            draw_graph(Region_List);
+                            draw_graph(Region_List);
                             richPath = richPathView.findRichPathByName(city.name.split("_")[0]);
                             RichPathAnimator.animate(richPath)
                                     .fillColor(Color.WHITE)
@@ -294,55 +299,45 @@ public class Market extends Fragment {
             }
         });
 
-        LineChart lineChart = view.findViewById(R.id.lineChart);
-        ArrayList<Entry> entries = new ArrayList<>();
-        for(int i = 0;i<10;i++){
-            float val = (float) (Math.random()*10);
-            entries.add(new Entry(i, val));
-        }
-
-        LineDataSet set1;
-        set1 = new LineDataSet(entries, "DataSet 1");
-
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set1); //add the data sets
-
-        //create a data object with the data sets
-        LineData data= new LineData(dataSets);
-
-        //꾸미기
-        lineChart.setBackgroundColor(Color.WHITE);
-        set1.setColor(chartLineColor);
-        set1.setCircleColor(chartPointColor);
-        set1.setLineWidth(2);
-        set1.setDrawFilled(true); //차트 아래 색 채우기
-        set1.setFillColor(chartLineColor); //차트 아래 색 설정
-
-        //label
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //라벨링 아래에
-        //xAxis.setTextColor(Color.BLACK); //글씨색 설정
-
-        YAxis yLAxis = lineChart.getAxisLeft();
-        //yLAxis.setTextColor(Color.BLACK); //글씨색 설정
-
-        YAxis yRAxis = lineChart.getAxisRight();
-        yRAxis.setDrawLabels(false);
-        yRAxis.setDrawAxisLine(false);
-        //yRAxis.setDrawGridLines(false);
-
-        Description description = new Description();
-        description.setText("");
-        lineChart.setDescription(description);
-
-
-
-        //set data
-        lineChart.setData(data);
-
-
-
         return view;
+    }
+
+    private void draw_graph(List<Region> region_list){
+
+        final ArrayList<Entry> yentries = new ArrayList<>();
+        final ArrayList<String> xentries = new ArrayList<>();
+       // ArrayList<String> labels = new ArrayList<>();
+        for (int i =0; i < region_list.size(); i++) {
+            String xval = region_list.get(i).getDate();
+            Log.d("SampleMap2", "xval : " + xval);
+            int yval = region_list.get(i).getValue();
+            Log.d("SampleMap2", "yval : " + yval);
+            //labels.add(xval);
+            yentries.add(new Entry(yval, i));
+            xentries.add(xval);
+        }
+        LineDataSet dataset = new LineDataSet(yentries, "선호도");
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                for (int i = 0 ; i < yentries.size(); ++i) {
+                    if (yentries.get(i).equals(value)) {
+                        return xentries.get(i);
+                    }
+                }
+                return null;
+            }
+        });
+
+
+        LineData data = new LineData(dataset);
+        dataset.setColors(android.R.color.black);
+        lineChart.setData(data);
+        lineChart.invalidate();
+
     }
 
 

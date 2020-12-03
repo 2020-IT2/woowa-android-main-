@@ -29,9 +29,9 @@
                     <TextView
                         android:id="@+id/tab_title"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginVertical="5dp"
-                        android:gravity="center_horizontal|left"
+                        android:layout_gravity = "center"
                         android:text="음식점 목록"
                         android:textSize="23sp" />
                 </androidx.appcompat.widget.Toolbar>

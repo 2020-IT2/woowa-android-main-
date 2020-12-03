@@ -401,7 +401,7 @@
                 android:layout_weight="7"
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="280dp">
             </androidx.viewpager.widget.ViewPager>
         </LinearLayout>
 

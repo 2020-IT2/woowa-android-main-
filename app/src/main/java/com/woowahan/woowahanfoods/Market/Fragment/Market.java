@@ -6,6 +6,8 @@ import android.util.Log;
 
 import java.lang.reflect.Type;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.io.*;
 import android.view.LayoutInflater;
@@ -24,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -34,6 +37,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
@@ -47,6 +51,7 @@ import com.richpath.RichPath;
 import com.richpath.RichPathView;
 import com.richpathanimator.RichPathAnimator;
 import com.woowahan.woowahanfoods.DataModel.City;
+import com.woowahan.woowahanfoods.DataModel.Population;
 import com.woowahan.woowahanfoods.MainActivity;
 import com.woowahan.woowahanfoods.R;
 
@@ -54,14 +59,15 @@ import java.util.ArrayList;
 
 public class Market extends Fragment {
     Spinner spinner;
-    private int chartLineColor = 0xff9e9fae;
-    private int chartPointColor = 0xff9e9fae;
+    private String[] chartPointColor = new String[]{"#FF0000", "#FF9100", "#FFE650", "#54BD54", "#52E4DC", "#46649B", "#C1AEEE", "#FFB2AF", "#D68642", "#b232b2"};
+    private String[] chartLineColor = new String[]{"#FF0000", "#FF9100", "#FFE650", "#54BD54", "#52E4DC", "#46649B", "#C1AEEE", "#FFB2AF", "#D68642", "#b232b2"};
+    private String chart2PointColor = "#72c0cc";
+    private String chart2LineColor = "#72c0cc";
     private LineChart lineChart;
+    private LineChart lineChart2;
     final public ArrayList<City> cityArrayList = new ArrayList<City>();
-    public CardView cardView;
-    public TabLayout tabLayout;
-    public LinearLayout linearLayout;
-    private TabLayout mTabLayout;
+    public HashMap<String, ArrayList<Population>> populations;
+    public String compareCityName;
     public CardView market_card;
     public CardView people_card;
     public TextView market_text;
@@ -72,6 +78,13 @@ public class Market extends Fragment {
             "중랑구_map", "노원구_map", "도봉구_map", "강북구_map", "성북구_map",
             "종로구_map", "은평구_map", "마포구_map", "영등포구_map", "동작구_map",
             "용산구_map", "성동구_map", "동대문구_map", "서대문구_map", "중구_map"
+    };
+    public int [] guList = new int[]{
+            R.raw.gangbuk, R.raw.gangdong, R.raw.gangnam, R.raw.gemcheon, R.raw.guro,
+            R.raw.dobong, R.raw.dongdaemun, R.raw.dongjak, R.raw.enpyung, R.raw.jongro,
+            R.raw.jung, R.raw.jungrang, R.raw.kangseo, R.raw.kwanak, R.raw.kwangjin,
+            R.raw.mapo, R.raw.nowon, R.raw.seocheo, R.raw.seodaemon, R.raw.seongbuk,
+            R.raw.seongdong, R.raw.songpa, R.raw.yangcheon, R.raw.yongdengpo, R.raw.yongsan
     };
     public static final int whitegray = 0xFFE6E6E6;
     public static final int blue = 0xff090090;
@@ -100,28 +113,11 @@ public class Market extends Fragment {
 
         return json;
     }
-    private void jsonParsing(String json){
+
+    private void jsonParsing(){
         try{
-//            Region_List.clear();
-//
-//            JSONObject jsonObject = new JSONObject(json);
-//
-//            JSONArray valueArray = jsonObject.getJSONArray("values");
-//
-//            for(int i=0; i<valueArray.length(); i++)
-//            {
-//                JSONObject valueObject = valueArray.getJSONObject(i);
-//
-//                Region region = new Region();
-//
-//                region.setDate(valueObject.getInt("result__data__period"));
-//                region.setValue(valueObject.getInt("result__data_value"));
-//                region.setRegion(valueObject.getString("result__title"));
-//
-//                Region_List.add(region);
-//            }
-            Region_List.clear();
-            InputStream ins = getResources().openRawResource(R.raw.gangnam);
+
+            InputStream ins = getResources().openRawResource(R.raw.jieun);
             Writer writer = new StringWriter();
             char[] buffer = new char[1024];
             try {
@@ -144,7 +140,45 @@ public class Market extends Fragment {
             Gson gson = new GsonBuilder()
                     .setLenient()
                     .create();
+            populations=(HashMap<String, ArrayList<Population>>)gson.fromJson(jsonString, new TypeToken<HashMap<String, ArrayList<Population>>>() {
+            }.getType());
 
+
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void jsonParsing(int idx){
+        try{
+            Region_List.clear();
+
+
+            InputStream ins = getResources().openRawResource(guList[idx]);
+            Writer writer = new StringWriter();
+            char[] buffer = new char[1024];
+            try {
+                Reader reader = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
+                int n;
+                while ((n = reader.read(buffer)) != -1) {
+                    writer.write(buffer, 0, n);
+                }
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+            finally {
+                try {
+                    ins.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            String jsonString = writer.toString();
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+            Region_List.clear();
             Region_List.addAll((List<Region>)gson.fromJson(jsonString, new TypeToken<List<Region>>() {
             }.getType()));
 
@@ -155,6 +189,8 @@ public class Market extends Fragment {
     private MapView mMapView;
     public List<Region> Region_List = new ArrayList<Region>();
     public String json_data = new String();
+
+    public ArrayList<ILineDataSet> dataSets;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -242,13 +278,15 @@ public class Market extends Fragment {
             }
         });
         lineChart = view.findViewById(R.id.lineChart);
-
+        lineChart2 = view.findViewById(R.id.lineChart2);
+        jsonParsing();
         richPathView.setOnPathClickListener(new RichPath.OnPathClickListener() {
             @Override
             public void onClick(RichPath richPath) {
                 RichPath orgRichPath = richPath;
                 String name = richPath.getName();
                 Log.d("SampleMap", "name : " + name);
+                int i=0;
                 for(City city : cityArrayList){
                     if(name.equals(city.getName().split("_")[0])) {
                         name = city.getName();
@@ -263,10 +301,13 @@ public class Market extends Fragment {
                                     .start();
                             if(textView.getVisibility() == View.INVISIBLE)
                                 textView.setVisibility(View.VISIBLE);
-                            textView.setText(city.getName().split("_")[0]);
-                            json_data = getJsonString(city.getName().split("_")[0]);
-                            jsonParsing(json_data);
+                            compareCityName = city.getName().split("_")[0];
+                            textView.setText(compareCityName);
+                            json_data = getJsonString(compareCityName);
+                            Log.d("SampleMap2", "i : " + i);
+                            jsonParsing(i);
                             draw_graph(Region_List);
+                            draw_graph();
                             richPath = richPathView.findRichPathByName(city.name.split("_")[0]);
                             RichPathAnimator.animate(richPath)
                                     .fillColor(Color.WHITE)
@@ -293,7 +334,9 @@ public class Market extends Fragment {
                         RichPathAnimator.animate(richPath)
                                 .fillColor(Color.BLACK)
                                 .start();
+
                     }
+                    i++;
                 }
                 Log.d("SampleMap", "fifth");
             }
@@ -303,31 +346,50 @@ public class Market extends Fragment {
     }
 
     private void draw_graph(List<Region> region_list){
-        final ArrayList<Entry> yentries = new ArrayList<>();
-       // ArrayList<String> labels = new ArrayList<>();
-        for (int i =0; i < region_list.size(); i++) {
-            int yval = region_list.get(i).getValue();
-            Log.d("SampleMap2", "yval : " + yval);
-            //labels.add(xval);
-            yentries.add(new Entry(i, yval));
-        }
-        LineDataSet dataset = new LineDataSet(yentries, "선호도")
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(dataset); //add the data sets
-        LineData data = new LineData(dataSets);
-        dataset.setColors(android.R.color.black);
-        lineChart.setData(data);
-        lineChart.invalidate();
+        final ArrayList<String> xAxislabels = new ArrayList<String>();
 
+        LineData data = new LineData();
+        HashSet<String> dongHash = new HashSet<String>();
+        for (int i =0; i < region_list.size(); i++) {
+            if(Integer.parseInt(region_list.get(i).getDate()) > 20200906){
+                String dongname = region_list.get(i).getRegion();
+                dongHash.add(dongname);
+                xAxislabels.add(region_list.get(i).getDate());
+            }
+        }
+        int q = 0;
+
+        for (String e : dongHash) {
+            ArrayList<Entry> yentries = new ArrayList<>();
+            int j = 0;
+            for (int i =0; i < region_list.size(); i++) {
+                if(Integer.parseInt(region_list.get(i).getDate()) > 20200906){
+                    int yval = region_list.get(i).getValue();
+                    String dongname = region_list.get(i).getRegion();
+                    if (dongname.equals(e))
+                        yentries.add(new Entry(j++, yval));
+                }
+            }
+            LineDataSet dataset = new LineDataSet(yentries, e);
+            data.addDataSet(dataset);
+            dataset.setColors(android.R.color.black);
+            dataset.setColor(Color.parseColor(chartLineColor[q]));
+            dataset.setCircleColor(Color.parseColor(chartPointColor[q++]));
+            dataset.setDrawCircles(false);
+            dataset.setLineWidth(2);
+//        dataset.setDrawFilled(true); //차트 아래 색 채우기
+//            dataset.setFillColor(chartLineColor); //차트 아래 색 설정
+        }
+
+
+// 꾸미기
         lineChart.setBackgroundColor(Color.WHITE);
-        dataset.setColor(chartLineColor);
-        dataset.setCircleColor(chartPointColor);
-        dataset.setLineWidth(2);
-        dataset.setDrawFilled(true); //차트 아래 색 채우기
-        dataset.setFillColor(chartLineColor); //차트 아래 색 설정
+        lineChart.setPinchZoom(false);
+
 //label
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //라벨링 아래에
+
 //xAxis.setTextColor(Color.BLACK); //글씨색 설정
         YAxis yLAxis = lineChart.getAxisLeft();
 //yLAxis.setTextColor(Color.BLACK); //글씨색 설정
@@ -340,8 +402,60 @@ public class Market extends Fragment {
         lineChart.setDescription(description);
 //set data
         lineChart.setData(data);
-
+        lineChart.invalidate();
     }
 
+    private void draw_graph(){
+        Log.d("compareCityName", "compareCityName"+compareCityName);
+        ArrayList<Population> population = populations.get(compareCityName);
 
+        final ArrayList<String> xAxislabels = new ArrayList<String>();
+        LineData data = new LineData();
+        int q = 0;
+
+        ArrayList<Entry> yentries = new ArrayList<>();
+        for (int i =0; i < population.size(); i++) {
+            float yval = population.get(i).val;
+            int xval = Integer.parseInt(population.get(i).date) % 10000;
+            yentries.add(new Entry(i, yval));
+
+        }
+        LineDataSet dataset = new LineDataSet(yentries, compareCityName);
+        data.addDataSet(dataset);
+        dataset.setColors(android.R.color.black);
+        dataset.setColor(Color.BLACK);
+        dataset.setColor(whitegray);
+        dataset.setDrawCircles(false);
+        dataset.setLineWidth(2);
+        dataset.setDrawFilled(true); //차트 아래 색 채우기
+        dataset.setFillColor(whitegray);
+
+
+// 꾸미기
+        lineChart2.setBackgroundColor(Color.WHITE);
+        lineChart2.setPinchZoom(false);
+
+//label
+        XAxis xAxis = lineChart2.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //라벨링 아래에
+
+//xAxis.setTextColor(Color.BLACK); //글씨색 설정
+        YAxis yLAxis = lineChart2.getAxisLeft();
+//yLAxis.setTextColor(Color.BLACK); //글씨색 설정
+        YAxis yRAxis = lineChart2.getAxisRight();
+        yRAxis.setDrawLabels(false);
+        yRAxis.setDrawAxisLine(false);
+//yRAxis.setDrawGridLines(false);
+        Description description = new Description();
+        description.setText("");
+        lineChart2.setDescription(description);
+//set data
+        lineChart2.setData(data);
+        lineChart2.invalidate();
+    }
 }
+
+
+
+
+

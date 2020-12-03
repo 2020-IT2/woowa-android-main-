@@ -37,7 +37,7 @@ public class RestaurantList extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
-
+        setHasOptionsMenu(true);
         Bundle bundle = getArguments();
         if(bundle!=null){
             this.menu = bundle.getInt("menu");
@@ -62,7 +62,6 @@ public class RestaurantList extends Fragment {
         actionbar.setDisplayShowCustomEnabled(true);
         actionbar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setDisplayHomeAsUpEnabled(false);
 
         return view;
     }

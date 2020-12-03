@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/foodcategory_spinner"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="15dp"
+    android:layout_height="40dp"
+    android:maxLines="1"
     android:gravity="center"
-    android:textColor="#686868"
-    android:padding="5dip"
-    />
+    android:textAlignment="center"
+    android:singleLine="true"
+    android:fontFamily="@font/eleven"
+    android:textColor="#000000"
+    android:textSize="15sp" />

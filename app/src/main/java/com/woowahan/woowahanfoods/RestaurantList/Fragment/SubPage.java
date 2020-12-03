@@ -62,9 +62,9 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
         imageDataList = new ArrayList<>();
 
         list = new ArrayList<Restaurant>();
-        list.add(new Restaurant("한결이의 치킨 가게", "치킨가게",  "수원시 원천구 원천대로", 123, 456, 33.1, 127.1, "https://scontent-ssn1-1.cdninstagram.com/v/t51.29350-15/123833652_1408714295988521_1955747731663463592_n.jpg?_nc_cat=100&ccb=2&_nc_sid=8ae9d6&_nc_ohc=CRy-YtpUAOsAX8P_Nsx&_nc_ht=scontent-ssn1-1.cdninstagram.com&oh=6c44e4df042e6b21c24baa81f5b6f523&oe=5FD2ADE6"));
-        list.add(new Restaurant("한결이의 치킨 가게", "치킨가게",  "수원시 원천구 원천대로", 123, 456, 33.1, 127.1, "https://scontent-ssn1-1.cdninstagram.com/v/t51.29350-15/123833652_1408714295988521_1955747731663463592_n.jpg?_nc_cat=100&ccb=2&_nc_sid=8ae9d6&_nc_ohc=CRy-YtpUAOsAX8P_Nsx&_nc_ht=scontent-ssn1-1.cdninstagram.com&oh=6c44e4df042e6b21c24baa81f5b6f523&oe=5FD2ADE6"));
-        list.add(new Restaurant("한결이의 치킨 가게", "치킨가게",  "수원시 원천구 원천대로", 123, 456, 33.1, 127.1, "https://scontent-ssn1-1.cdninstagram.com/v/t51.29350-15/123833652_1408714295988521_1955747731663463592_n.jpg?_nc_cat=100&ccb=2&_nc_sid=8ae9d6&_nc_ohc=CRy-YtpUAOsAX8P_Nsx&_nc_ht=scontent-ssn1-1.cdninstagram.com&oh=6c44e4df042e6b21c24baa81f5b6f523&oe=5FD2ADE6"));
+        list.add(new Restaurant("고요남", "치킨가게",  "수원시 원천구 원천대로", 123, 456, 33.1, 127.1, "https://scontent-ssn1-1.cdninstagram.com/v/t51.29350-15/123833652_1408714295988521_1955747731663463592_n.jpg?_nc_cat=100&ccb=2&_nc_sid=8ae9d6&_nc_ohc=CRy-YtpUAOsAX8P_Nsx&_nc_ht=scontent-ssn1-1.cdninstagram.com&oh=6c44e4df042e6b21c24baa81f5b6f523&oe=5FD2ADE6"));
+        list.add(new Restaurant("엉터리생고기", "치킨가게",  "수원시 원천구 원천대로", 123, 456, 33.1, 127.1, "https://scontent-ssn1-1.cdninstagram.com/v/t51.29350-15/123833652_1408714295988521_1955747731663463592_n.jpg?_nc_cat=100&ccb=2&_nc_sid=8ae9d6&_nc_ohc=CRy-YtpUAOsAX8P_Nsx&_nc_ht=scontent-ssn1-1.cdninstagram.com&oh=6c44e4df042e6b21c24baa81f5b6f523&oe=5FD2ADE6"));
+        list.add(new Restaurant("제임스치즈등갈비", "치킨가게",  "수원시 원천구 원천대로", 123, 456, 33.1, 127.1, "https://scontent-ssn1-1.cdninstagram.com/v/t51.29350-15/123833652_1408714295988521_1955747731663463592_n.jpg?_nc_cat=100&ccb=2&_nc_sid=8ae9d6&_nc_ohc=CRy-YtpUAOsAX8P_Nsx&_nc_ht=scontent-ssn1-1.cdninstagram.com&oh=6c44e4df042e6b21c24baa81f5b6f523&oe=5FD2ADE6"));
         loc = new Location("my Location");
         loc.setLongitude(33.999999);
         loc.setLongitude(127.999999);

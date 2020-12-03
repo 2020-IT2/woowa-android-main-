@@ -305,39 +305,43 @@ public class Market extends Fragment {
     }
 
     private void draw_graph(List<Region> region_list){
-
         final ArrayList<Entry> yentries = new ArrayList<>();
-        final ArrayList<String> xentries = new ArrayList<>();
        // ArrayList<String> labels = new ArrayList<>();
         for (int i =0; i < region_list.size(); i++) {
-            String xval = region_list.get(i).getDate();
-            Log.d("SampleMap2", "xval : " + xval);
             int yval = region_list.get(i).getValue();
             Log.d("SampleMap2", "yval : " + yval);
             //labels.add(xval);
-            yentries.add(new Entry(yval, i));
-            xentries.add(xval);
+            yentries.add(new Entry(i, yval));
         }
         LineDataSet dataset = new LineDataSet(yentries, "선호도");
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                for (int i = 0 ; i < yentries.size(); ++i) {
-                    if (yentries.get(i).equals(value)) {
-                        return xentries.get(i);
-                    }
-                }
-                return null;
-            }
-        });
-
-        LineData data = new LineData(dataset);
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(dataset); //add the data sets
+        LineData data = new LineData(dataSets);
         dataset.setColors(android.R.color.black);
         lineChart.setData(data);
         lineChart.invalidate();
+
+        lineChart.setBackgroundColor(Color.WHITE);
+        dataset.setColor(chartLineColor);
+        dataset.setCircleColor(chartPointColor);
+        dataset.setLineWidth(2);
+        dataset.setDrawFilled(true); //차트 아래 색 채우기
+        dataset.setFillColor(chartLineColor); //차트 아래 색 설정
+//label
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //라벨링 아래에
+//xAxis.setTextColor(Color.BLACK); //글씨색 설정
+        YAxis yLAxis = lineChart.getAxisLeft();
+//yLAxis.setTextColor(Color.BLACK); //글씨색 설정
+        YAxis yRAxis = lineChart.getAxisRight();
+        yRAxis.setDrawLabels(false);
+        yRAxis.setDrawAxisLine(false);
+//yRAxis.setDrawGridLines(false);
+        Description description = new Description();
+        description.setText("");
+        lineChart.setDescription(description);
+//set data
+        lineChart.setData(data);
 
     }
 

@@ -31,6 +31,7 @@ import com.woowahan.woowahanfoods.MainActivity;
 import com.woowahan.woowahanfoods.R;
 import com.woowahan.woowahanfoods.RestaurantList.Fragment.RestaurantList;
 import com.woowahan.woowahanfoods.Search.Fragment.Search;
+import com.woowahan.woowahanfoods.Utils.TextUtils;
 import com.woowahan.woowahanfoods.httpConnection.RetrofitAdapter;
 import com.woowahan.woowahanfoods.httpConnection.RetrofitService;
 
@@ -48,6 +49,9 @@ public class Home extends Fragment {
     public viewPageAdapter adapter;
     public viewPageAdapter adapter2;
     public ArrayList<Feed> randomRecommendList;
+    public ArrayList<Feed> MLRecommendList;
+    public TextView tv1;
+    public TextView tv2;
 
     public ArrayList<ImageButton> img_btns = new ArrayList<ImageButton>();
     public int[] icon_nams = new int[]{
@@ -70,6 +74,9 @@ public class Home extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        tv1 = view.findViewById(R.id.tv_random);
+        tv2 = view.findViewById(R.id.tv_custom);
 
         search = view.findViewById(R.id.search);
         address = view.findViewById(R.id.address);
@@ -109,6 +116,7 @@ public class Home extends Fragment {
         }
 
         randomRecommendList = new ArrayList<>();
+        MLRecommendList = new ArrayList<>();
 
 
         ViewPager viewPager = view.findViewById(R.id.viewPager);
@@ -125,16 +133,18 @@ public class Home extends Fragment {
 
         viewPager2.setPadding(margin, 0, margin, 0);
         viewPager2.setPageMargin(margin/2);
-        adapter2 = new viewPageAdapter(getContext(), randomRecommendList);
+        adapter2 = new viewPageAdapter(getContext(), MLRecommendList);
         viewPager2.setAdapter(adapter2);
 
-        getPhotos();
+        getRandomRecommend();
+        getMLRecommend();
+
         getHashKey();
 
         return view;
     }
 
-    public void getPhotos() {
+    public void getRandomRecommend() {
         // Retrofit 삽질 4시간 경험 한 후기
         // 1. Retrofit 의 Service는 BaseURL과는 연관이 없다.
         // 2. Retrofit은 여러개를 만들어서 사용해도 상관 없다.
@@ -150,8 +160,45 @@ public class Home extends Fragment {
                     response.body().checkError(getContext());
                     randomRecommendList.clear();
                     randomRecommendList.addAll(response.body().body.feeds);
+                    tv1.setText("");
+                    String text = "오늘 " + response.body().body.type + " 어때요?";
+                    int start = 3;
+                    TextUtils.setColorInPartitial(text, start, start+response.body().body.type.length(), "#03DAC5", tv1);
+                    adapter2.refresh(MLRecommendList); //pass update list
                     adapter.refresh(randomRecommendList); //pass update list
-                    adapter2.refresh(randomRecommendList); //pass update list
+                } else {
+                    Log.d("GridViewAdapter", "onResponse: Fail " + response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RandomRecommendResponse> call, Throwable t) {
+                Toast.makeText(getContext(), "Please reloading", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getMLRecommend() {
+        // Retrofit 삽질 4시간 경험 한 후기
+        // 1. Retrofit 의 Service는 BaseURL과는 연관이 없다.
+        // 2. Retrofit은 여러개를 만들어서 사용해도 상관 없다.
+        // 3. Retrofit의 Parameter는 반드시 URL encoded 되지 않은것으로 사용해야한다.
+        // 4. Retrofit의 Parameter는 절대 getString(R.string.name) 으로 가지고 온것을 사용하면 안된다.
+        RetrofitService service = RetrofitAdapter.getInstance(getActivity());
+        Call<RandomRecommendResponse> call = service.recommendCustom();
+
+        call.enqueue(new retrofit2.Callback<RandomRecommendResponse>() {
+            @Override
+            public void onResponse(Call<RandomRecommendResponse> call, retrofit2.Response<RandomRecommendResponse> response) {
+                if (response.isSuccessful()) {
+                    response.body().checkError(getContext());
+                    MLRecommendList.clear();
+                    MLRecommendList.addAll(response.body().body.feeds);
+                    tv2.setText("");
+                    String text = "당신의 취향저격 음식은 " + response.body().body.type + "?";
+                    int start = 13;
+                    TextUtils.setColorInPartitial(text, start, start+response.body().body.type.length(), "#03DAC5", tv2);
+                    adapter2.refresh(MLRecommendList); //pass update list
                 } else {
                     Log.d("GridViewAdapter", "onResponse: Fail " + response.body());
                 }

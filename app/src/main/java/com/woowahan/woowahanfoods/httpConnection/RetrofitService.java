@@ -38,6 +38,9 @@ public interface RetrofitService {
     @GET("/recommend/recommend_random_food")
     Call<RandomRecommendResponse> recommendRandom();
 
+    @GET("/recommend/recommend_customized_food")
+    Call<RandomRecommendResponse> recommendCustom();
+
     @GET("/17841442985795349/media")
     Call<FeedResult> getFeeds(@Query("fields") String fields, @Query("access_token") String access_token);
 

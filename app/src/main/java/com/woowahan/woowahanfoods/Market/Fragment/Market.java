@@ -1,5 +1,6 @@
 package com.woowahan.woowahanfoods.Market.Fragment;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -193,7 +194,6 @@ public class Market extends Fragment {
     public ArrayList<ILineDataSet> dataSets;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_market, container, false);
         final RichPathView richPathView = view.findViewById(R.id.market_map);
         final TextView textView = view.findViewById(R.id.locations);
@@ -207,13 +207,23 @@ public class Market extends Fragment {
         for(String cityName : cityNames){
             cityArrayList.add(new City(cityName));
         }
+
+
+
+        // spinner로 food category 구현
         spinner = view.findViewById(R.id.foodcategory_spinner);
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,);
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.category, R.layout.spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
 
-        ArrayAdapter monthAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.category, android.R.layout.simple_spinner_dropdown_item);
-        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(monthAdapter);
+//        ArrayAdapter arrayAdapter;
+//        arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, getActivity().getResources().getStringArray(R.array.category));
+//        arrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+//        spinner.setAdapter(arrayAdapter);
 
         market_card.setOnClickListener(new CardView.OnClickListener() {
             @Override

@@ -85,6 +85,10 @@ public class Search extends Fragment {
                     editSearch.setBackground(getResources().getDrawable(R.drawable.edge3));
                     hashtagMode = true;
                 }
+                editSearch.setText("");
+                list2.clear();
+                list.clear();
+                adapter.notifyDataSetChanged();
             }
         });
         editSearch = view.findViewById(R.id.edit_search);

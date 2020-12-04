@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.woowahan.woowahanfoods.Address.Adapter.AddressAdapter;
+import com.woowahan.woowahanfoods.DataModel.Feed;
 import com.woowahan.woowahanfoods.DataModel.Juso;
 import com.woowahan.woowahanfoods.DataModel.Restaurant;
 import com.woowahan.woowahanfoods.R;
@@ -23,10 +24,10 @@ import java.util.ArrayList;
 public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.CustomViewHolder> {
     Context context;
 
-    private ArrayList<Restaurant> arrayList;
+    private ArrayList<Feed> arrayList;
     public GridViewAdapter.OnListItemSelectedInterface mListener;
 
-    public GridViewAdapter(Context context, ArrayList<Restaurant> arrayList, GridViewAdapter.OnListItemSelectedInterface mListener) {
+    public GridViewAdapter(Context context, ArrayList<Feed> arrayList, GridViewAdapter.OnListItemSelectedInterface mListener) {
         this.context = context;
         this.arrayList = arrayList;
         this.mListener = mListener;

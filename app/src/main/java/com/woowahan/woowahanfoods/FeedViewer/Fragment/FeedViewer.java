@@ -35,10 +35,12 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.woowahan.woowahanfoods.Address.Adapter.MyAddressAdapter;
+import com.woowahan.woowahanfoods.DataModel.Feed;
 import com.woowahan.woowahanfoods.FeedViewer.Adapter.FeedAapter;
 import com.woowahan.woowahanfoods.FeedViewer.Adapter.GridViewAdapter;
 import com.woowahan.woowahanfoods.Dataframe.FeedResult;
 import com.woowahan.woowahanfoods.DataModel.Restaurant;
+import com.woowahan.woowahanfoods.FeedViewer.Dataframe.FeedListResponse;
 import com.woowahan.woowahanfoods.Home.Adapter.viewPageAdapter;
 import com.woowahan.woowahanfoods.MainActivity;
 import com.woowahan.woowahanfoods.R;
@@ -50,8 +52,11 @@ import java.util.ArrayList;
 import retrofit2.Call;
 
 public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSelectedInterface {
+    public int type;
+    public String query;
+
     // gridView
-    public ArrayList<Restaurant> imgList;
+    public ArrayList<Feed> imgList;
     public GridViewAdapter adapter;
     public ProgressBar progressBar;
     private ActionBar actionbar;
@@ -62,7 +67,7 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
     // FeedView
     public FeedAapter feedAapter;
     public Restaurant imageData;
-    public ArrayList<Restaurant> imageDataList;
+    public ArrayList<Feed> imageDataList;
 
     // animation
     public LinearLayout linear_view;
@@ -82,11 +87,12 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
     float upX;
 
 
-    public static FeedViewer newInstance(Restaurant restaurant) {
+    public static FeedViewer newInstance(int type, String query) {
         FeedViewer fragment = new FeedViewer();
         Bundle args = new Bundle();
         Gson gson = new Gson();
-        args.putString("restaurant", gson.toJson(restaurant));
+        args.putInt("type", type);
+        args.putString("feed", query);
         fragment.setArguments(args);
         return fragment;
     }
@@ -100,8 +106,8 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
         // 호출
         Bundle bundle = getArguments();
         if(bundle!=null){
-            Gson gson = new Gson();
-            this.imageData = gson.fromJson(bundle.getString("restaurant"), Restaurant.class);
+            type = bundle.getInt("type");
+            query = bundle.getString("feed");
         }
 
         // grid view for recommendation
@@ -220,12 +226,12 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
             @Override
             public void onClick(View view) {
                 ((MainActivity)getActivity()).replaceFragmentFull(RestaurantMap.newInstance(
-                        imageDataList.get(0).restaurantName, imageDataList.get(0).adrDong, (float)imageDataList.get(0).lat,
-                        (float)imageDataList.get(0).lon));
+                        imageDataList.get(0).restaurantName, "서울특별시 중랑구 상봉동 130-3", (float)37.518761,
+                        (float)127.020657));
             }
         });
 
-        getFeed();
+//        getFeed();
         getPhotos();
 
         return view;
@@ -237,25 +243,23 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
         // 2. Retrofit은 여러개를 만들어서 사용해도 상관 없다.
         // 3. Retrofit의 Parameter는 반드시 URL encoded 되지 않은것으로 사용해야한다.
         // 4. Retrofit의 Parameter는 절대 getString(R.string.name) 으로 가지고 온것을 사용하면 안된다.
-        RetrofitService service = RetrofitAdapter.getInstance("https://graph.instagram.com/", getContext());
-        Call<FeedResult> call = service.getFeeds(fields, access_token);
+        Log.d("FeedViewer", "getFeed Enter");
+        RetrofitService service = RetrofitAdapter.getInstance(getContext());
+        Call<FeedListResponse> call = service.getRelatedFeedList(type, query);
 
-        call.enqueue(new retrofit2.Callback<FeedResult>() {
+        call.enqueue(new retrofit2.Callback<FeedListResponse>() {
             @Override
-            public void onResponse(Call<FeedResult> call, retrofit2.Response<FeedResult> response) {
+            public void onResponse(Call<FeedListResponse> call, retrofit2.Response<FeedListResponse> response) {
                 if (response.isSuccessful()) {
-                    Log.d("GridViewAdapter", "onResponse: Success " + response.body().data.size());
-                    imgList.clear();
-                    imgList.addAll(response.body().data);
-                    adapter.notifyDataSetChanged();
-                    progressBar.setVisibility(View.GONE);
+                    Log.d("FeedViewer", "onResponse: Success " );
+
                 } else {
-                    Log.d("GridViewAdapter", "onResponse: Fail " + response.body());
+                    Log.d("FeedViewer", "onResponse: Fail " + response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<FeedResult> call, Throwable t) {
+            public void onFailure(Call<FeedListResponse> call, Throwable t) {
                 Toast.makeText(getContext(), "Please reloading", Toast.LENGTH_SHORT).show();
             }
         });
@@ -267,27 +271,27 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
         // 2. Retrofit은 여러개를 만들어서 사용해도 상관 없다.
         // 3. Retrofit의 Parameter는 반드시 URL encoded 되지 않은것으로 사용해야한다.
         // 4. Retrofit의 Parameter는 절대 getString(R.string.name) 으로 가지고 온것을 사용하면 안된다.
-        RetrofitService service = RetrofitAdapter.getInstance("https://graph.instagram.com/", getContext());
-        Call<FeedResult> call = service.getFeedDetails(sampleFeedID, fields, access_token);
+        Log.d("FeedViewer", "getPhotos Enter");
+        RetrofitService service = RetrofitAdapter.getInstance(getContext());
+        Call<FeedListResponse> call = service.getFeedList(type, query);
 
-        call.enqueue(new retrofit2.Callback<FeedResult>() {
+        call.enqueue(new retrofit2.Callback<FeedListResponse>() {
             @Override
-            public void onResponse(Call<FeedResult> call, retrofit2.Response<FeedResult> response) {
+            public void onResponse(Call<FeedListResponse> call, retrofit2.Response<FeedListResponse> response) {
                 if (response.isSuccessful()) {
-                    Log.d("GridViewAdapter", "onResponse: Success " + response.body().data.size());
+                    Log.d("FeedViewer", "onResponse: Success ");
                     imageDataList.clear();
-                    imageDataList.addAll(response.body().data);
+                    imageDataList.addAll(response.body().body.feeds);
+                    imgList.clear();
+                    imgList.addAll(response.body().body.relatedFeeds);
+                    progressBar.setVisibility(View.GONE);
+                    adapter.notifyDataSetChanged();
                     feedAapter.refresh(imageDataList); //pass update list
-                } else {
-                    imageDataList.add(new Restaurant("한결이네", "치킨집", "어딨는지 나도 몰라", 45, 45, 50, 50, "https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg"));
-                    imageDataList.add(new Restaurant("한결이네", "치킨집", "어딨는지 나도 몰라", 45, 45, 50, 50, "https://post-phinf.pstatic.net/MjAxOTEyMDRfOSAg/MDAxNTc1NDI1MTg2MDE2.b1S1g-yhSiy6hxFJOoMsO7-PlMTc2iWAdznJ2xZwTxQg.3kTCo5pOPX6G3wtYR1AAYeGetDTkOXO2xTCM0SU4bNcg.JPEG/253-%EC%95%84%EC%9D%B4%EC%9C%A04.jpg?type=w1200"));
-                    feedAapter.refresh(imageDataList);
-                    Log.d("GridViewAdapter", "onResponse: Fail " + response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<FeedResult> call, Throwable t) {
+            public void onFailure(Call<FeedListResponse> call, Throwable t) {
                 Toast.makeText(getContext(), "Please reloading", Toast.LENGTH_SHORT).show();
             }
         });
@@ -306,15 +310,18 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
 
     @Override
     public void onItemSelected(View v, int position) {
-        ((MainActivity)getActivity()).replaceFragmentFull(FeedViewer.newInstance(imgList.get(position)));
+//        if (type==1)
+//            ((MainActivity)getActivity()).replaceFragmentFull(FeedViewer.newInstance(type, imgList.get(position).restaurantName));
+//        else
+            ((MainActivity)getActivity()).replaceFragmentFull(FeedViewer.newInstance(2, imgList.get(position).hashtag.split(" ")[0]));
     }
 
     public void updateText(int position){
         title.setText(imageDataList.get(position).restaurantName);
-        numLike.setText("종아요 " + imageDataList.get(position).likes);
-        numComment.setText("댓글 " + imageDataList.get(position).replys);
-        caption.setText(imageDataList.get(position).restaurantDetail);
-        hashTag.setText(imageDataList.get(position).adrDong);
+        numLike.setText("종아요 " + imageDataList.get(position).like);
+        numComment.setText("댓글 " + imageDataList.get(position).reply);
+        caption.setText(imageDataList.get(position).caption);
+        hashTag.setText(imageDataList.get(position).hashtag);
     }
 
 }

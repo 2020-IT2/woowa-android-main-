@@ -94,16 +94,19 @@ public class Search extends Fragment {
         adapter = new SearchAdapter(list, list2, getContext(), editSearch);
         listView.setAdapter(adapter);
         ViewCompat.setNestedScrollingEnabled(listView,true);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                restaurant = list.get(i);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                editSearch.setText("");
 //                list.clear();
 //                adapter.notifyDataSetChanged();
-//                ((MainActivity)getActivity()).replaceFragmentFull(FeedViewer.newInstance(restaurant));
-//            }
-//        });
+                if (hashtagMode){
+                    ((MainActivity)getActivity()).replaceFragmentFull(FeedViewer.newInstance(2, list.get(i).hashtag.split(" ")[0]));
+                } else {
+                    ((MainActivity)getActivity()).replaceFragmentFull(FeedViewer.newInstance(1, list2.get(i).restaurantName));
+                }
+            }
+        });
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

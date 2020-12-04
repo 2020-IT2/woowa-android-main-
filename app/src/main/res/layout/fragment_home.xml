@@ -386,7 +386,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="25dp">
+            android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/tv_random"
                 android:layout_marginLeft="15dp"
@@ -409,8 +409,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="50dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="70dp">
             <TextView
                 android:id="@+id/tv_custom"
                 android:layout_marginLeft="15dp"
@@ -425,13 +425,10 @@
                 android:layout_weight="7"
                 android:id="@+id/viewPager2"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="280dp">
             </androidx.viewpager.widget.ViewPager>
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
 
     </LinearLayout>
     </androidx.core.widget.NestedScrollView>

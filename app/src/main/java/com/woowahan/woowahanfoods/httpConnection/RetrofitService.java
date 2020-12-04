@@ -6,6 +6,7 @@ import com.woowahan.woowahanfoods.Dataframe.HashtagData;
 import com.woowahan.woowahanfoods.Dataframe.RestaurantSearchResult;
 import com.woowahan.woowahanfoods.Dataframe.SearchResultJson;
 import com.woowahan.woowahanfoods.Dataframe.SearchResultJson2;
+import com.woowahan.woowahanfoods.FeedViewer.Dataframe.FeedListResponse;
 import com.woowahan.woowahanfoods.Home.Dataframe.RandomRecommendResponse;
 import com.woowahan.woowahanfoods.RestaurantList.Dataframe.RestaurantListResponse;
 import com.woowahan.woowahanfoods.httpConnection.Response.LoginResponse;
@@ -44,6 +45,12 @@ public interface RetrofitService {
 
     @GET("/list/restaurantList")
     Call<RestaurantListResponse> getRestaurantList(@Query("type") String name);
+
+    @GET("/list/feedList")
+    Call<FeedListResponse> getFeedList(@Query("type") int type, @Query("tag") String name);
+
+    @GET("/list/RelatedfeedList")
+    Call<FeedListResponse> getRelatedFeedList(@Query("type") int type, @Query("tag") String name);
 
     @GET("/17841442985795349/media")
     Call<FeedResult> getFeeds(@Query("fields") String fields, @Query("access_token") String access_token);

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
+import com.woowahan.woowahanfoods.DataModel.Feed;
 import com.woowahan.woowahanfoods.DataModel.Restaurant;
 import com.woowahan.woowahanfoods.R;
 
@@ -26,10 +27,10 @@ import java.util.ArrayList;
 
 public class FeedAapter extends PagerAdapter {
     private Context mContext;
-    private ArrayList<Restaurant> imageList;
+    private ArrayList<Feed> imageList;
 
 
-    public FeedAapter(Context context, ArrayList<Restaurant> imageList)
+    public FeedAapter(Context context, ArrayList<Feed> imageList)
     {
         this.mContext = context;
         this.imageList = imageList;
@@ -53,7 +54,7 @@ public class FeedAapter extends PagerAdapter {
         return imageList.size();
     }
 
-    public void refresh(ArrayList<Restaurant> items)
+    public void refresh(ArrayList<Feed> items)
     {
         this.imageList = items;
         notifyDataSetChanged();

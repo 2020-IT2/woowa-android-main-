@@ -2,11 +2,15 @@ package com.woowahan.woowahanfoods.Market.Fragment;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -43,6 +47,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.renderer.YAxisRenderer;
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -68,6 +73,7 @@ public class Market extends Fragment {
     private LineChart lineChart2;
     final public ArrayList<City> cityArrayList = new ArrayList<City>();
     public HashMap<String, ArrayList<Population>> populations;
+    public HashMap<String, HashMap<String, Float>> marketInfos;
     public String compareCityName;
     public CardView market_card;
     public CardView people_card;
@@ -114,6 +120,43 @@ public class Market extends Fragment {
 
         return json;
     }
+
+    private void jsonParsing2(){
+        try{
+
+            InputStream ins = getResources().openRawResource(R.raw.market);
+            Writer writer = new StringWriter();
+            char[] buffer = new char[1024];
+            try {
+                Reader reader = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
+                int n;
+                while ((n = reader.read(buffer)) != -1) {
+                    writer.write(buffer, 0, n);
+                }
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+            finally {
+                try {
+                    ins.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            String jsonString = writer.toString();
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+            marketInfos = (HashMap<String, HashMap<String, Float>>)gson.fromJson(jsonString, new TypeToken<HashMap<String, HashMap<String, Float>>>() {
+            }.getType());
+
+
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void jsonParsing(){
         try{
@@ -208,17 +251,48 @@ public class Market extends Fragment {
             cityArrayList.add(new City(cityName));
         }
 
-
+        jsonParsing2();
 
         // spinner로 food category 구현
         spinner = view.findViewById(R.id.foodcategory_spinner);
-
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.category, R.layout.spinner_item);
 // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(R.layout.spinner_item);
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String [] food_type = new String[]{"한식", "중식", "분식", "양식", "일식/수산물", "패스트푸드", "닭/오리요리", "별식/퓨전요리", "제과제빵떡케익"};
+                List<Float> a = new ArrayList<Float>(marketInfos.get(food_type[position]).values());
+                Collections.sort(a);
+                float range = a.get(a.size()-1) - a.get(0);
+                for (String name : cityNames){
+                    float per;
+                    if (marketInfos.get(food_type[position]).containsKey(name.split("_")[0]))
+                        per = (marketInfos.get(food_type[position]).get(name.split("_")[0]) - a.get(0) ) / range * 100.0f;
+                    else
+                        per = 50;
+                    if (per < 10)
+                        per = 10;
+                    if (per >= 99)
+                        per = 99;
+                    Log.d("Market", "per: " + "#"+String.valueOf((int)per)+"3456");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        RichPathAnimator.animate(richPathView.findRichPathByName(name))
+                                .fillColor(Color.parseColor("#"+String.valueOf((int)per)+"123456"))
+                                .start();
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
 //        ArrayAdapter arrayAdapter;
 //        arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, getActivity().getResources().getStringArray(R.array.category));
@@ -356,6 +430,7 @@ public class Market extends Fragment {
     }
 
     private void draw_graph(List<Region> region_list){
+        Log.d("Market", "hello im in draw_graph");
         final ArrayList<String> xAxislabels = new ArrayList<String>();
 
         LineData data = new LineData();

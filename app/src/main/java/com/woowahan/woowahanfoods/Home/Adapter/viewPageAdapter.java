@@ -17,6 +17,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.woowahan.woowahanfoods.DataModel.Feed;
 import com.woowahan.woowahanfoods.DataModel.Restaurant;
+import com.woowahan.woowahanfoods.FeedViewer.Fragment.FeedViewer;
+import com.woowahan.woowahanfoods.MainActivity;
 import com.woowahan.woowahanfoods.R;
 
 import java.util.ArrayList;
@@ -35,7 +37,13 @@ public class viewPageAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.main_food_view_page, null);
-
+        final int idx=position;
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)mContext).replaceFragmentFull(FeedViewer.newInstance(2, imageList.get(idx).hashtag.split(" ")[0]));
+            }
+        });
         ImageView imageView = view.findViewById(R.id.imageView);
         TextView hashTag = view.findViewById(R.id.tv_hashtag);
 

@@ -538,12 +538,11 @@ public class Market extends Fragment {
 
         data.addDataSet(dataset);
         dataset.setColors(android.R.color.black);
-        dataset.setColor(Color.BLACK);
-        dataset.setColor(whitegray);
+        dataset.setColor(0x696969);
         dataset.setDrawCircles(false);
         dataset.setLineWidth(2);
         dataset.setDrawFilled(true); //차트 아래 색 채우기
-        dataset.setFillColor(R.color.coral_pink);
+        dataset.setFillColor(0xC3DDF1);
 
 
 // 꾸미기

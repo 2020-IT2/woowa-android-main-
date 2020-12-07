@@ -44,7 +44,9 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.renderer.YAxisRenderer;
 import com.google.android.gms.common.util.ArrayUtils;
@@ -72,6 +74,7 @@ public class Market extends Fragment {
     private int selectedColor = 0xff008EDC;
     private LineChart lineChart;
     private LineChart lineChart2;
+
     final public ArrayList<City> cityArrayList = new ArrayList<City>();
     public HashMap<String, ArrayList<Population>> populations;
     public HashMap<String, HashMap<String, Float>> marketInfos;
@@ -521,6 +524,15 @@ public class Market extends Fragment {
 
         }
         LineDataSet dataset = new LineDataSet(yentries, compareCityName);
+
+        dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        dataset.setCubicIntensity(0.2f);
+        dataset.setDrawFilled(true);
+        dataset.setDrawCircles(false);
+        dataset.setLineWidth(1.8f);
+        dataset.setFillAlpha(100);
+        dataset.setDrawHorizontalHighlightIndicator(false);
+
         data.addDataSet(dataset);
         dataset.setColors(android.R.color.black);
         dataset.setColor(Color.BLACK);
@@ -532,6 +544,10 @@ public class Market extends Fragment {
 
 
 // 꾸미기
+        lineChart2.setDrawGridBackground(false);
+        lineChart2.setMaxHighlightDistance(300);
+
+
         lineChart2.setBackgroundColor(Color.WHITE);
         lineChart2.setPinchZoom(false);
 
@@ -541,6 +557,12 @@ public class Market extends Fragment {
 
 //xAxis.setTextColor(Color.BLACK); //글씨색 설정
         YAxis yLAxis = lineChart2.getAxisLeft();
+        yLAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return String.valueOf(value) + " 명";
+            }
+        });
 //yLAxis.setTextColor(Color.BLACK); //글씨색 설정
         YAxis yRAxis = lineChart2.getAxisRight();
         yRAxis.setDrawLabels(false);

@@ -492,11 +492,13 @@ public class Market extends Fragment {
 //label
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //라벨링 아래에
+        xAxis.setDrawGridLines(false);
 
 //xAxis.setTextColor(Color.BLACK); //글씨색 설정
         YAxis yLAxis = lineChart.getAxisLeft();
 //yLAxis.setTextColor(Color.BLACK); //글씨색 설정
         YAxis yRAxis = lineChart.getAxisRight();
+        yRAxis.setDrawGridLines(false);
         yRAxis.setDrawLabels(false);
         yRAxis.setDrawAxisLine(false);
 //yRAxis.setDrawGridLines(false);
@@ -533,6 +535,7 @@ public class Market extends Fragment {
         dataset.setFillAlpha(100);
         dataset.setDrawHorizontalHighlightIndicator(false);
 
+
         data.addDataSet(dataset);
         dataset.setColors(android.R.color.black);
         dataset.setColor(Color.BLACK);
@@ -554,20 +557,21 @@ public class Market extends Fragment {
 //label
         XAxis xAxis = lineChart2.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //라벨링 아래에
+        xAxis.setDrawGridLines(false);
 
 //xAxis.setTextColor(Color.BLACK); //글씨색 설정
         YAxis yLAxis = lineChart2.getAxisLeft();
         yLAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return String.valueOf(value) + " 명";
+                return String.valueOf(Math.round(value)) + " 명";
             }
         });
 //yLAxis.setTextColor(Color.BLACK); //글씨색 설정
         YAxis yRAxis = lineChart2.getAxisRight();
         yRAxis.setDrawLabels(false);
         yRAxis.setDrawAxisLine(false);
-//yRAxis.setDrawGridLines(false);
+        yRAxis.setDrawGridLines(false);
         Description description = new Description();
         description.setText("");
         lineChart2.setDescription(description);

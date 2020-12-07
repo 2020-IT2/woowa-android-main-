@@ -7,7 +7,7 @@
     android:gravity="center"
     android:textAlignment="center"
     android:singleLine="true"
-    android:text="카테고리를 선택해주세요."
+    android:hint="카테고리를 선택해주세요."
     android:fontFamily="@font/eleven"
     android:textColor="#000000"
     android:textSize="15sp" />

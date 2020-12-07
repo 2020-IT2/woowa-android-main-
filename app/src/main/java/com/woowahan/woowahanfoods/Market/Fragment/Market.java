@@ -69,6 +69,7 @@ public class Market extends Fragment {
     private String[] chartLineColor = new String[]{"#FF0000", "#FF9100", "#FFE650", "#54BD54", "#52E4DC", "#46649B", "#C1AEEE", "#FFB2AF", "#D68642", "#b232b2"};
     private String chart2PointColor = "#72c0cc";
     private String chart2LineColor = "#72c0cc";
+    private int selectedColor = 0xff008EDC;
     private LineChart lineChart;
     private LineChart lineChart2;
     final public ArrayList<City> cityArrayList = new ArrayList<City>();
@@ -149,6 +150,7 @@ public class Market extends Fragment {
                     .create();
             marketInfos = (HashMap<String, HashMap<String, Float>>)gson.fromJson(jsonString, new TypeToken<HashMap<String, HashMap<String, Float>>>() {
             }.getType());
+            marketInfos.put("선택해주세요.", new HashMap<String, Float>());
 
 
 
@@ -265,8 +267,19 @@ public class Market extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String [] food_type = new String[]{"한식", "중식", "분식", "양식", "일식/수산물", "패스트푸드", "닭/오리요리", "별식/퓨전요리", "제과제빵떡케익"};
+                String [] food_type = new String[]{"선택해주세요.", "한식", "중식", "분식", "양식", "일식/수산물", "패스트푸드", "닭/오리요리", "별식/퓨전요리", "제과제빵떡케익"};
                 List<Float> a = new ArrayList<Float>(marketInfos.get(food_type[position]).values());
+                textView.setText(food_type[position]);
+                if(position == 0){
+                    for (String name : cityNames){
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            RichPathAnimator.animate(richPathView.findRichPathByName(name))
+                                    .fillColor(Color.parseColor("#e6e6e6"))
+                                    .start();
+                        }
+                    }
+                    return;
+                }
                 Collections.sort(a);
                 float range = a.get(a.size()-1) - a.get(0);
                 for (String name : cityNames){
@@ -382,7 +395,7 @@ public class Market extends Fragment {
                         Log.d("SampleMap", "1st IF");
                         if(orgRichPath.getFillColor() == whitegray){
                             RichPathAnimator.animate(orgRichPath)
-                                    .fillColor(0xff090090)
+                                    .fillColor(selectedColor)
                                     .start();
                             if(textView.getVisibility() == View.INVISIBLE)
                                 textView.setVisibility(View.VISIBLE);
@@ -515,7 +528,7 @@ public class Market extends Fragment {
         dataset.setDrawCircles(false);
         dataset.setLineWidth(2);
         dataset.setDrawFilled(true); //차트 아래 색 채우기
-        dataset.setFillColor(whitegray);
+        dataset.setFillColor(R.color.coral_pink);
 
 
 // 꾸미기

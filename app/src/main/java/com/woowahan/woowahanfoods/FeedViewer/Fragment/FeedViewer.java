@@ -320,7 +320,9 @@ public class FeedViewer extends Fragment implements GridViewAdapter.OnListItemSe
         title.setText(imageDataList.get(position).restaurantName);
         numLike.setText("종아요 " + imageDataList.get(position).like);
         numComment.setText("댓글 " + imageDataList.get(position).reply);
-        caption.setText(imageDataList.get(position).caption);
+        String captionText = imageDataList.get(position).caption;
+        int captionLen = captionText.length() > 100 ? 100 : captionText.length();
+        caption.setText(captionText.substring(0, captionLen));
         hashTag.setText(imageDataList.get(position).hashtag);
     }
 

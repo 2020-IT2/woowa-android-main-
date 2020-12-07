@@ -13,6 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.woowahan.woowahanfoods.Address.Adapter.AddressAdapter;
 import com.woowahan.woowahanfoods.DataModel.Feed;
 import com.woowahan.woowahanfoods.DataModel.Juso;
@@ -49,7 +53,8 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Custom
     //데이터를 뷰홀더에 바인딩
     @Override
     public void onBindViewHolder(@NonNull GridViewAdapter.CustomViewHolder holder, int position) {
-        Glide.with(context).load(arrayList.get(position).mediaURL).into(holder.iv);
+        MultiTransformation multiOption = new MultiTransformation(new CenterCrop(), new RoundedCorners(20));
+        Glide.with(context).load(arrayList.get(position).mediaURL).apply(RequestOptions.bitmapTransform(multiOption)).into(holder.iv);
     }
 
     //전체 아이템 갯수 리턴

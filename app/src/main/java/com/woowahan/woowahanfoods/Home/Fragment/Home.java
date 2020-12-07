@@ -198,6 +198,9 @@ public class Home extends Fragment {
             @Override
             public void onResponse(Call<RandomRecommendResponse> call, retrofit2.Response<RandomRecommendResponse> response) {
                 if (response.isSuccessful()) {
+                    if (getContext()==null){
+                        return;
+                    }
                     response.body().checkError(getContext());
                     MLRecommendList.clear();
                     MLRecommendList.addAll(response.body().body.feeds);
@@ -213,6 +216,9 @@ public class Home extends Fragment {
 
             @Override
             public void onFailure(Call<RandomRecommendResponse> call, Throwable t) {
+                if(getContext() == null){
+                    return;
+                }
                 Toast.makeText(getContext(), "Please reloading", Toast.LENGTH_SHORT).show();
             }
         });

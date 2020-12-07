@@ -44,8 +44,8 @@ import retrofit2.Call;
 public class Search extends Fragment {
     public String TAG = "Search Fragment Debug";
     private androidx.appcompat.widget.Toolbar toolbar;
-    private ImageView hashtag;
     private ActionBar actionbar;
+    private ImageView hashtag;
     public boolean hashtagMode;
 
     private List<Hashtag> list;          // 데이터를 넣은 리스트변수

@@ -238,6 +238,7 @@ public class Market extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_market, container, false);
+        view.setClickable(true);
         final RichPathView richPathView = view.findViewById(R.id.market_map);
         final TextView textView = view.findViewById(R.id.locations);
         market_card = view.findViewById(R.id.market_card);

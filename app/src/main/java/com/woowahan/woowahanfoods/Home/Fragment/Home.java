@@ -75,7 +75,7 @@ public class Home extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        view.setClickable(true);
         tv1 = view.findViewById(R.id.tv_random);
         tv2 = view.findViewById(R.id.tv_custom);
 
@@ -158,6 +158,9 @@ public class Home extends Fragment {
             @Override
             public void onResponse(Call<RandomRecommendResponse> call, retrofit2.Response<RandomRecommendResponse> response) {
                 if (response.isSuccessful()) {
+                    if (getContext() == null){
+                        return;
+                    }
                     response.body().checkError(getContext());
                     randomRecommendList.clear();
                     randomRecommendList.addAll(response.body().body.feeds);
@@ -174,6 +177,9 @@ public class Home extends Fragment {
 
             @Override
             public void onFailure(Call<RandomRecommendResponse> call, Throwable t) {
+                if (getContext() == null){
+                    return;
+                }
                 Toast.makeText(getContext(), "Please reloading", Toast.LENGTH_SHORT).show();
             }
         });

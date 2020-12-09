@@ -67,11 +67,9 @@ import java.util.ArrayList;
 
 public class Market extends Fragment {
     Spinner spinner;
-    private String[] chartPointColor = new String[]{"#FF0000", "#FF9100", "#FFE650", "#54BD54", "#52E4DC", "#46649B", "#C1AEEE", "#FFB2AF", "#D68642", "#b232b2"};
-    private String[] chartLineColor = new String[]{"#FF0000", "#FF9100", "#FFE650", "#54BD54", "#52E4DC", "#46649B", "#C1AEEE", "#FFB2AF", "#D68642", "#b232b2"};
-    private String chart2PointColor = "#72c0cc";
-    private String chart2LineColor = "#72c0cc";
-    private int selectedColor = 0xff008EDC;
+    private String[] chartPointColor = new String[]{"#BFC8D7", "#E2D2D2", "#E3E2B4", "#A2B59F", "#E8E7D2", "#46649B", "#D2D5B8", "#BDC2BB", "#C9BA9B", "#D18063"};
+    private String[] chartLineColor = new String[]{"#BFC8D7", "#E2D2D2", "#E3E2B4", "#A2B59F", "#E8E7D2", "#46649B", "#D2D5B8", "#BDC2BB", "#C9BA9B", "#D18063"};
+    private int selectedColor = 0xff34538A;
     private LineChart lineChart;
     private LineChart lineChart2;
 
@@ -98,7 +96,6 @@ public class Market extends Fragment {
             R.raw.seongdong, R.raw.songpa, R.raw.yangcheon, R.raw.yongdengpo, R.raw.yongsan
     };
     public static final int whitegray = 0xFFE6E6E6;
-    public static final int blue = 0xff090090;
     public static final int black = 0xff000000;
     public static final int white = 0xFFFFFFFF;
     private final static String TAG = MainActivity.class.getSimpleName();
@@ -319,7 +316,7 @@ public class Market extends Fragment {
         market_card.setOnClickListener(new CardView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                market_text.setBackgroundColor(blue);
+                market_text.setBackgroundColor(selectedColor);
                 market_text.setTextColor(white);
 
                 people_text.setBackgroundColor(whitegray);
@@ -335,7 +332,7 @@ public class Market extends Fragment {
         market_text.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                market_text.setBackgroundColor(blue);
+                market_text.setBackgroundColor(selectedColor);
                 market_text.setTextColor(white);
 
                 people_text.setBackgroundColor(whitegray);
@@ -351,7 +348,7 @@ public class Market extends Fragment {
         people_card.setOnClickListener(new CardView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                people_text.setBackgroundColor(blue);
+                people_text.setBackgroundColor(selectedColor);
                 people_text.setTextColor(white);
 
                 market_text.setBackgroundColor(whitegray);
@@ -366,7 +363,7 @@ public class Market extends Fragment {
         people_text.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                people_text.setBackgroundColor(blue);
+                people_text.setBackgroundColor(selectedColor);
                 people_text.setTextColor(white);
 
                 market_text.setBackgroundColor(whitegray);
@@ -496,6 +493,7 @@ public class Market extends Fragment {
 
 //xAxis.setTextColor(Color.BLACK); //글씨색 설정
         YAxis yLAxis = lineChart.getAxisLeft();
+        yLAxis.setDrawGridLines(false);
 //yLAxis.setTextColor(Color.BLACK); //글씨색 설정
         YAxis yRAxis = lineChart.getAxisRight();
         yRAxis.setDrawGridLines(false);
@@ -538,9 +536,9 @@ public class Market extends Fragment {
 
         data.addDataSet(dataset);
         dataset.setColors(android.R.color.black);
-        dataset.setColor(0x696969);
+        dataset.setColor(selectedColor);
         dataset.setDrawCircles(false);
-        dataset.setLineWidth(2);
+        dataset.setLineWidth(1);
         dataset.setDrawFilled(true); //차트 아래 색 채우기
         dataset.setFillColor(0xC3DDF1);
 
@@ -558,8 +556,10 @@ public class Market extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //라벨링 아래에
         xAxis.setDrawGridLines(false);
 
+
 //xAxis.setTextColor(Color.BLACK); //글씨색 설정
         YAxis yLAxis = lineChart2.getAxisLeft();
+        yLAxis.setDrawGridLines(false);
         yLAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {

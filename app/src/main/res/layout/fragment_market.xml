@@ -81,7 +81,7 @@
                             android:id="@+id/market_text"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#090090"
+                            android:background="#34538A"
                             android:gravity="center"
                             android:text="시장 크기"
                             android:textColor="#FFFFFF" />
@@ -106,6 +106,7 @@
                             android:id="@+id/people_text"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="#E6E6E6"
                             android:gravity="center"
                             android:text="유동 인구" />
                     </androidx.cardview.widget.CardView>

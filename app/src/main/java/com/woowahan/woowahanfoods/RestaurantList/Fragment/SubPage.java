@@ -6,14 +6,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.woowahan.woowahanfoods.FeedViewer.Fragment.FeedViewer;
 import com.woowahan.woowahanfoods.Home.Dataframe.RandomRecommendResponse;
 import com.woowahan.woowahanfoods.MainActivity;
@@ -25,6 +29,7 @@ import com.woowahan.woowahanfoods.Utils.TextUtils;
 import com.woowahan.woowahanfoods.httpConnection.RetrofitAdapter;
 import com.woowahan.woowahanfoods.httpConnection.RetrofitService;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -49,6 +54,7 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
     private RecyclerView.LayoutManager layoutManager;
     private androidx.appcompat.widget.Toolbar toolbar;
     private ActionBar actionbar;
+    public int toggle = 0;
 
 
     public SubPage() {
@@ -57,6 +63,7 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
     public static SubPage newInstance(String sectionNumber) {
         SubPage fragment = new SubPage();
         Bundle args = new Bundle();
+        Gson gson = new Gson();
         args.putString(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
@@ -66,8 +73,13 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.restaurant_list_tab_sub, container, false);
-
         view.setClickable(true);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         imageDataList = new ArrayList<>();
         franchiseList = new ArrayList<>();
@@ -129,9 +141,6 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
 //
 //        });
 
-
-
-        return view;
     }
 
     public void getRestaurantList() {
@@ -150,6 +159,7 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
                     nonfranchiseList.addAll(response.body().body.non_franchise);
                     imageDataList.addAll(nonfranchiseList);
                     adapter.notifyDataSetChanged();
+                    toggle = 0;
                     Log.d("GridViewAdapter", "onResponse: Succeess " + response.body());
                 } else {
                     Log.d("GridViewAdapter", "onResponse: Fail " + response.body());
@@ -213,5 +223,21 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
         ((MainActivity)getActivity()).replaceFragmentFull(FeedViewer.newInstance(1, imageDataList.get(position).restaurantName));
     }
 
+    public void toggle(){
+        Log.d("SubPageDebug", "hello this is toggle button");
+        if (toggle==0){
+            Log.d("SubPageDebug", "hello this is toggle to 0");
+            imageDataList.clear();
+            imageDataList.addAll(franchiseList);
+            adapter.notifyDataSetChanged();
+            toggle = 1;
+        } else {
+            Log.d("SubPageDebug", "hello this is toggle to 1");
+            imageDataList.clear();
+            imageDataList.addAll(nonfranchiseList);
+            adapter.notifyDataSetChanged();
+            toggle = 0;
+        }
+    }
 
 }

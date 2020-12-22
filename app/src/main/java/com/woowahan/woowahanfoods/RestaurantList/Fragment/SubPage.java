@@ -47,6 +47,7 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
     public Location loc;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
+    public String type;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -81,6 +82,12 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Get bundle
+        Bundle bundle = getArguments();
+        if(bundle!=null){
+            type = bundle.getString(ARG_SECTION_NUMBER);
+        }
+
         imageDataList = new ArrayList<>();
         franchiseList = new ArrayList<>();
         nonfranchiseList = new ArrayList<>();
@@ -90,8 +97,8 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
         list.add(new Restaurant("엉터리생고기", "치킨가게",  "수원시 원천구 원천대로", 123, 456, 33.1, 127.1, "https://scontent-ssn1-1.cdninstagram.com/v/t51.29350-15/123833652_1408714295988521_1955747731663463592_n.jpg?_nc_cat=100&ccb=2&_nc_sid=8ae9d6&_nc_ohc=CRy-YtpUAOsAX8P_Nsx&_nc_ht=scontent-ssn1-1.cdninstagram.com&oh=6c44e4df042e6b21c24baa81f5b6f523&oe=5FD2ADE6"));
         list.add(new Restaurant("제임스치즈등갈비", "치킨가게",  "수원시 원천구 원천대로", 123, 456, 33.1, 127.1, "https://scontent-ssn1-1.cdninstagram.com/v/t51.29350-15/123833652_1408714295988521_1955747731663463592_n.jpg?_nc_cat=100&ccb=2&_nc_sid=8ae9d6&_nc_ohc=CRy-YtpUAOsAX8P_Nsx&_nc_ht=scontent-ssn1-1.cdninstagram.com&oh=6c44e4df042e6b21c24baa81f5b6f523&oe=5FD2ADE6"));
         loc = new Location("my Location");
-        loc.setLongitude(33.999999);
-        loc.setLongitude(127.999999);
+        loc.setLongitude(((MainActivity)getActivity()).user.curAddress.longitude);
+        loc.setLatitude(((MainActivity)getActivity()).user.curAddress.latitude);
 
         Log.d("subPage debug", "list size : " + list.size());
         adapter = new RestaurantListAdapter(loc, getContext(), imageDataList, this);
@@ -145,7 +152,7 @@ public class SubPage extends Fragment implements RestaurantListAdapter.OnListIte
 
     public void getRestaurantList() {
         RetrofitService service = RetrofitAdapter.getInstance(getActivity());
-        Call<RestaurantListResponse> call = service.getRestaurantList("한식");
+        Call<RestaurantListResponse> call = service.getRestaurantList(this.type, ((MainActivity)getActivity()).user.curDong);
 
         call.enqueue(new retrofit2.Callback<RestaurantListResponse>() {
             @Override

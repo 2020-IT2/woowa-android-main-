@@ -41,6 +41,7 @@ public class CurAddress extends Fragment implements OnMapReadyCallback {
     private TextView tv_address;
     private Button btn_complete;
     public String roadaddress;
+    public String gu;
     public String road;
     private MapView mapView;
     private NaverMap naverMap;
@@ -86,8 +87,10 @@ public class CurAddress extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 MyAddress address = new MyAddress(roadaddress, "도로명주소", lat, lon);
+                address.gu = gu;
                 ((MainActivity)getActivity()).user.myAddresses.add(0, address);
                 ((MainActivity)getActivity()).user.curAddress = address;
+                ((MainActivity)getActivity()).user.curDong = gu;
                 Gson gson = new Gson();
                 String userJson = gson.toJson(((MainActivity)getActivity()).user);
                 editor.putString("user", userJson);
@@ -118,7 +121,9 @@ public class CurAddress extends Fragment implements OnMapReadyCallback {
                 final Geocoder geocoder = new Geocoder(getActivity());
                 try {
                     List<Address> mResultList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                    Log.d("Tag", "complete" + mResultList.get(0).getAddressLine(0));
+                    Log.d("CurAddress", "complete" + mResultList.get(0).getAddressLine(0));
+                    Log.d("GuTest/CurAddress", "구: " + mResultList.get(0).getSubLocality());
+                    gu = mResultList.get(0).getSubLocality();
                     roadaddress = mResultList.get(0).getAddressLine(0);
                     tv_address.setText(roadaddress);
                 } catch (IOException e){

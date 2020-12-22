@@ -49,6 +49,7 @@ public class AddressMap extends Fragment implements OnMapReadyCallback {
     public String admCd;
     public String rnMgtSn;
     public String udrtYn;
+    public String sggNm;
     public int buldMnnm;
     public int buldSlno;
     private TextView tv_jibun;
@@ -69,13 +70,14 @@ public class AddressMap extends Fragment implements OnMapReadyCallback {
     public AddressMap orgThis = this;
 
 
-    public static AddressMap newInstance(String jibun, String road, String admCd, String rnMgtSn, String udrtYn, int buldMnnm, int buldSlno){
+    public static AddressMap newInstance(String jibun, String road, String admCd, String rnMgtSn, String udrtYn, String sggNm, int buldMnnm, int buldSlno){
         Bundle adr = new Bundle();
         adr.putString("jibun", jibun);
         adr.putString("road", road);
         adr.putString("admCd", admCd);
         adr.putString("rnMgtSn", rnMgtSn);
         adr.putString("udrtYn", udrtYn);
+        adr.putString("sggNm", sggNm);
         adr.putInt("buldMnnm", buldMnnm);
         adr.putInt("buldSlno", buldSlno);
         AddressMap addressMap = new AddressMap();
@@ -100,8 +102,10 @@ public class AddressMap extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 MyAddress address = new MyAddress(jibun, road, lat, lon);
+                address.gu = sggNm;
                 ((MainActivity)getActivity()).user.myAddresses.add(0, address);
                 ((MainActivity)getActivity()).user.curAddress = address;
+                ((MainActivity)getActivity()).user.curDong = sggNm;
                 Gson gson = new Gson();
                 String userJson = gson.toJson(((MainActivity)getActivity()).user);
                 editor.putString("user", userJson);
@@ -123,8 +127,10 @@ public class AddressMap extends Fragment implements OnMapReadyCallback {
             this.admCd = bundle.getString("admCd");
             this.rnMgtSn = bundle.getString("rnMgtSn");
             this.udrtYn = bundle.getString("udrtYn");
+            this.sggNm = bundle.getString("sggNm");
             this.buldMnnm = bundle.getInt("buldMnnm");
             this.buldSlno = bundle.getInt("buldSlno");
+            Log.d("GuTest/AddressMap", "구 : " + sggNm);
         }
 
         tv_jibun.setText(jibun);

@@ -7,9 +7,11 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="mint">#2AC1BC</color>
+    <color name="mainColor">#72c0cc</color>
     <color name="gray">#A6A6A6</color>
     <color name="darkgray">#696969</color>
     <color name="lily_blue">#C3DDF1</color>
+
 
     <color name="classic_blue">#34538A</color>
     <color name="flame_scarlet">#d13b40</color>

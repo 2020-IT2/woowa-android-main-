@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.location.Location;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.woowahan.woowahanfoods.DataModel.Restaurant;
 import com.woowahan.woowahanfoods.R;
 
@@ -71,17 +76,17 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             this.tv_address = (TextView) view.findViewById(R.id.tv_address);
             this.imageView = (ImageView)view.findViewById(R.id.icon);
 
-            if (Build.VERSION.SDK_INT >= 21) {
-                // 21 버전 이상일 때
-                GradientDrawable drawable=
-                        (GradientDrawable) context.getDrawable(R.drawable.my_rect);
-                // 둥근 사각형
-                imageView.setBackground(drawable);
-                imageView.setClipToOutline(true);
-                // 동그라미
-//                imageView.setBackground(new ShapeDrawable(new OvalShape()));
+//            if (Build.VERSION.SDK_INT >= 21) {
+//                // 21 버전 이상일 때
+//                GradientDrawable drawable=
+//                        (GradientDrawable) context.getDrawable(R.drawable.my_rect);
+//                // 둥근 사각형
+//                imageView.setBackground(drawable);
 //                imageView.setClipToOutline(true);
-            }
+//                // 동그라미
+////                imageView.setBackground(new ShapeDrawable(new OvalShape()));
+////                imageView.setClipToOutline(true);
+//            }
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,15 +123,19 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         Location location = new Location("restaurant loc");
         location.setLatitude(list.get(position).lon);
         location.setLongitude(list.get(position).lat);
+        Log.d("RestaurantListAdapter", "restaurant latitude: " + list.get(position).lon);
+        Log.d("RestaurantListAdapter", "restaurant longitude: " + list.get(position).lat);
 
-        float distance  = myLoc.distanceTo(location);
+        float distance  = myLoc.distanceTo(location) / 1000;
 
         holder.tv_restaurant_name.setText(list.get(position).restaurantName);
         holder.tv_restaurant_exp.setText(list.get(position).type);
         holder.tv_likes.setText(String.valueOf(list.get(position).feedNum));
-        holder.tv_replys.setText(String.valueOf(45));
+        holder.tv_replys.setText(String.valueOf(list.get(position).likeNum));
         holder.tv_distance.setText(df.format(distance) + " km");
-        holder.tv_address.setText(list.get(position).adrDong);
-        Glide.with(context).load(list.get(position).mediaURL).into(holder.imageView);
+        int lastIdx = (list.get(position).adrDong.length() >= 30) ? 30 : list.get(position).adrDong.length();
+        holder.tv_address.setText(list.get(position).adrDong.substring(0, lastIdx));
+        MultiTransformation multiOption = new MultiTransformation(new CenterCrop(), new RoundedCorners(60));
+        Glide.with(context).load(list.get(position).mediaURL).apply(RequestOptions.bitmapTransform(multiOption)).into(holder.imageView);
     }
 }

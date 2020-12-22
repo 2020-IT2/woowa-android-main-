@@ -35,12 +35,12 @@ public class BaseResponse implements Serializable {
                     context.startActivity(intent);
                     return 1;
                 case 2:
-                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
                     return 2;
                 case 3:
                     return 3;
                 case 4:
-                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
                     return 4;
             }
         }

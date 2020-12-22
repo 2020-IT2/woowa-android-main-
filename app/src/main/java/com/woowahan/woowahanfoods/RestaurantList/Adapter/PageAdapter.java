@@ -24,7 +24,8 @@ public class PageAdapter extends FragmentStateAdapter {
     public PageAdapter(FragmentActivity fm) {
         super(fm);
         // Tab 기본 설정
-        tabNameList = new String[]{"한식", "양식", "패스트푸드", "일식", "디저트", "치킨", "피자", "중식", "도시락", "찜/탕", "김밥", "아시안"};
+        tabNameList = new String[]{"한식", "양식", "패스트푸드", "일식/수산물", "제과제빵떡케익", "닭/오리요리", "패스트푸드", "중식", "분식", "한식", "분식", "별식/퓨전요리"};
+
         fragments = new ArrayList<>();
         for(String tabName : tabNameList){
             fragments.add(SubPage.newInstance(tabName));

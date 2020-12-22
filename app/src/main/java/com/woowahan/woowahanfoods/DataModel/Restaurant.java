@@ -5,6 +5,7 @@ public class Restaurant {
     public String restaurantName;
     public Boolean isFranchise;
     public int feedNum;
+    public int likeNum;
     public String type;
     public String subRegion;
     public String adrDong;

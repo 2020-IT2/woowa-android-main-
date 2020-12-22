@@ -41,6 +41,9 @@
     <style name="AppTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">#72c0cc</item>
         <item name="background">@color/white</item>
+        <item name="backgroundColor">@color/white</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="tabBackground">@color/white</item>
         <item name="tabPaddingStart">6dp</item>
         <item name="tabPaddingEnd">6dp</item>
         <item name="tabRippleColor">#72c0cc</item>
@@ -49,8 +52,8 @@
     </style>
     <!-- for text -->
     <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
         <item name="textAllCaps">false</item>
     </style>
 

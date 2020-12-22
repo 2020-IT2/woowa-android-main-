@@ -1,11 +1,14 @@
 package com.woowahan.woowahanfoods.RestaurantList.Fragment;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,8 +23,11 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.woowahan.woowahanfoods.MainActivity;
 import com.woowahan.woowahanfoods.RestaurantList.Adapter.PageAdapter;
 import com.woowahan.woowahanfoods.R;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class RestaurantList extends Fragment {
     TabLayout tabs;
@@ -47,6 +53,20 @@ public class RestaurantList extends Fragment {
         View view = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
         view.setClickable(true);
         setHasOptionsMenu(true);
+
+        // status bar color
+        View window = getActivity().getWindow().getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (window != null) {
+                // 23 버전 이상일 때 상태바 하얀 색상에 회색 아이콘 색상을 설정
+                window.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                getActivity().getWindow().setStatusBarColor(Color.parseColor("#ffffff"));
+            }
+        } else if (Build.VERSION.SDK_INT >= 21) {
+            // 21 버전 이상일 때
+            getActivity().getWindow().setStatusBarColor(Color.WHITE);
+        }
+
         Bundle bundle = getArguments();
         if(bundle!=null){
             this.menu = bundle.getInt("menu");
@@ -108,7 +128,15 @@ public class RestaurantList extends Fragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                int position = tab.getPosition();
+                Log.d("RestaurantList", "onTabSelected: " + position);
+                Fragment fragment = pageAdapter.fragments.get(position);
+                int toggle = ((SubPage)fragment).toggle;
+                if (toggle == 0){
+                    tvFranchiseToggle.setText("비프렌차이즈");
+                } else {
+                    tvFranchiseToggle.setText("프렌차이즈");
+                }
             }
         });
 
@@ -125,6 +153,10 @@ public class RestaurantList extends Fragment {
         return view;
     }
 
+    public void selectTab(int idx){
+        tabs.getTabAt(idx).select();
+    }
+
     public void refresh() {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.detach(this).attach(this).commit();
@@ -139,5 +171,24 @@ public class RestaurantList extends Fragment {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // status bar color
+        if (getActivity()==null)
+            return;
+        View window = getActivity().getWindow().getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (window != null) {
+                // 23 버전 이상일 때 상태바 하얀 색상에 회색 아이콘 색상을 설정
+                window.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                getActivity().getWindow().setStatusBarColor(Color.parseColor("#f2f2f2"));
+            }
+        } else if (Build.VERSION.SDK_INT >= 21) {
+            // 21 버전 이상일 때
+            getActivity().getWindow().setStatusBarColor(Color.WHITE);
+        }
     }
 }

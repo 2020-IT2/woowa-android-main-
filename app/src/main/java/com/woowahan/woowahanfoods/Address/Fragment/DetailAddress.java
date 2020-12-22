@@ -198,8 +198,9 @@ public class DetailAddress extends Fragment implements AddressAdapter.OnListItem
         String admCd= arrayList.get(position).admCd;
         String rnMgtSn= arrayList.get(position).rnMgtSn;
         String udrtYn= arrayList.get(position).udrtYn;
+        String sggNm = arrayList.get(position).sggNm;
         int buldMnnm= arrayList.get(position).buldMnnm;
         int buldSlno = arrayList.get(position).buldSlno;
-        ((MainActivity)getActivity()).replaceFragmentFull(AddressMap.newInstance(jibun, road, admCd, rnMgtSn, udrtYn, buldMnnm, buldSlno));
+        ((MainActivity)getActivity()).replaceFragmentFull(AddressMap.newInstance(jibun, road, admCd, rnMgtSn, udrtYn, sggNm, buldMnnm, buldSlno));
     }
 }

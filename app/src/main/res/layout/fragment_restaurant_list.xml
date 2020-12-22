@@ -19,6 +19,9 @@
                 android:id="@+id/toolbar2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:contentInsetStart="0dp"
+                app:titleMarginStart="0dp"
+                app:contentInsetStartWithNavigation="0dp"
                 android:background="@color/transparent"
                 app:layout_collapseMode="pin">
                 <LinearLayout
@@ -28,24 +31,28 @@
                     <TextView
                         android:id="@+id/tab_title"
                         android:layout_width="0dp"
-                        android:layout_weight="6.2"
+                        android:layout_weight="5.5"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical|end"
                         android:layout_marginVertical="5dp"
+                        android:textStyle="bold"
                         android:text="음식점 목록"
-                        android:textSize="23sp" />
+                        android:textSize="18dp" />
                     <FrameLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3.8"
+                        android:layout_weight="4.5"
                         android:orientation="horizontal"
                         android:layout_gravity="center">
                         <TextView
                             android:id="@+id/tv_toggle"
                             android:layout_width="80dp"
-                            android:layout_height="30dp"
+                            android:layout_height="25dp"
+                            android:layout_marginRight="10dp"
+                            android:backgroundTint="@color/faded_gray"
                             android:background="@drawable/my_rect"
                             android:text="비프렌차이즈"
+                            android:textSize="12dp"
                             android:gravity="center"
                             android:layout_gravity="center_vertical|right"/>
                     </FrameLayout>
@@ -59,6 +66,7 @@
             style="@style/AppTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:elevation="1dp"
             app:tabMode="scrollable"/>
     </com.google.android.material.appbar.AppBarLayout>
@@ -67,7 +75,6 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

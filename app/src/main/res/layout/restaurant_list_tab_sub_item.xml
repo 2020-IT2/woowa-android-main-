@@ -10,7 +10,7 @@
     <View
         android:id="@+id/line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.1dp"
         android:background="#A6A6A6"
         app:layout_constraintTop_toBottomOf="@id/comment_bg"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,7 +23,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingHorizontal="5dp"
-        android:paddingVertical="8dp"
+        android:paddingVertical="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/line"
         tools:ignore="MissingConstraints">
@@ -31,9 +31,11 @@
         <ImageView
             android:id="@+id/icon"
             android:layout_marginLeft="10dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_pizza"/>
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:elevation="10dp"
+            android:src="@drawable/ic_pizza"
+            android:background="@drawable/cardview_background"/>
 
         <LinearLayout
             android:id="@+id/ll_who"
@@ -49,9 +51,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="피자나라치킨공주"
-                android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:textSize="17dp" />
+                android:textSize="14dp" />
 
             <LinearLayout
                 android:layout_marginTop="5dp"
@@ -59,15 +60,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
                     android:src="@drawable/ic_hashtag"/>
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:id="@+id/tv_restaurant_exp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="12dp"
                     android:layout_gravity="center"
                     android:text="피자"
                     android:textColor="@color/faded_gray" />
@@ -79,8 +80,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
                     android:src="@drawable/ic_favourite"/>
                 <TextView
                     android:layout_marginLeft="5dp"
@@ -88,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="100"
-                    android:textSize="15dp"
+                    android:textSize="12dp"
                     android:layout_gravity="center"
                     android:textColor="@color/faded_gray" />
 
@@ -99,8 +100,8 @@
                     android:background="@color/transparent" />
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_speech_bubbless"/>
                 <TextView
@@ -109,7 +110,7 @@
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="12dp"
                     android:text="100"
                     android:textColor="@color/faded_gray" />
             </LinearLayout>
@@ -119,8 +120,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
                     android:src="@drawable/ic_running"/>
                 <TextView
                     android:layout_marginLeft="5dp"
@@ -128,7 +129,7 @@
                     android:id="@+id/tv_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="12dp"
                     android:text="5 km"
                     android:textColor="@color/faded_gray" />
                 <View
@@ -140,7 +141,7 @@
 
                 <TextView
                     android:id="@+id/tv_address"
-                    android:textSize="15dp"
+                    android:textSize="12dp"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

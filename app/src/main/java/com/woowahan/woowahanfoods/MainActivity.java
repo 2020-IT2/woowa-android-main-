@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             user.myAddresses = myaddresses;
             user.myAddresses.add(0, myAddress);
             user.curAddress = myAddress;
+            user.curDong = "중구";
 
         } else {
             user = gson.fromJson(userJson, User.class);
@@ -149,6 +150,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 MyAddress myAddress = new MyAddress("위치를 입력해주세요.", "", 0, 0);
                 user.myAddresses.add(0, myAddress);
                 user.curAddress = myAddress;
+                user.curDong = "중구";
+            } else {
+                user.curDong = user.curAddress.gu;
+//                Log.d("MainActivity", "lat : " + user.myAddresses.get(0).latitude);
+//                Log.d("MainActivity", "lon : " + user.myAddresses.get(0).longitude);
             }
         }
 
@@ -199,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = pref.edit();
         user.curAddress = user.myAddresses.get(position);
+        user.curDong = user.curAddress.gu;
         Gson gson = new Gson();
         String userJson = gson.toJson(user);
         editor.putString("user", userJson);

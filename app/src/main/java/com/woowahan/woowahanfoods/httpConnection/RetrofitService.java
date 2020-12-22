@@ -44,7 +44,7 @@ public interface RetrofitService {
     Call<RandomRecommendResponse> recommendCustom();
 
     @GET("/list/restaurantList")
-    Call<RestaurantListResponse> getRestaurantList(@Query("type") String name);
+    Call<RestaurantListResponse> getRestaurantList(@Query("type") String name, @Query("gu") String gu);
 
     @GET("/list/feedList")
     Call<FeedListResponse> getFeedList(@Query("type") int type, @Query("tag") String name);

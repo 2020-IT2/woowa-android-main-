@@ -67,14 +67,16 @@ import java.util.ArrayList;
 
 public class Market extends Fragment {
     Spinner spinner;
+    Spinner spinner2;
     private String[] chartPointColor = new String[]{"#BFC8D7", "#E2D2D2", "#E3E2B4", "#A2B59F", "#E8E7D2", "#46649B", "#D2D5B8", "#BDC2BB", "#C9BA9B", "#D18063"};
     private String[] chartLineColor = new String[]{"#BFC8D7", "#E2D2D2", "#E3E2B4", "#A2B59F", "#E8E7D2", "#46649B", "#D2D5B8", "#BDC2BB", "#C9BA9B", "#D18063"};
     private int selectedColor = 0xff34538A;
     private LineChart lineChart;
     private LineChart lineChart2;
-
+    private int age = 20;
     final public ArrayList<City> cityArrayList = new ArrayList<City>();
-    public HashMap<String, ArrayList<Population>> populations;
+    public HashMap<String, HashMap<String, ArrayList<Population>>> populations;
+    public HashMap<String, HashMap<String, ArrayList<Population>>> predicted_populations;
     public HashMap<String, HashMap<String, Float>> marketInfos;
     public String compareCityName;
     public CardView market_card;
@@ -123,6 +125,7 @@ public class Market extends Fragment {
     }
 
     private void jsonParsing2(){
+//      시장 분석 (지도) 자료
         try{
 
             InputStream ins = getResources().openRawResource(R.raw.market);
@@ -161,8 +164,8 @@ public class Market extends Fragment {
 
 
     private void jsonParsing(){
+//        유동인구 자료
         try{
-
             InputStream ins = getResources().openRawResource(R.raw.jieun);
             Writer writer = new StringWriter();
             char[] buffer = new char[1024];
@@ -186,17 +189,48 @@ public class Market extends Fragment {
             Gson gson = new GsonBuilder()
                     .setLenient()
                     .create();
-            populations=(HashMap<String, ArrayList<Population>>)gson.fromJson(jsonString, new TypeToken<HashMap<String, ArrayList<Population>>>() {
+
+            populations=(HashMap<String, HashMap<String, ArrayList<Population>>>)gson.fromJson(jsonString, new TypeToken<HashMap<String, HashMap<String, ArrayList<Population>>>>() {
             }.getType());
-
-
-
         }catch (Exception e) {
             e.printStackTrace();
         }
     }
+    private void jsonParsing3(){
+//        유동인구예측 자료
+        try{
+            InputStream ins = getResources().openRawResource(R.raw.cheol);
+            Writer writer = new StringWriter();
+            char[] buffer = new char[1024];
+            try {
+                Reader reader = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
+                int n;
+                while ((n = reader.read(buffer)) != -1) {
+                    writer.write(buffer, 0, n);
+                }
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+            finally {
+                try {
+                    ins.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            String jsonString = writer.toString();
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
 
+            predicted_populations=(HashMap<String, HashMap<String, ArrayList<Population>>>)gson.fromJson(jsonString, new TypeToken<HashMap<String, HashMap<String, ArrayList<Population>>>>() {
+            }.getType());
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private void jsonParsing(int idx){
+//        네이버랩스 자료
         try{
             Region_List.clear();
 
@@ -255,9 +289,10 @@ public class Market extends Fragment {
         }
 
         jsonParsing2();
-
+        jsonParsing3();
         // spinner로 food category 구현
         spinner = view.findViewById(R.id.foodcategory_spinner);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.category, R.layout.spinner_item);
 // Specify the layout to use when the list of choices appears
@@ -312,7 +347,36 @@ public class Market extends Fragment {
 //        arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, getActivity().getResources().getStringArray(R.array.category));
 //        arrayAdapter.setDropDownViewResource(R.layout.spinner_item);
 //        spinner.setAdapter(arrayAdapter);
+        // spinner로 유동인구 나이대 설정
+        spinner2 = view.findViewById(R.id.people_spinner);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getContext(),
+                R.array.agearray, R.layout.age_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter2.setDropDownViewResource(R.layout.age_spinner_item);
+// Apply the adapter to the spinner
+        spinner2.setAdapter(adapter2);
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String [] age_type = new String[]{"20대", "30대", "40대", "50대", "60대", "70대"};
+                //List<Float> a = new ArrayList<Float>(marketInfos.get(food_type[position]).values());
+                age = Integer.parseInt(age_type[position].split("대")[0]);
+                Log.d("SampleMap", "age : " + age);
+                if (compareCityName != null)
+                    draw_graph();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                age = 20;
+            }
+        });
+
+
+//        ArrayAdapter arrayAdapter;
+//        arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, getActivity().getResources().getStringArray(R.array.category));
+//        arrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+//        spinner.setAdapter(arrayAdapter);
         market_card.setOnClickListener(new CardView.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -470,6 +534,7 @@ public class Market extends Fragment {
                         yentries.add(new Entry(j++, yval));
                 }
             }
+
             LineDataSet dataset = new LineDataSet(yentries, e);
             data.addDataSet(dataset);
             dataset.setColors(android.R.color.black);
@@ -509,22 +574,29 @@ public class Market extends Fragment {
     }
 
     private void draw_graph(){
+//        유동인구 그리기
         Log.d("compareCityName", "compareCityName"+compareCityName);
-        ArrayList<Population> population = populations.get(compareCityName);
-
+        HashMap<String, ArrayList<Population>> population = populations.get(compareCityName);
+        HashMap<String, ArrayList<Population>> predicted_population = predicted_populations.get(compareCityName);
         final ArrayList<String> xAxislabels = new ArrayList<String>();
         LineData data = new LineData();
         int q = 0;
 
         ArrayList<Entry> yentries = new ArrayList<>();
-        for (int i =0; i < population.size(); i++) {
-            float yval = population.get(i).val;
-            int xval = Integer.parseInt(population.get(i).date) % 10000;
+        ArrayList<Entry> after_yentries = new ArrayList<>();
+        for (int i =0; i < population.get(Integer.toString(age)).size(); i++) {
+            float yval = population.get(Integer.toString(age)).get(i).val;
+            int xval = Integer.parseInt(population.get(Integer.toString(age)).get(i).date) % 10000;
             yentries.add(new Entry(i, yval));
-
+        }
+        after_yentries.add(new Entry(population.get(Integer.toString(age)).size()-1, population.get(Integer.toString(age)).get(population.get(Integer.toString(age)).size()-1).val));
+        for (int i =0; i < predicted_population.get(Integer.toString(age)).size(); i++) {
+            float yval = predicted_population.get(Integer.toString(age)).get(i).val;
+            int xval = Integer.parseInt(predicted_population.get(Integer.toString(age)).get(i).date) % 10000;
+            after_yentries.add(new Entry(i + population.get(Integer.toString(age)).size(), yval));
         }
         LineDataSet dataset = new LineDataSet(yentries, compareCityName);
-
+        LineDataSet predict_dataset = new LineDataSet(after_yentries, "예측 유동인구");
         dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         dataset.setCubicIntensity(0.2f);
         dataset.setDrawFilled(true);
@@ -532,7 +604,13 @@ public class Market extends Fragment {
         dataset.setLineWidth(1.8f);
         dataset.setFillAlpha(100);
         dataset.setDrawHorizontalHighlightIndicator(false);
-
+        predict_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        predict_dataset.setCubicIntensity(0.2f);
+        predict_dataset.setDrawFilled(true);
+        predict_dataset.setDrawCircles(false);
+        predict_dataset.setLineWidth(1.8f);
+        predict_dataset.setFillAlpha(800);
+        predict_dataset.setDrawHorizontalHighlightIndicator(false);
 
         data.addDataSet(dataset);
         dataset.setColors(android.R.color.black);
@@ -541,7 +619,13 @@ public class Market extends Fragment {
         dataset.setLineWidth(1);
         dataset.setDrawFilled(true); //차트 아래 색 채우기
         dataset.setFillColor(0xC3DDF1);
-
+        data.addDataSet(predict_dataset);
+        predict_dataset.setColors(android.R.color.black);
+        predict_dataset.setColor(0xFFFF8800);
+        predict_dataset.setDrawCircles(false);
+        predict_dataset.setLineWidth(1);
+        predict_dataset.setDrawFilled(true); //차트 아래 색 채우기
+        predict_dataset.setFillColor(0xffebb0);
 
 // 꾸미기
         lineChart2.setDrawGridBackground(false);
@@ -560,6 +644,7 @@ public class Market extends Fragment {
 //xAxis.setTextColor(Color.BLACK); //글씨색 설정
         YAxis yLAxis = lineChart2.getAxisLeft();
         yLAxis.setDrawGridLines(false);
+        //yLAxis.setAxisMinValue(0);
         yLAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
@@ -575,6 +660,7 @@ public class Market extends Fragment {
         description.setText("");
         lineChart2.setDescription(description);
 //set data
+
         lineChart2.setData(data);
         lineChart2.invalidate();
     }

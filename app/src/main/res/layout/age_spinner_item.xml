@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/age_spinner"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:maxLines="1"
+    android:gravity="center"
+    android:textAlignment="center"
+    android:singleLine="true"
+    android:hint="20대"
+    android:fontFamily="@font/eleven"
+    android:textColor="#000000"
+    android:textSize="15sp" />

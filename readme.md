@@ -38,7 +38,7 @@
 
 ## Overview
 
-‘우아하게’라는 어플은 소비자에게는 먹고 싶은 음식이나 유명한 음식점을 추천하고, 사장님이나 예비 창업가에게는 시장 크기를 보여주고 유동 인구수를 예측하는 데이터를 보여주고 싶었고 이를 반영하는 서비스를 만들게 되었습니다. 우아하게의 주요 기능 입니다. 자세한 기능 소개는 [여기서](docs/functionality.md) 확인 가능 합니다.
+‘우아하게’라는 어플은 소비자에게는 먹고 싶은 음식이나 유명한 음식점을 추천하고, 사장님이나 예비 창업가에게는 시장 크기를 보여주고 유동 인구수를 예측하는 데이터를 보여주고 싶었고 이를 반영하는 서비스를 만들게 되었습니다. 우아하게의 주요 기능 입니다. 자세한 기능 소개는 [여기서](https://github.com/hankyul-needs-girfriends/woowa-android-main-/blob/master/docs/details.md) 확인 가능 합니다.
 
 * 사용자 위치 지정 기능
 * 검색어 추천 및 음식점/음식 검색 기능
@@ -53,7 +53,7 @@
 
 ## Tutorial
 
-이 어플을 직접 사용하기 위해서는 우선 어플을 안드로이드 핸드폰에 설치하여야 한다. 어플을 설치하기 위해서는 [apk]() 파일을 다운 로드 해도 되지만 서버와 연결되어 있지 않기 때문에 이는 추천 하지 않는다. 직접 소스코드를 다운 받은 후 로컬 서버 주소를 적은 후에 빌드 시키는 방법이 확실하다. 따라서 어플을 설치 한 뒤에는 [서버]() 직접 열어야 한다. 서버를 설치하는 방법은 해당 [레포]()에 잘 정리되어 있으므로 참고 하길 바란다. (서버를 연 후에 꼭 동일한 와이파이 환경에서 구동시켜 주세요!)
+이 어플을 직접 사용하기 위해서는 우선 어플을 안드로이드 핸드폰에 설치하여야 한다. 어플을 설치하기 위해서는 [apk](https://github.com/hankyul-needs-girfriends/woowa-android-main-/releases/download/v1.0/app.apk) 파일을 다운 로드 해도 되지만 서버와 연결되어 있지 않기 때문에 이는 추천 하지 않는다. 직접 소스코드를 다운 받은 후 로컬 서버 주소를 적은 후에 빌드 시키는 방법이 확실하다. 따라서 어플을 설치 한 뒤에는 [서버](https://github.com/hankyul-needs-girfriends/woowa-appserver) 직접 열어야 한다. 서버를 설치하는 방법은 해당 [레포](https://github.com/hankyul-needs-girfriends/woowa-appserver)에 잘 정리되어 있으므로 참고 하길 바란다. (서버를 연 후에 꼭 동일한 와이파이 환경에서 구동시켜 주세요!)
 
 1. 소스 코드 다운
 
@@ -94,7 +94,7 @@ public static RetrofitService getInstance(Context context) {
 
 ## Structure
 
-전체 프로젝트의 구조는 다음 사진과 같이 되어 있다. 자세한 사항이 궁금하다면 [다음 문서]()를 확인할 것!
+전체 프로젝트의 구조는 다음 사진과 같이 되어 있다. 자세한 사항이 궁금하다면 [다음 문서](https://github.com/hankyul-needs-girfriends/woowa-android-main-/blob/master/docs/details.md)를 확인할 것!
 
 문서에는 다음과 같은 내용이 포함되어 있다.
 
@@ -112,7 +112,7 @@ public static RetrofitService getInstance(Context context) {
 * [우아한 음식들 수집 관련 코드](https://github.com/hankyul-needs-girfriends/woowa-crawler)
 * [우아한 음식들 머신러닝 관련 코드](https://github.com/hankyul-needs-girfriends/woowa-ML)
 
-> 우아한 음식들의 자세한 설명을 듣고 싶다면 다음를 [report](.docs/report.pdf) 참고
+> 우아한 음식들의 자세한 설명을 듣고 싶다면 다음를 [report](https://github.com/hankyul-needs-girfriends/woowa-android-main-/blob/master/docs/report.pdf) 참고
 
 
 

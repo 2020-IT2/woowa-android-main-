@@ -6,11 +6,10 @@
 <h4 align="center">사용자 기반 음식 추천 & 요식업계 시장 분석 어플리케이션</h4>
 <p align="center">
   <a href="#overview">Overview</a> • 
-  <a href="#key-features">Key Features</a> • 
   <a href="#tutorial">Tutorial</a> •  
   <a href="#credits">Credits</a> •   
   <a href="#structure">Structure</a> • 
-  <a href="#related">Related</a>
+  <a href="#related">Related</a> • 
   <a href="#license">License</a>
 </p>
 

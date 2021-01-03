@@ -37,7 +37,7 @@
 
 ## Overview
 
-‘우아하게’라는 어플은 소비자에게는 먹고 싶은 음식이나 유명한 음식점을 추천하고, 사장님이나 예비 창업가에게는 시장 크기를 보여주고 유동 인구수를 예측하는 데이터를 보여주고 싶었고 이를 반영하는 서비스를 만들게 되었습니다. 우아하게의 주요 기능 입니다. 자세한 기능 소개는 [여기서](https://github.com/hankyul-needs-girfriends/woowa-android-main-/blob/master/docs/details.md) 확인 가능 합니다.
+‘우아하게’라는 어플은 소비자에게는 먹고 싶은 음식이나 유명한 음식점을 추천하고, 사장님이나 예비 창업가에게는 시장 크기를 보여주고 유동 인구수를 예측하는 데이터를 보여주고 싶었고 이를 반영하는 서비스를 만들게 되었습니다. 우아하게의 주요 기능 입니다. 자세한 기능 소개는 [여기서](https://github.com/hankyul-needs-girfriends/woowa-android-main-/blob/v1.0/docs/details.md) 확인 가능 합니다.
 
 * 사용자 위치 지정 기능
 * 검색어 추천 및 음식점/음식 검색 기능
@@ -93,7 +93,7 @@ public static RetrofitService getInstance(Context context) {
 
 ## Structure
 
-전체 프로젝트의 구조는 다음 사진과 같이 되어 있다. 자세한 사항이 궁금하다면 [다음 문서](https://github.com/hankyul-needs-girfriends/woowa-android-main-/blob/master/docs/details.md)를 확인할 것!
+전체 프로젝트의 구조는 다음 사진과 같이 되어 있다. 자세한 사항이 궁금하다면 [다음 문서](https://github.com/hankyul-needs-girfriends/woowa-android-main-/blob/v1.0/docs/details.md)를 확인할 것!
 
 문서에는 다음과 같은 내용이 포함되어 있다.
 

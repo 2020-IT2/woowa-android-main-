@@ -21,18 +21,14 @@
 <p align="center">
     <br/>
     <br/>
-  <b>사용자 기반 음식 추천 기능 데모 영상</b>
+  <b>데모영상 (좌:음식추천, 우:시장분석)</b>
 </p>
-
-![food_recommendation](pic/food_recommendation.gif)
 
 <p align="center">
-        <br/>
-        <br/>
-  <b>시장 분석 기능 데모 영상</b>
+    <img src ="pic/food_recommendation.gif" height = 600>
+    <img src ="pic/market_analysis.gif" height = 600>
 </p>
 
-![market_analysis](pic/market_analysis.gif)
 
 
 ## Overview
